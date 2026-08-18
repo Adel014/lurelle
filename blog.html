@@ -9,6 +9,7 @@
 
 <title>Blorelle | Lurelle</title>
 
+
 <style>
 
 body {
@@ -17,6 +18,11 @@ body {
     color: #6F5A4D;
     font-family: Georgia, serif;
 }
+
+
+/* =========================
+   HAMBURGER
+========================= */
 
 .menu-button {
     position: fixed;
@@ -32,6 +38,7 @@ body {
     cursor: pointer;
 }
 
+
 #menu {
     position: fixed;
     top: 0;
@@ -45,9 +52,11 @@ body {
     z-index: 1000;
 }
 
+
 #menu.open {
     left: 0;
 }
+
 
 #menu a {
     display: block;
@@ -57,9 +66,15 @@ body {
     font-size: 18px;
 }
 
+
 #menu a:hover {
     background-color: #F7DCE1;
 }
+
+
+/* =========================
+   BLORELLE
+========================= */
 
 .blorelle {
     min-height: 100vh;
@@ -68,12 +83,14 @@ body {
     box-sizing: border-box;
 }
 
+
 .brand {
     margin: 0;
     font-size: clamp(48px, 8vw, 78px);
     font-weight: normal;
     letter-spacing: 1px;
 }
+
 
 .tagline {
     margin: 10px 0 0;
@@ -83,6 +100,7 @@ body {
     color: #8A7468;
 }
 
+
 .subtagline {
     margin: 7px 0 0;
     font-size: 16px;
@@ -90,6 +108,7 @@ body {
     font-weight: 300;
     color: #A28E84;
 }
+
 
 .intro {
     max-width: 650px;
@@ -101,7 +120,7 @@ body {
 
 
 /* =========================
-   LATEST BLORELLE POSTS
+   LATEST POSTS
 ========================= */
 
 .latest-posts {
@@ -110,16 +129,19 @@ body {
     text-align: left;
 }
 
+
 .latest-title {
     text-align: center;
     margin-bottom: 30px;
 }
+
 
 .latest-title h2 {
     margin: 0;
     font-size: 32px;
     font-weight: normal;
 }
+
 
 .latest-title p {
     margin-top: 8px;
@@ -128,12 +150,18 @@ body {
     color: #A28E84;
 }
 
+
 .posts-status {
     text-align: center;
     font-size: 15px;
     font-style: italic;
     color: #8B746B;
 }
+
+
+/* =========================
+   POST CARD
+========================= */
 
 .blorelle-post {
     background-color: rgba(255,255,255,0.7);
@@ -144,11 +172,13 @@ body {
     box-shadow: 0 6px 20px rgba(111,90,77,0.07);
 }
 
+
 .blorelle-post h3 {
     margin: 0 0 10px;
     font-size: 28px;
     font-weight: normal;
 }
+
 
 .post-date {
     font-family: Arial, sans-serif;
@@ -156,6 +186,7 @@ body {
     color: #A28E84;
     margin-bottom: 18px;
 }
+
 
 .post-content {
     font-family: Arial, sans-serif;
@@ -165,12 +196,18 @@ body {
     color: #6F5A4D;
 }
 
+
+/* =========================
+   POST IMAGES
+========================= */
+
 .post-images {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 12px;
     margin-top: 20px;
 }
+
 
 .post-images img {
     width: 100%;
@@ -181,7 +218,7 @@ body {
 
 
 /* =========================
-   POST ACTIONS
+   ACTIONS
 ========================= */
 
 .post-actions {
@@ -190,6 +227,7 @@ body {
     margin-top: 22px;
     flex-wrap: wrap;
 }
+
 
 .action-button {
     border: 1px solid #E5D6CD;
@@ -204,19 +242,27 @@ body {
         transform 0.2s ease;
 }
 
+
 .action-button:hover {
     background-color: #F7DCE1;
     transform: translateY(-1px);
 }
+
 
 .action-button.liked {
     background-color: #F7DCE1;
     border-color: #DCC9BE;
 }
 
+
 .like-button {
     min-width: 115px;
 }
+
+
+/* =========================
+   COMMENTS
+========================= */
 
 .comments-area {
     display: none;
@@ -224,6 +270,7 @@ body {
     padding-top: 20px;
     border-top: 1px solid #E5D6CD;
 }
+
 
 .comment {
     padding: 12px 0;
@@ -233,14 +280,17 @@ body {
     line-height: 1.5;
 }
 
+
 .comment-name {
     font-weight: bold;
     margin-bottom: 4px;
 }
 
+
 .comment-form {
     margin-top: 15px;
 }
+
 
 .comment-form input,
 .comment-form textarea {
@@ -256,11 +306,13 @@ body {
     outline: none;
 }
 
+
 .comment-form textarea {
     min-height: 80px;
     resize: vertical;
     line-height: 1.5;
 }
+
 
 .comment-submit {
     border: none;
@@ -272,9 +324,11 @@ body {
     font-family: Georgia, serif;
 }
 
+
 .comment-submit:hover {
     background-color: #C98F9F;
 }
+
 
 .comment-status {
     font-family: Arial, sans-serif;
@@ -282,6 +336,7 @@ body {
     color: #A28E84;
     font-style: italic;
 }
+
 
 .footer-note {
     margin-top: 55px;
@@ -292,7 +347,7 @@ body {
 
 
 /* =========================
-   PHONE
+   MOBILE
 ========================= */
 
 @media (max-width: 700px) {
@@ -301,9 +356,11 @@ body {
         padding-top: 105px;
     }
 
+
     .post-images {
         grid-template-columns: 1fr;
     }
+
 
     .post-images img {
         height: 250px;
@@ -319,27 +376,54 @@ body {
 <body>
 
 
-<button class="menu-button" onclick="toggleMenu()">☰</button>
+<!-- =========================
+     HAMBURGER
+========================= -->
+
+<button
+    class="menu-button"
+    onclick="toggleMenu()"
+>
+    ☰
+</button>
 
 
 <div id="menu">
 
-    <a href="index.html">Home</a>
+    <a href="index.html">
+        Home
+    </a>
 
-    <a href="about.html">About</a>
+    <a href="about.html">
+        About
+    </a>
 
-    <a href="blog.html">Blog🌸</a>
+    <a href="blog.html">
+        Blog🌸
+    </a>
 
-    <a href="patterns.html">Patterns🧶</a>
+    <a href="patterns.html">
+        Patterns🧶
+    </a>
 
-    <a href="collection.html">Collection</a>
+    <a href="collection.html">
+        Collection
+    </a>
 
-    <a href="custom-orders.html">Custom Orders</a>
+    <a href="custom-orders.html">
+        Custom Orders
+    </a>
 
-    <a href="contact.html">Contact</a>
+    <a href="contact.html">
+        Contact
+    </a>
 
 </div>
 
+
+<!-- =========================
+     MAIN BLORELLE
+========================= -->
 
 <main class="blorelle">
 
@@ -368,11 +452,8 @@ body {
     </p>
 
 
-    <!-- =========================
-         LATEST FROM BLORELLE
-    ========================= -->
-
     <section class="latest-posts">
+
 
         <div class="latest-title">
 
@@ -398,6 +479,7 @@ body {
 
 
         <div id="postsContainer"></div>
+
 
     </section>
 
@@ -433,8 +515,81 @@ function toggleMenu() {
 const SUPABASE_URL =
     "https://ljzydmylrayqdvuxtzps.supabase.co";
 
+
 const SUPABASE_PUBLISHABLE_KEY =
     "sb_publishable_RNQQFOqPdrKbLd6HiMSmwg_6UUNBZqg";
+
+
+/* =========================
+   ANONYMOUS VISITOR ID
+========================= */
+
+function getVisitorId() {
+
+    let visitorId =
+        localStorage.getItem(
+            "lurelle_visitor_id"
+        );
+
+
+    if (!visitorId) {
+
+        if (
+            typeof crypto !== "undefined" &&
+            typeof crypto.randomUUID === "function"
+        ) {
+
+            visitorId =
+                crypto.randomUUID();
+
+        }
+
+        else {
+
+            visitorId =
+                generateFallbackUUID();
+
+        }
+
+
+        localStorage.setItem(
+            "lurelle_visitor_id",
+            visitorId
+        );
+
+    }
+
+
+    return visitorId;
+
+}
+
+
+/* =========================
+   FALLBACK UUID
+========================= */
+
+function generateFallbackUUID() {
+
+    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx"
+        .replace(
+            /[xy]/g,
+            function(character) {
+
+                const random =
+                    Math.random() * 16 | 0;
+
+                const value =
+                    character === "x"
+                        ? random
+                        : (random & 0x3 | 0x8);
+
+                return value.toString(16);
+
+            }
+        );
+
+}
 
 
 /* =========================
@@ -444,10 +599,15 @@ const SUPABASE_PUBLISHABLE_KEY =
 async function loadBlorellePosts() {
 
     const status =
-        document.getElementById("postsStatus");
+        document.getElementById(
+            "postsStatus"
+        );
+
 
     const container =
-        document.getElementById("postsContainer");
+        document.getElementById(
+            "postsContainer"
+        );
 
 
     try {
@@ -485,12 +645,14 @@ async function loadBlorellePosts() {
                 posts
             );
 
+
             status.innerHTML =
                 "<p class='posts-status'>" +
                 "We couldn't load the latest Blorelle posts right now. ♡" +
                 "</p>";
 
             return;
+
         }
 
 
@@ -505,13 +667,9 @@ async function loadBlorellePosts() {
                 "</p>";
 
             return;
+
         }
 
-
-        /*
-           NEWEST POSTS STAY AT THE TOP.
-           OLDER POSTS CONTINUE BELOW.
-        */
 
         status.innerHTML = "";
 
@@ -529,10 +687,6 @@ async function loadBlorellePosts() {
             }
         );
 
-
-        /*
-           Load likes after posts appear.
-        */
 
         posts.forEach(
             function(post) {
@@ -554,6 +708,7 @@ async function loadBlorellePosts() {
             error
         );
 
+
         status.innerHTML =
             "<p class='posts-status'>" +
             "Something went wrong while loading Blorelle. ♡" +
@@ -565,7 +720,7 @@ async function loadBlorellePosts() {
 
 
 /* =========================
-   CREATE POST
+   CREATE POST CARD
 ========================= */
 
 function createPostCard(
@@ -578,8 +733,10 @@ function createPostCard(
             "article"
         );
 
+
     article.className =
         "blorelle-post";
+
 
     article.dataset.postId =
         post.id;
@@ -590,8 +747,10 @@ function createPostCard(
             "h3"
         );
 
+
     title.textContent =
-        post.title || "Blorelle ♡";
+        post.title ||
+        "Blorelle ♡";
 
 
     article.appendChild(
@@ -606,13 +765,16 @@ function createPostCard(
                 "div"
             );
 
+
         date.className =
             "post-date";
+
 
         date.textContent =
             formatDate(
                 post.created_at
             );
+
 
         article.appendChild(
             date
@@ -626,20 +788,22 @@ function createPostCard(
             "div"
         );
 
+
     content.className =
         "post-content";
 
+
     content.textContent =
-        post.content || "";
+        post.content ||
+        "";
+
 
     article.appendChild(
         content
     );
 
 
-    /*
-       PHOTOS
-    */
+    /* PHOTOS */
 
     if (
         post.image_urls &&
@@ -651,6 +815,7 @@ function createPostCard(
             document.createElement(
                 "div"
             );
+
 
         imageBox.className =
             "post-images";
@@ -664,15 +829,19 @@ function createPostCard(
                         "img"
                     );
 
+
                 image.src =
                     imageUrl;
+
 
                 image.alt =
                     post.title ||
                     "Blorelle photo";
 
+
                 image.loading =
                     "lazy";
+
 
                 imageBox.appendChild(
                     image
@@ -689,30 +858,29 @@ function createPostCard(
     }
 
 
-    /*
-       ACTIONS
-    */
+    /* ACTIONS */
 
     const actions =
         document.createElement(
             "div"
         );
 
+
     actions.className =
         "post-actions";
 
 
-    /*
-       LIKE BUTTON
-    */
+    /* LIKE BUTTON */
 
     const likeButton =
         document.createElement(
             "button"
         );
 
+
     likeButton.className =
         "action-button like-button";
+
 
     likeButton.textContent =
         "👍 Like ...";
@@ -734,17 +902,17 @@ function createPostCard(
     );
 
 
-    /*
-       COMMENTS BUTTON
-    */
+    /* COMMENTS BUTTON */
 
     const commentsButton =
         document.createElement(
             "button"
         );
 
+
     commentsButton.className =
         "action-button";
+
 
     commentsButton.textContent =
         "⌄ Comments";
@@ -754,6 +922,7 @@ function createPostCard(
         document.createElement(
             "div"
         );
+
 
     commentsArea.className =
         "comments-area";
@@ -771,6 +940,7 @@ function createPostCard(
                     "none";
 
                 return;
+
             }
 
 
@@ -856,12 +1026,14 @@ async function loadLikeInfoForPost(
 
     }
 
+
     catch (error) {
 
         console.error(
             "LIKE INFO ERROR:",
             error
         );
+
 
         likeButton.textContent =
             "👍 Like 0";
@@ -916,6 +1088,7 @@ async function getLikeInfo(
                 likes
             );
 
+
             return {
                 count: 0,
                 liked: false
@@ -924,64 +1097,43 @@ async function getLikeInfo(
         }
 
 
-        const accessToken =
-            localStorage.getItem(
-                "lurelle_access_token"
+        const visitorId =
+            getVisitorId();
+
+
+        const userLikeResponse =
+            await fetch(
+                SUPABASE_URL +
+                "/rest/v1/blorelle_likes?post_id=eq." +
+                encodeURIComponent(postId) +
+                "&user_id=eq." +
+                encodeURIComponent(visitorId) +
+                "&select=post_id",
+                {
+
+                    method: "GET",
+
+                    headers: {
+
+                        "apikey":
+                            SUPABASE_PUBLISHABLE_KEY,
+
+                        "Content-Type":
+                            "application/json"
+
+                    }
+
+                }
             );
 
 
-        let liked =
-            false;
+        const userLikes =
+            await userLikeResponse.json();
 
 
-        if (accessToken) {
-
-            const userId =
-                getUserIdFromAccessToken(
-                    accessToken
-                );
-
-
-            if (userId) {
-
-                const userLikeResponse =
-                    await fetch(
-                        SUPABASE_URL +
-                        "/rest/v1/blorelle_likes?post_id=eq." +
-                        encodeURIComponent(postId) +
-                        "&user_id=eq." +
-                        encodeURIComponent(userId) +
-                        "&select=post_id",
-                        {
-
-                            method: "GET",
-
-                            headers: {
-
-                                "apikey":
-                                    SUPABASE_PUBLISHABLE_KEY,
-
-                                "Authorization":
-                                    "Bearer " +
-                                    accessToken
-
-                            }
-
-                        }
-                    );
-
-
-                const userLikes =
-                    await userLikeResponse.json();
-
-
-                liked =
-                    Array.isArray(userLikes) &&
-                    userLikes.length > 0;
-
-            }
-
-        }
+        const liked =
+            Array.isArray(userLikes) &&
+            userLikes.length > 0;
 
 
         return {
@@ -998,12 +1150,14 @@ async function getLikeInfo(
 
     }
 
+
     catch (error) {
 
         console.error(
             "LIKE INFO ERROR:",
             error
         );
+
 
         return {
             count: 0,
@@ -1031,11 +1185,13 @@ function updateLikeButton(
             "💗 Liked " +
             count;
 
+
         button.classList.add(
             "liked"
         );
 
     }
+
 
     else {
 
@@ -1043,66 +1199,10 @@ function updateLikeButton(
             "👍 Like " +
             count;
 
+
         button.classList.remove(
             "liked"
         );
-
-    }
-
-}
-
-
-/* =========================
-   GET USER ID
-========================= */
-
-function getUserIdFromAccessToken(
-    accessToken
-) {
-
-    try {
-
-        const parts =
-            accessToken.split(".");
-
-
-        if (parts.length !== 3) {
-            return null;
-        }
-
-
-        const payload =
-            parts[1]
-                .replace(/-/g, "+")
-                .replace(/_/g, "/");
-
-
-        return JSON.parse(
-            decodeURIComponent(
-                atob(payload)
-                    .split("")
-                    .map(
-                        function(character) {
-
-                            return "%" +
-                            (
-                                "00" +
-                                character
-                                    .charCodeAt(0)
-                                    .toString(16)
-                            ).slice(-2);
-
-                        }
-                    )
-                    .join("")
-            )
-        ).sub || null;
-
-    }
-
-    catch (error) {
-
-        return null;
 
     }
 
@@ -1118,38 +1218,8 @@ async function toggleLike(
     button
 ) {
 
-    const accessToken =
-        localStorage.getItem(
-            "lurelle_access_token"
-        );
-
-
-    if (!accessToken) {
-
-        alert(
-            "Please log in first. ♡"
-        );
-
-        return;
-
-    }
-
-
-    const userId =
-        getUserIdFromAccessToken(
-            accessToken
-        );
-
-
-    if (!userId) {
-
-        alert(
-            "We couldn't identify your account. Please log in again. ♡"
-        );
-
-        return;
-
-    }
+    const visitorId =
+        getVisitorId();
 
 
     try {
@@ -1160,7 +1230,7 @@ async function toggleLike(
                 "/rest/v1/blorelle_likes?post_id=eq." +
                 encodeURIComponent(postId) +
                 "&user_id=eq." +
-                encodeURIComponent(userId) +
+                encodeURIComponent(visitorId) +
                 "&select=post_id",
                 {
 
@@ -1171,9 +1241,8 @@ async function toggleLike(
                         "apikey":
                             SUPABASE_PUBLISHABLE_KEY,
 
-                        "Authorization":
-                            "Bearer " +
-                            accessToken
+                        "Content-Type":
+                            "application/json"
 
                     }
 
@@ -1192,9 +1261,11 @@ async function toggleLike(
                 existingLikes
             );
 
+
             alert(
                 "We couldn't check the like right now. ♡"
             );
+
 
             return;
 
@@ -1206,9 +1277,7 @@ async function toggleLike(
             existingLikes.length > 0;
 
 
-        /*
-           UNLIKE
-        */
+        /* UNLIKE */
 
         if (alreadyLiked) {
 
@@ -1218,7 +1287,7 @@ async function toggleLike(
                     "/rest/v1/blorelle_likes?post_id=eq." +
                     encodeURIComponent(postId) +
                     "&user_id=eq." +
-                    encodeURIComponent(userId),
+                    encodeURIComponent(visitorId),
                     {
 
                         method: "DELETE",
@@ -1228,9 +1297,8 @@ async function toggleLike(
                             "apikey":
                                 SUPABASE_PUBLISHABLE_KEY,
 
-                            "Authorization":
-                                "Bearer " +
-                                accessToken
+                            "Content-Type":
+                                "application/json"
 
                         }
 
@@ -1245,9 +1313,11 @@ async function toggleLike(
                     await deleteResponse.text()
                 );
 
+
                 alert(
                     "Unlike didn't work. ♡"
                 );
+
 
                 return;
 
@@ -1272,9 +1342,7 @@ async function toggleLike(
         }
 
 
-        /*
-           LIKE
-        */
+        /* LIKE */
 
         const insertResponse =
             await fetch(
@@ -1292,9 +1360,8 @@ async function toggleLike(
                         "apikey":
                             SUPABASE_PUBLISHABLE_KEY,
 
-                        "Authorization":
-                            "Bearer " +
-                            accessToken
+                        "Prefer":
+                            "return=minimal"
 
                     },
 
@@ -1304,7 +1371,7 @@ async function toggleLike(
                             postId,
 
                         user_id:
-                            userId
+                            visitorId
 
                     })
 
@@ -1341,6 +1408,7 @@ async function toggleLike(
                     true
                 );
 
+
                 return;
 
             }
@@ -1350,24 +1418,17 @@ async function toggleLike(
                 "Your like couldn't be added. ♡"
             );
 
+
             return;
 
         }
 
-
-        /*
-           GET FRESH COUNT
-        */
 
         const newInfo =
             await getLikeInfo(
                 postId
             );
 
-
-        /*
-           SWEET MESSAGE
-        */
 
         button.textContent =
             "💕 Thanks for liking! " +
@@ -1394,12 +1455,14 @@ async function toggleLike(
 
     }
 
+
     catch (error) {
 
         console.error(
             "TOGGLE LIKE ERROR:",
             error
         );
+
 
         alert(
             "Something went wrong with the like. ♡"
@@ -1460,10 +1523,12 @@ async function loadComments(
                 comments
             );
 
+
             container.innerHTML =
                 "<p class='comment-status'>" +
                 "Comments couldn't load. ♡" +
                 "</p>";
+
 
             return;
 
@@ -1484,17 +1549,21 @@ async function loadComments(
                     "p"
                 );
 
+
             none.className =
                 "comment-status";
 
+
             none.textContent =
                 "No comments yet. Be the first. ♡";
+
 
             container.appendChild(
                 none
             );
 
         }
+
 
         else {
 
@@ -1506,6 +1575,7 @@ async function loadComments(
                             "div"
                         );
 
+
                     div.className =
                         "comment";
 
@@ -1515,11 +1585,14 @@ async function loadComments(
                             "div"
                         );
 
+
                     name.className =
                         "comment-name";
 
+
                     name.textContent =
-                        comment.name;
+                        comment.name ||
+                        "Anonymous";
 
 
                     const text =
@@ -1527,13 +1600,16 @@ async function loadComments(
                             "div"
                         );
 
+
                     text.textContent =
-                        comment.comment;
+                        comment.comment ||
+                        "";
 
 
                     div.appendChild(
                         name
                     );
+
 
                     div.appendChild(
                         text
@@ -1550,14 +1626,13 @@ async function loadComments(
         }
 
 
-        /*
-           COMMENT FORM
-        */
+        /* COMMENT FORM */
 
         const form =
             document.createElement(
                 "div"
             );
+
 
         form.className =
             "comment-form";
@@ -1568,6 +1643,7 @@ async function loadComments(
                 "input"
             );
 
+
         nameInput.placeholder =
             "Your name";
 
@@ -1576,6 +1652,7 @@ async function loadComments(
             document.createElement(
                 "textarea"
             );
+
 
         commentInput.placeholder =
             "Write a comment...";
@@ -1586,8 +1663,10 @@ async function loadComments(
                 "button"
             );
 
+
         submit.className =
             "comment-submit";
+
 
         submit.textContent =
             "Post Comment ♡";
@@ -1610,9 +1689,11 @@ async function loadComments(
             nameInput
         );
 
+
         form.appendChild(
             commentInput
         );
+
 
         form.appendChild(
             submit
@@ -1625,12 +1706,14 @@ async function loadComments(
 
     }
 
+
     catch (error) {
 
         console.error(
             "COMMENTS LOAD ERROR:",
             error
         );
+
 
         container.innerHTML =
             "<p class='comment-status'>" +
@@ -1656,6 +1739,7 @@ async function addComment(
     const name =
         nameInput.value.trim();
 
+
     const comment =
         commentInput.value.trim();
 
@@ -1666,43 +1750,14 @@ async function addComment(
             "Please enter your name and comment. ♡"
         );
 
-        return;
-
-    }
-
-
-    const accessToken =
-        localStorage.getItem(
-            "lurelle_access_token"
-        );
-
-
-    if (!accessToken) {
-
-        alert(
-            "Please log in first. ♡"
-        );
 
         return;
 
     }
 
 
-    const userId =
-        getUserIdFromAccessToken(
-            accessToken
-        );
-
-
-    if (!userId) {
-
-        alert(
-            "We couldn't identify your account. Please log in again. ♡"
-        );
-
-        return;
-
-    }
+    const visitorId =
+        getVisitorId();
 
 
     try {
@@ -1723,9 +1778,8 @@ async function addComment(
                         "apikey":
                             SUPABASE_PUBLISHABLE_KEY,
 
-                        "Authorization":
-                            "Bearer " +
-                            accessToken
+                        "Prefer":
+                            "return=minimal"
 
                     },
 
@@ -1741,7 +1795,7 @@ async function addComment(
                             comment,
 
                         user_id:
-                            userId
+                            visitorId
 
                     })
 
@@ -1751,14 +1805,20 @@ async function addComment(
 
         if (!response.ok) {
 
+            const error =
+                await response.text();
+
+
             console.error(
                 "COMMENT ERROR:",
-                await response.text()
+                error
             );
+
 
             alert(
                 "Your comment couldn't be posted. ♡"
             );
+
 
             return;
 
@@ -1767,6 +1827,7 @@ async function addComment(
 
         nameInput.value =
             "";
+
 
         commentInput.value =
             "";
@@ -1779,12 +1840,14 @@ async function addComment(
 
     }
 
+
     catch (error) {
 
         console.error(
             "COMMENT ERROR:",
             error
         );
+
 
         alert(
             "Something went wrong. ♡"
@@ -1836,6 +1899,8 @@ function formatDate(
 document.addEventListener(
     "DOMContentLoaded",
     function() {
+
+        getVisitorId();
 
         loadBlorellePosts();
 
