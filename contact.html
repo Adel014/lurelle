@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Contact | Lurelle by Adel</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+
+body {
+    background-color: #FFF8F3;
+    color: #6F5A4D;
+    font-family: Georgia, serif;
+    margin: 0;
+    padding: 0;
+}
+
+
+/* HAMBURGER */
+
+.menu-button {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1001;
+    background-color: #DCC9BE;
+    color: #FFF8F3;
+    border: none;
+    padding: 11px 17px;
+    border-radius: 25px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+
+/* MENU */
+
+#menu {
+    position: fixed;
+    top: 0;
+    left: -270px;
+    width: 250px;
+    height: 100%;
+    background-color: #FFF8F3;
+    padding-top: 90px;
+    box-shadow: 5px 0 15px rgba(111,90,77,0.15);
+    transition: left 0.4s ease;
+    z-index: 1000;
+}
+
+#menu.open {
+    left: 0;
+}
+
+#menu a {
+    display: block;
+    padding: 18px 25px;
+    color: #6F5A4D;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+#menu a:hover {
+    background-color: #F7DCE1;
+}
+
+
+/* PAGE */
+
+section {
+    padding: 100px 20px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 38px;
+}
+
+.intro {
+    max-width: 600px;
+    margin: 0 auto 40px auto;
+    line-height: 1.7;
+    font-size: 17px;
+}
+
+
+/* CONTACT CARD */
+
+.contact-card {
+    max-width: 550px;
+    margin: auto;
+    padding: 35px;
+    background-color: #F7DCE1;
+    border-radius: 25px;
+    box-shadow: 0 5px 15px rgba(111,90,77,0.08);
+}
+
+.contact-option {
+    background-color: #FFF8F3;
+    border-radius: 18px;
+    padding: 20px;
+    margin: 15px 0;
+}
+
+.contact-option h2 {
+    margin-bottom: 8px;
+}
+
+.contact-option a {
+    color: #6F5A4D;
+    text-decoration: none;
+}
+
+.contact-option a:hover {
+    text-decoration: underline;
+}
+
+
+/* MESSAGE FORM */
+
+.message-form {
+    max-width: 550px;
+    margin: 40px auto 0 auto;
+    padding: 30px;
+    background-color: #FFF8F3;
+    border: 1px solid #DCC9BE;
+    border-radius: 25px;
+    text-align: left;
+}
+
+.message-form h2 {
+    text-align: center;
+}
+
+.message-form label {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+.message-form input,
+.message-form textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px;
+    margin-top: 6px;
+    border: 1px solid #DCC9BE;
+    border-radius: 10px;
+    background-color: #FFF8F3;
+    color: #6F5A4D;
+    font-family: Georgia, serif;
+}
+
+.message-form textarea {
+    height: 130px;
+    resize: vertical;
+}
+
+.message-button {
+    display: block;
+    margin: 25px auto 0 auto;
+    background-color: #6F5A4D;
+    color: #FFF8F3;
+    border: none;
+    padding: 13px 25px;
+    border-radius: 25px;
+    cursor: pointer;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+    section {
+        padding: 85px 15px;
+    }
+
+    h1 {
+        font-size: 30px;
+    }
+
+    .contact-card,
+    .message-form {
+        padding: 22px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- HAMBURGER -->
+
+<button class="menu-button" onclick="toggleMenu()">☰</button>
+
+
+<!-- MENU -->
+
+<div id="menu">
+
+<a href="Lurellebyadel.html">Home</a>
+
+<a href="about.html">About</a>
+
+<a href="blog.html">Blog🌸</a>
+
+ <a href="patterns.html">Patterns🧶</a>
+
+<a href="collection.html">Collection</a>
+
+<a href="custom-orders.html">Custom Orders</a>
+
+<a href="contact.html">Contact</a>
+
+</div>
+
+
+
+<!-- CONTACT PAGE -->
+
+<section>
+
+
+<h1>♡ Get in Touch</h1>
+
+
+<p class="intro">
+
+Have a question about an order, a custom piece, or anything Lurelle?
+
+I'd love to hear from you. ♡
+
+</p>
+
+
+
+<div class="contact-card">
+
+
+<div class="contact-option">
+
+<h2>💌 Email</h2>
+
+<p>
+
+<a href="mailto:ebehi1@outlook.com">
+
+ebehi1@outlook.com
+
+</a>
+
+</p>
+
+</div>
+
+
+
+<div class="contact-option">
+
+<h2>📱 Socials</h2>
+
+<p>
+
+Follow Lurelle for new drops, behind-the-scenes moments and more.
+
+</p>
+
+<p>
+
+<a href="#" onclick="socialMessage()">
+
+♡ Visit Lurelle's socials
+
+</a>
+
+</p>
+
+</div>
+
+
+
+<div class="contact-option">
+
+<h2>🧶 Custom Orders</h2>
+
+<p>
+
+Want something made especially for you?
+
+</p>
+
+<p>
+
+<a href="custom-orders.html">
+
+♡ Request a Custom Order
+
+</a>
+
+</p>
+
+</div>
+
+
+</div>
+
+
+
+<!-- MESSAGE FORM -->
+
+<div class="message-form">
+
+<h2>♡ Send a Message</h2>
+
+
+<label>Your name</label>
+
+<input
+type="text"
+id="messageName"
+placeholder="Your name">
+
+
+<label>Your email</label>
+
+<input
+type="email"
+id="messageEmail"
+placeholder="Your email">
+
+
+<label>Your message</label>
+
+<textarea
+id="messageText"
+placeholder="Write your message here..."></textarea>
+
+
+<button
+class="message-button"
+onclick="sendMessage()">
+
+Send Message
+
+</button>
+
+</div>
+
+
+</section>
+
+
+
+<script>
+
+function toggleMenu() {
+
+    document
+    .getElementById("menu")
+    .classList.toggle("open");
+
+}
+
+
+function sendMessage() {
+
+    var name =
+    document.getElementById("messageName").value.trim();
+
+    var email =
+    document.getElementById("messageEmail").value.trim();
+
+    var message =
+    document.getElementById("messageText").value.trim();
+
+
+    if (
+        name === "" ||
+        email === "" ||
+        message === ""
+    ) {
+
+        alert(
+        "Please fill in all the fields. ♡"
+        );
+
+        return;
+
+    }
+
+
+    alert(
+    "Thank you, " +
+    name +
+    "! Your message is ready to be sent. ♡"
+    );
+
+}
+
+
+function socialMessage() {
+
+    alert(
+    "Lurelle's social links will be added here soon. ♡"
+    );
+
+}
+
+</script>
+
+
+</body>
+
+</html>

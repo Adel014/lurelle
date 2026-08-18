@@ -1,0 +1,2357 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Payment Manager | Lurelle by Adel</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: #FFF8F3;
+    color: #6F5A4D;
+    font-family: Georgia, serif;
+}
+
+button,
+input,
+select {
+    font-family: Georgia, serif;
+}
+
+button {
+    cursor: pointer;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.header {
+    padding: 35px 25px;
+    text-align: center;
+    background: #F7DCE1;
+    border-bottom: 1px solid #DCC9BE;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 34px;
+}
+
+.header p {
+    margin: 10px 0 0;
+    font-size: 15px;
+}
+
+
+/* =========================
+   MAIN
+========================= */
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 35px 20px 80px;
+}
+
+
+/* =========================
+   MONTHLY STATUS
+========================= */
+
+.monthly-box {
+    background: #FFF;
+    border: 1px solid #DCC9BE;
+    border-radius: 22px;
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: 0 5px 15px rgba(111,90,77,0.07);
+}
+
+.monthly-box h2 {
+    margin-top: 0;
+}
+
+.monthly-progress {
+    margin-top: 18px;
+    height: 12px;
+    background: #F3E5DF;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.monthly-progress-bar {
+    height: 100%;
+    width: 0%;
+    background: #DCC9BE;
+    transition: width 0.3s ease;
+}
+
+.reset-note {
+    font-size: 13px;
+    margin-top: 12px;
+    color: #8B6F63;
+}
+
+
+/* =========================
+   STAT CARDS
+========================= */
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin-bottom: 35px;
+}
+
+.stat-card {
+    background: #FFF;
+    border: 1px solid #DCC9BE;
+    border-radius: 20px;
+    padding: 22px;
+    box-shadow: 0 5px 15px rgba(111,90,77,0.06);
+}
+
+.stat-card h3 {
+    margin: 0 0 10px;
+    font-size: 15px;
+    font-weight: normal;
+}
+
+.stat-number {
+    font-size: 27px;
+    font-weight: bold;
+}
+
+
+/* =========================
+   CONTROLS
+========================= */
+
+.controls {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 25px;
+}
+
+.search {
+    flex: 1;
+    min-width: 220px;
+    padding: 13px 16px;
+    border: 1px solid #DCC9BE;
+    border-radius: 25px;
+    background: #FFF;
+    color: #6F5A4D;
+    outline: none;
+}
+
+.filter {
+    padding: 13px 18px;
+    border: 1px solid #DCC9BE;
+    border-radius: 25px;
+    background: #FFF;
+    color: #6F5A4D;
+}
+
+
+/* =========================
+   ORDERS
+========================= */
+
+.orders {
+    display: grid;
+    gap: 20px;
+}
+
+.order-card {
+    background: #FFF;
+    border: 1px solid #DCC9BE;
+    border-radius: 22px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(111,90,77,0.06);
+}
+
+.order-card.completed {
+    opacity: 0.78;
+}
+
+.order-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.order-number {
+    font-size: 21px;
+    font-weight: bold;
+}
+
+.customer {
+    margin-top: 6px;
+    color: #8B6F63;
+}
+
+.order-date {
+    font-size: 13px;
+    margin-top: 5px;
+    color: #9B8378;
+}
+
+
+/* =========================
+   CUSTOMER DETAILS
+========================= */
+
+.customer-details {
+    margin-top: 18px;
+    padding: 16px;
+    background: #FFF8F3;
+    border: 1px solid #E8D8D2;
+    border-radius: 16px;
+}
+
+.customer-details p {
+    margin: 7px 0;
+    line-height: 1.5;
+}
+
+
+/* =========================
+   ORDER ITEMS
+========================= */
+
+.order-items {
+    margin: 20px 0;
+    padding: 18px;
+    background: #FDF0F1;
+    border-radius: 16px;
+}
+
+.item-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 7px 0;
+    border-bottom: 1px solid #E8D8D2;
+}
+
+.item-row:last-child {
+    border-bottom: none;
+}
+
+
+/* =========================
+   PRICE
+========================= */
+
+.price-area {
+    margin-top: 15px;
+}
+
+.price-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 6px 0;
+}
+
+.discount {
+    color: #9A6D76;
+}
+
+.final-price {
+    font-size: 21px;
+    font-weight: bold;
+    border-top: 1px solid #DCC9BE;
+    margin-top: 8px;
+    padding-top: 12px;
+}
+
+
+/* =========================
+   STATUS
+========================= */
+
+.status-area {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.status {
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.payment-pending,
+.payment-unpaid {
+    background: #FFF0C7;
+    color: #856B2D;
+}
+
+.payment-paid {
+    background: #DDF2E2;
+    color: #397047;
+}
+
+.payment-failed {
+    background: #F8D7D7;
+    color: #8A4444;
+}
+
+.delivery-pending {
+    background: #F3E5DF;
+    color: #765F54;
+}
+
+.delivery-processing {
+    background: #E8E0F3;
+    color: #68527D;
+}
+
+.delivery-shipped {
+    background: #DCEAF4;
+    color: #486A82;
+}
+
+.delivery-delivered {
+    background: #DDF2E2;
+    color: #397047;
+}
+
+
+/* =========================
+   COMPLETED CHECKBOX
+========================= */
+
+.completed-area {
+    margin-top: 22px;
+    padding: 15px 18px;
+    background: #F7DCE1;
+    border-radius: 16px;
+}
+
+.completed-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.completed-checkbox {
+    width: 20px;
+    height: 20px;
+    accent-color: #6F5A4D;
+    cursor: pointer;
+}
+
+.completed-text {
+    font-size: 15px;
+}
+
+.save-status {
+    display: block;
+    margin-top: 7px;
+    font-size: 12px;
+    color: #8B6F63;
+}
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+.details-button {
+    margin-top: 20px;
+    padding: 11px 20px;
+    border: 1px solid #DCC9BE;
+    border-radius: 25px;
+    background: transparent;
+    color: #6F5A4D;
+}
+
+.details-button:hover {
+    background: #F7DCE1;
+}
+
+
+/* =========================
+   EMPTY / LOADING / ERROR
+========================= */
+
+.empty,
+.loading,
+.error-box {
+    text-align: center;
+    padding: 50px 20px;
+    background: #FFF;
+    border: 1px solid #DCC9BE;
+    border-radius: 22px;
+}
+
+.error-box {
+    border-color: #E5BABA;
+}
+
+.error-box p {
+    line-height: 1.6;
+}
+
+
+/* =========================
+   MODAL
+========================= */
+
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(70,50,40,0.35);
+    z-index: 2000;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.modal.open {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-card {
+    width: 100%;
+    max-width: 650px;
+    background: #FFF8F3;
+    border-radius: 25px;
+    padding: 30px;
+    box-shadow: 0 15px 40px rgba(70,50,40,0.2);
+}
+
+.modal-card h2 {
+    margin-top: 0;
+}
+
+.close-button {
+    float: right;
+    border: none;
+    background: #DCC9BE;
+    color: #6F5A4D;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    font-size: 18px;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 800px) {
+
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+@media (max-width: 550px) {
+
+    .container {
+        padding: 25px 12px 60px;
+    }
+
+    .header h1 {
+        font-size: 28px;
+    }
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    .order-card {
+        padding: 20px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header class="header">
+
+    <h1>
+        ♡ Lurelle Payment Manager
+    </h1>
+
+    <p>
+        Orders, payments, discounts & delivery
+    </p>
+
+</header>
+
+
+<main class="container">
+
+
+<section class="monthly-box">
+
+    <h2>
+        🎀 Monthly Discount
+    </h2>
+
+    <p id="monthText">
+        Loading...
+    </p>
+
+    <p id="monthlyOrderText">
+        Loading...
+    </p>
+
+    <div class="monthly-progress">
+
+        <div
+            id="monthlyProgressBar"
+            class="monthly-progress-bar">
+        </div>
+
+    </div>
+
+    <p class="reset-note">
+        The five monthly discount spots automatically reset on the 1st of every new month.
+    </p>
+
+</section>
+
+
+<section class="stats">
+
+    <div class="stat-card">
+
+        <h3>
+            Total Orders
+        </h3>
+
+        <div
+            id="totalOrders"
+            class="stat-number">
+            0
+        </div>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <h3>
+            Paid
+        </h3>
+
+        <div
+            id="paidOrders"
+            class="stat-number">
+            0
+        </div>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <h3>
+            Pending
+        </h3>
+
+        <div
+            id="pendingOrders"
+            class="stat-number">
+            0
+        </div>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <h3>
+            Revenue
+        </h3>
+
+        <div
+            id="revenue"
+            class="stat-number">
+            ₦0
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="controls">
+
+    <input
+        id="search"
+        class="search"
+        type="text"
+        placeholder="Search orders or customers.">
+
+
+    <select
+        id="paymentFilter"
+        class="filter">
+
+        <option value="all">
+            All Payments
+        </option>
+
+        <option value="paid">
+            Paid
+        </option>
+
+        <option value="pending">
+            Pending
+        </option>
+
+        <option value="unpaid">
+            Unpaid
+        </option>
+
+        <option value="failed">
+            Failed
+        </option>
+
+    </select>
+
+
+    <select
+        id="deliveryFilter"
+        class="filter">
+
+        <option value="all">
+            All Delivery
+        </option>
+
+        <option value="pending">
+            Delivery Pending
+        </option>
+
+        <option value="processing">
+            Processing
+        </option>
+
+        <option value="shipped">
+            Shipped
+        </option>
+
+        <option value="delivered">
+            Delivered
+        </option>
+
+    </select>
+
+</section>
+
+
+<section
+    id="orders"
+    class="orders">
+
+    <div class="loading">
+
+        <h2>
+            Loading orders... ♡
+        </h2>
+
+        <p>
+            Connecting to Lurelle's order records.
+        </p>
+
+    </div>
+
+</section>
+
+
+</main>
+
+
+<div
+    id="detailsModal"
+    class="modal">
+
+    <div class="modal-card">
+
+        <button
+            class="close-button"
+            onclick="closeDetails()">
+
+            ×
+
+        </button>
+
+        <div id="detailsContent">
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+
+/* =========================
+   SUPABASE
+========================= */
+
+const SUPABASE_URL =
+    "https://ljzydmylrayqdvuxtzps.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_RNQQFOqPdrKbLd6HiMSmwg_6UUNBZqg";
+
+const ACCESS_TOKEN =
+    localStorage.getItem(
+        "lurelle_access_token"
+    );
+
+
+/* =========================
+   AUTH CHECK
+========================= */
+
+if (!ACCESS_TOKEN) {
+
+    window.location.href =
+        "manager-login.html";
+
+}
+
+
+/* =========================
+   SUPABASE GET REQUEST
+========================= */
+
+async function supabaseRequest(
+    table,
+    query
+) {
+
+    const response =
+        await fetch(
+            SUPABASE_URL +
+            "/rest/v1/" +
+            table +
+            query,
+            {
+
+                method: "GET",
+
+                headers: {
+
+                    "apikey":
+                        SUPABASE_PUBLISHABLE_KEY,
+
+                    "Authorization":
+                        "Bearer " +
+                        ACCESS_TOKEN,
+
+                    "Content-Type":
+                        "application/json",
+
+                    "Accept":
+                        "application/json"
+
+                }
+
+            }
+        );
+
+
+    const text =
+        await response.text();
+
+
+    let data;
+
+
+    try {
+
+        data =
+            text
+            ? JSON.parse(text)
+            : null;
+
+    }
+
+    catch (error) {
+
+        data = null;
+
+    }
+
+
+    if (!response.ok) {
+
+        throw new Error(
+            data &&
+            data.message
+            ? data.message
+            : "Supabase returned " +
+              response.status
+        );
+
+    }
+
+
+    return data;
+
+}
+
+
+/* =========================
+   SUPABASE UPDATE REQUEST
+========================= */
+
+async function updateOrderCompleted(
+    orderId,
+    completed
+) {
+
+    const response =
+        await fetch(
+            SUPABASE_URL +
+            "/rest/v1/orders?id=eq." +
+            encodeURIComponent(orderId),
+            {
+
+                method: "PATCH",
+
+                headers: {
+
+                    "apikey":
+                        SUPABASE_PUBLISHABLE_KEY,
+
+                    "Authorization":
+                        "Bearer " +
+                        ACCESS_TOKEN,
+
+                    "Content-Type":
+                        "application/json",
+
+                    "Prefer":
+                        "return=minimal"
+
+                },
+
+                body:
+                    JSON.stringify({
+
+                        order_completed:
+                            completed
+
+                    })
+
+            }
+        );
+
+
+    if (!response.ok) {
+
+        const text =
+            await response.text();
+
+        throw new Error(
+            text ||
+            "Could not update order."
+        );
+
+    }
+
+}
+
+
+/* =========================
+   ORDERS
+========================= */
+
+let orders = [];
+
+
+/* =========================
+   MONTH KEY
+========================= */
+
+function getCurrentMonthKey() {
+
+    const now =
+        new Date();
+
+    return (
+        now.getFullYear() +
+        "-" +
+        String(
+            now.getMonth() + 1
+        ).padStart(2, "0")
+    );
+
+}
+
+
+/* =========================
+   MONTHLY DISCOUNT
+========================= */
+
+function getMonthlyOrderCount() {
+
+    const currentMonth =
+        getCurrentMonthKey();
+
+    return orders.filter(
+        function(order) {
+
+            if (!order.createdAt) {
+                return false;
+            }
+
+            const date =
+                new Date(
+                    order.createdAt
+                );
+
+            const key =
+                date.getFullYear() +
+                "-" +
+                String(
+                    date.getMonth() + 1
+                ).padStart(2, "0");
+
+            return (
+                key ===
+                currentMonth
+            );
+
+        }
+    ).length;
+
+}
+
+
+function displayMonthlyDiscount() {
+
+    const count =
+        getMonthlyOrderCount();
+
+    const month =
+        new Date()
+        .toLocaleDateString(
+            undefined,
+            {
+                month: "long",
+                year: "numeric"
+            }
+        );
+
+    document.getElementById(
+        "monthText"
+    ).textContent =
+        "Current discount month: " +
+        month;
+
+    document.getElementById(
+        "monthlyOrderText"
+    ).textContent =
+        Math.min(count, 5) +
+        " of 5 monthly discount spots have been used.";
+
+    const percentage =
+        Math.min(
+            count / 5 * 100,
+            100
+        );
+
+    document.getElementById(
+        "monthlyProgressBar"
+    ).style.width =
+        percentage + "%";
+
+}
+
+
+/* =========================
+   STATUS LABELS
+========================= */
+
+function paymentLabel(status) {
+
+    if (status === "paid") {
+        return "✓ Paid";
+    }
+
+    if (status === "failed") {
+        return "✕ Failed";
+    }
+
+    if (status === "unpaid") {
+        return "○ Unpaid";
+    }
+
+    return "◷ Pending";
+
+}
+
+
+function deliveryLabel(status) {
+
+    if (status === "delivered") {
+        return "✓ Delivered";
+    }
+
+    if (status === "shipped") {
+        return "📦 Shipped";
+    }
+
+    if (status === "processing") {
+        return "⚙ Processing";
+    }
+
+    return "◷ Pending";
+
+}
+
+
+/* =========================
+   DATE
+========================= */
+
+function formatDate(date) {
+
+    if (!date) {
+        return "Date unavailable";
+    }
+
+    return new Date(date)
+        .toLocaleDateString(
+            undefined,
+            {
+                year: "numeric",
+                month: "long",
+                day: "numeric"
+            }
+        );
+
+}
+
+
+/* =========================
+   NUMBER
+========================= */
+
+function numberValue(value) {
+
+    const number =
+        Number(value);
+
+    return Number.isFinite(number)
+        ? number
+        : 0;
+
+}
+
+
+/* =========================
+   ITEMS
+========================= */
+
+function getItems(order) {
+
+    if (Array.isArray(order.items)) {
+        return order.items;
+    }
+
+    return [];
+
+}
+
+
+/* =========================
+   NORMALIZE ORDER
+========================= */
+
+function normalizeOrder(order) {
+
+    const subtotal =
+        numberValue(
+            order.subtotal
+        );
+
+    const discount =
+        numberValue(
+            order.discount
+        );
+
+    const total =
+        order.total != null
+        ? numberValue(order.total)
+        : subtotal - discount;
+
+    let discountRate =
+        numberValue(
+            order.discount_rate
+        );
+
+    if (
+        discountRate === 0 &&
+        subtotal > 0 &&
+        discount > 0
+    ) {
+
+        discountRate =
+            discount / subtotal;
+
+    }
+
+    const paymentStatus =
+        String(
+            order.payment_status ||
+            "unpaid"
+        ).toLowerCase();
+
+    const deliveryStatus =
+        String(
+            order.delivery_status ||
+            "pending"
+        ).toLowerCase();
+
+    return {
+
+        id:
+            order.id,
+
+        orderNumber:
+            String(
+                order.order_number ??
+                order.orderNumber ??
+                order.id ??
+                ""
+            ),
+
+        customerName:
+            order.customer_name ||
+            order.customerName ||
+            "Customer",
+
+        email:
+            order.email ||
+            order.customer_email ||
+            "",
+
+        phone:
+            order.phone ||
+            order.customer_phone ||
+            "",
+
+        address:
+            order.address ||
+            order.delivery_address ||
+            "",
+
+        note:
+            order.note ||
+            order.customer_note ||
+            "",
+
+        items:
+            getItems(order),
+
+        subtotal:
+            subtotal,
+
+        discountRate:
+            discountRate,
+
+        discount:
+            discount,
+
+        total:
+            total,
+
+        paymentStatus:
+            paymentStatus,
+
+        deliveryStatus:
+            deliveryStatus,
+
+        completed:
+            Boolean(
+                order.order_completed
+            ),
+
+        createdAt:
+            order.created_at ||
+            order.createdAt ||
+            null
+
+    };
+
+}
+
+
+/* =========================
+   LOAD ORDERS
+========================= */
+
+async function loadOrders() {
+
+    const container =
+        document.getElementById(
+            "orders"
+        );
+
+    container.innerHTML = `
+
+        <div class="loading">
+
+            <h2>
+                Loading orders... ♡
+            </h2>
+
+            <p>
+                Getting the latest Lurelle orders.
+            </p>
+
+        </div>
+
+    `;
+
+    try {
+
+        const data =
+            await supabaseRequest(
+                "orders",
+                "?select=*&order=created_at.desc"
+            );
+
+        orders =
+            (data || [])
+            .map(
+                normalizeOrder
+            );
+
+        displayMonthlyDiscount();
+
+        renderOrders();
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Could not load orders:",
+            error
+        );
+
+        container.innerHTML = `
+
+            <div class="error-box">
+
+                <h2>
+                    Couldn't load the orders ♡
+                </h2>
+
+                <p>
+                    Supabase returned:
+                </p>
+
+                <p>
+                    ${escapeHTML(
+                        error.message
+                    )}
+                </p>
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+/* =========================
+   SAVE COMPLETED STATUS
+========================= */
+
+async function toggleCompleted(
+    orderId,
+    checkbox
+) {
+
+    const completed =
+        checkbox.checked;
+
+    const order =
+        orders.find(
+            function(item) {
+
+                return String(item.id) ===
+                    String(orderId);
+
+            }
+        );
+
+    if (!order) {
+        return;
+    }
+
+    const saveText =
+        document.getElementById(
+            "save-" + orderId
+        );
+
+    if (saveText) {
+
+        saveText.textContent =
+            "Saving...";
+
+    }
+
+    checkbox.disabled = true;
+
+    try {
+
+        await updateOrderCompleted(
+            orderId,
+            completed
+        );
+
+        order.completed =
+            completed;
+
+        const card =
+            checkbox.closest(
+                ".order-card"
+            );
+
+        if (card) {
+
+            card.classList.toggle(
+                "completed",
+                completed
+            );
+
+        }
+
+        if (saveText) {
+
+            saveText.textContent =
+                completed
+                ? "✓ Saved as completed"
+                : "✓ Saved as not completed";
+
+        }
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Could not save completed status:",
+            error
+        );
+
+        checkbox.checked =
+            !completed;
+
+        if (saveText) {
+
+            saveText.textContent =
+                "Could not save. Please try again.";
+
+        }
+
+        alert(
+            "The completed status could not be saved. ♡\n\n" +
+            error.message
+        );
+
+    }
+
+    finally {
+
+        checkbox.disabled =
+            false;
+
+    }
+
+}
+
+
+/* =========================
+   RENDER ORDERS
+========================= */
+
+function renderOrders() {
+
+    const container =
+        document.getElementById(
+            "orders"
+        );
+
+    const search =
+        document.getElementById(
+            "search"
+        )
+        .value
+        .toLowerCase()
+        .trim();
+
+    const paymentFilter =
+        document.getElementById(
+            "paymentFilter"
+        ).value;
+
+    const deliveryFilter =
+        document.getElementById(
+            "deliveryFilter"
+        ).value;
+
+    const filtered =
+        orders.filter(
+            function(order) {
+
+                const matchesSearch =
+
+                    order.orderNumber
+                        .toLowerCase()
+                        .includes(search)
+
+                    ||
+
+                    order.customerName
+                        .toLowerCase()
+                        .includes(search)
+
+                    ||
+
+                    order.email
+                        .toLowerCase()
+                        .includes(search);
+
+                const matchesPayment =
+
+                    paymentFilter ===
+                    "all"
+
+                    ||
+
+                    order.paymentStatus ===
+                    paymentFilter;
+
+                const matchesDelivery =
+
+                    deliveryFilter ===
+                    "all"
+
+                    ||
+
+                    order.deliveryStatus ===
+                    deliveryFilter;
+
+                return (
+                    matchesSearch &&
+                    matchesPayment &&
+                    matchesDelivery
+                );
+
+            }
+        );
+
+
+    if (
+        filtered.length === 0
+    ) {
+
+        container.innerHTML = `
+
+            <div class="empty">
+
+                <h2>
+                    No orders found ♡
+                </h2>
+
+                <p>
+                    There are no matching orders in Supabase yet.
+                </p>
+
+            </div>
+
+        `;
+
+        updateStats();
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        "";
+
+
+    filtered.forEach(
+        function(order) {
+
+            const card =
+                document.createElement(
+                    "article"
+                );
+
+            card.className =
+                "order-card" +
+                (
+                    order.completed
+                    ? " completed"
+                    : ""
+                );
+
+
+            let itemsHTML =
+                "";
+
+
+            order.items.forEach(
+                function(item) {
+
+                    const itemName =
+                        item.name ||
+                        item.product_name ||
+                        "Item";
+
+                    const itemPrice =
+                        numberValue(
+                            item.price
+                        );
+
+                    const quantity =
+                        numberValue(
+                            item.quantity
+                        ) || 1;
+
+                    itemsHTML += `
+
+                        <div class="item-row">
+
+                            <span>
+
+                                ${escapeHTML(
+                                    itemName
+                                )}
+
+                                × ${quantity}
+
+                            </span>
+
+                            <span>
+
+                                ₦${(
+                                    itemPrice *
+                                    quantity
+                                ).toLocaleString()}
+
+                            </span>
+
+                        </div>
+
+                    `;
+
+                }
+            );
+
+
+            if (
+                itemsHTML === ""
+            ) {
+
+                itemsHTML = `
+
+                    <div class="item-row">
+
+                        <span>
+                            Order items
+                        </span>
+
+                        <span>
+                            —
+                        </span>
+
+                    </div>
+
+                `;
+
+            }
+
+
+            card.innerHTML = `
+
+                <div class="order-top">
+
+                    <div>
+
+                        <div class="order-number">
+
+                            Order #
+                            ${escapeHTML(
+                                order.orderNumber
+                            )}
+
+                        </div>
+
+
+                        <div class="customer">
+
+                            ${escapeHTML(
+                                order.customerName
+                            )}
+
+                        </div>
+
+
+                        <div class="order-date">
+
+                            ${formatDate(
+                                order.createdAt
+                            )}
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="status-area">
+
+                        <span
+                            class="status payment-${escapeHTML(
+                                order.paymentStatus
+                            )}">
+
+                            ${paymentLabel(
+                                order.paymentStatus
+                            )}
+
+                        </span>
+
+
+                        <span
+                            class="status delivery-${escapeHTML(
+                                order.deliveryStatus
+                            )}">
+
+                            ${deliveryLabel(
+                                order.deliveryStatus
+                            )}
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="customer-details">
+
+                    <p>
+
+                        <strong>
+                            📧 Email:
+                        </strong>
+
+                        ${escapeHTML(
+                            order.email ||
+                            "Not provided"
+                        )}
+
+                    </p>
+
+
+                    <p>
+
+                        <strong>
+                            📞 Phone:
+                        </strong>
+
+                        ${escapeHTML(
+                            order.phone ||
+                            "Not provided"
+                        )}
+
+                    </p>
+
+
+                    <p>
+
+                        <strong>
+                            📍 Delivery Address:
+                        </strong>
+
+                        ${escapeHTML(
+                            order.address ||
+                            "Not provided"
+                        )}
+
+                    </p>
+
+
+                    ${
+                        order.note
+                        ? `
+                            <p>
+
+                                <strong>
+                                    📝 Note:
+                                </strong>
+
+                                ${escapeHTML(
+                                    order.note
+                                )}
+
+                            </p>
+                        `
+                        : ""
+                    }
+
+                </div>
+
+
+                <div class="order-items">
+
+                    ${itemsHTML}
+
+                </div>
+
+
+                <div class="price-area">
+
+                    <div class="price-row">
+
+                        <span>
+                            Subtotal
+                        </span>
+
+                        <span>
+                            ₦${order.subtotal.toLocaleString()}
+                        </span>
+
+                    </div>
+
+
+                    <div class="price-row discount">
+
+                        <span>
+
+                            Monthly discount
+                            ${
+                                order.discountRate > 0
+                                ? "(" +
+                                  (
+                                    order.discountRate *
+                                    100
+                                  ) +
+                                  "%)"
+                                : ""
+                            }
+
+                        </span>
+
+
+                        <span>
+
+                            -₦${order.discount.toLocaleString()}
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="price-row final-price">
+
+                        <span>
+                            Final Total
+                        </span>
+
+                        <span>
+                            ₦${order.total.toLocaleString()}
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="completed-area">
+
+                    <label
+                        class="completed-label">
+
+                        <input
+                            type="checkbox"
+                            class="completed-checkbox"
+                            ${order.completed ? "checked" : ""}
+                            onchange="toggleCompleted(
+                                '${escapeHTML(order.id)}',
+                                this
+                            )">
+
+                        <span class="completed-text">
+
+                            ☑ Order Completed
+
+                        </span>
+
+                    </label>
+
+
+                    <span
+                        class="save-status"
+                        id="save-${escapeHTML(
+                            order.id
+                        )}">
+
+                        ${
+                            order.completed
+                            ? "✓ Saved as completed"
+                            : "Not completed yet"
+                        }
+
+                    </span>
+
+                </div>
+
+
+                <button
+                    class="details-button"
+                    onclick="openDetails('${escapeHTML(
+                        order.id
+                    )}')">
+
+                    View Full Order Details
+
+                </button>
+
+            `;
+
+
+            container.appendChild(
+                card
+            );
+
+        }
+    );
+
+
+    updateStats();
+
+}
+
+
+/* =========================
+   STATISTICS
+========================= */
+
+function updateStats() {
+
+    const total =
+        orders.length;
+
+    const paid =
+        orders.filter(
+            function(order) {
+
+                return (
+                    order.paymentStatus ===
+                    "paid"
+                );
+
+            }
+        ).length;
+
+    const pending =
+        orders.filter(
+            function(order) {
+
+                return (
+                    order.paymentStatus ===
+                    "pending"
+                    ||
+                    order.paymentStatus ===
+                    "unpaid"
+                );
+
+            }
+        ).length;
+
+    const revenue =
+        orders
+        .filter(
+            function(order) {
+
+                return (
+                    order.paymentStatus ===
+                    "paid"
+                );
+
+            }
+        )
+        .reduce(
+            function(sum, order) {
+
+                return (
+                    sum +
+                    order.total
+                );
+
+            },
+            0
+        );
+
+
+    document.getElementById(
+        "totalOrders"
+    ).textContent =
+        total;
+
+
+    document.getElementById(
+        "paidOrders"
+    ).textContent =
+        paid;
+
+
+    document.getElementById(
+        "pendingOrders"
+    ).textContent =
+        pending;
+
+
+    document.getElementById(
+        "revenue"
+    ).textContent =
+        "₦" +
+        revenue.toLocaleString();
+
+}
+
+
+/* =========================
+   DETAILS MODAL
+========================= */
+
+function openDetails(id) {
+
+    const order =
+        orders.find(
+            function(item) {
+
+                return (
+                    String(item.id) ===
+                    String(id)
+                );
+
+            }
+        );
+
+
+    if (!order) {
+        return;
+    }
+
+
+    let itemsHTML =
+        "";
+
+
+    order.items.forEach(
+        function(item) {
+
+            const itemName =
+                item.name ||
+                item.product_name ||
+                "Item";
+
+            const itemPrice =
+                numberValue(
+                    item.price
+                );
+
+            const quantity =
+                numberValue(
+                    item.quantity
+                ) || 1;
+
+
+            itemsHTML += `
+
+                <div class="price-row">
+
+                    <span>
+
+                        ${escapeHTML(
+                            itemName
+                        )}
+
+                        × ${quantity}
+
+                    </span>
+
+
+                    <span>
+
+                        ₦${(
+                            itemPrice *
+                            quantity
+                        ).toLocaleString()}
+
+                    </span>
+
+                </div>
+
+            `;
+
+        }
+    );
+
+
+    if (
+        itemsHTML === ""
+    ) {
+
+        itemsHTML = `
+
+            <div class="price-row">
+
+                <span>
+                    Order items
+                </span>
+
+                <span>
+                    —
+                </span>
+
+            </div>
+
+        `;
+
+    }
+
+
+    document.getElementById(
+        "detailsContent"
+    ).innerHTML = `
+
+        <h2>
+            Order #${escapeHTML(
+                order.orderNumber
+            )}
+        </h2>
+
+
+        <p>
+
+            <strong>
+                Customer:
+            </strong>
+
+            ${escapeHTML(
+                order.customerName
+            )}
+
+        </p>
+
+
+        <p>
+
+            <strong>
+                Email:
+            </strong>
+
+            ${escapeHTML(
+                order.email
+            )}
+
+        </p>
+
+
+        <p>
+
+            <strong>
+                Phone:
+            </strong>
+
+            ${escapeHTML(
+                order.phone
+            )}
+
+        </p>
+
+
+        <p>
+
+            <strong>
+                Delivery address:
+            </strong>
+
+            ${escapeHTML(
+                order.address
+            )}
+
+        </p>
+
+
+        ${
+            order.note
+            ? `
+
+                <p>
+
+                    <strong>
+                        Extra note:
+                    </strong>
+
+                    ${escapeHTML(
+                        order.note
+                    )}
+
+                </p>
+
+            `
+            : ""
+        }
+
+
+        <hr>
+
+
+        <h3>
+            Items
+        </h3>
+
+
+        ${itemsHTML}
+
+
+        <hr>
+
+
+        <div class="price-row">
+
+            <span>
+                Subtotal
+            </span>
+
+            <span>
+                ₦${order.subtotal.toLocaleString()}
+            </span>
+
+        </div>
+
+
+        <div class="price-row discount">
+
+            <span>
+                Discount
+            </span>
+
+            <span>
+                -₦${order.discount.toLocaleString()}
+            </span>
+
+        </div>
+
+
+        <div class="price-row final-price">
+
+            <span>
+                Total
+            </span>
+
+            <span>
+                ₦${order.total.toLocaleString()}
+            </span>
+
+        </div>
+
+
+        <div class="status-area">
+
+            <span
+                class="status payment-${escapeHTML(
+                    order.paymentStatus
+                )}">
+
+                ${paymentLabel(
+                    order.paymentStatus
+                )}
+
+            </span>
+
+
+            <span
+                class="status delivery-${escapeHTML(
+                    order.deliveryStatus
+                )}">
+
+                ${deliveryLabel(
+                    order.deliveryStatus
+                )}
+
+            </span>
+
+        </div>
+
+
+        <div class="completed-area">
+
+            <strong>
+
+                ${
+                    order.completed
+                    ? "☑ Order Completed"
+                    : "☐ Order Not Completed"
+                }
+
+            </strong>
+
+        </div>
+
+    `;
+
+
+    document.getElementById(
+        "detailsModal"
+    ).classList.add("open");
+
+}
+
+
+/* =========================
+   CLOSE MODAL
+========================= */
+
+function closeDetails() {
+
+    document.getElementById(
+        "detailsModal"
+    ).classList.remove("open");
+
+}
+
+
+/* =========================
+   SECURITY
+========================= */
+
+function escapeHTML(text) {
+
+    const div =
+        document.createElement(
+            "div"
+        );
+
+    div.textContent =
+        text == null
+        ? ""
+        : String(text);
+
+    return div.innerHTML;
+
+}
+
+
+/* =========================
+   FILTER EVENTS
+========================= */
+
+document.getElementById(
+    "search"
+).addEventListener(
+    "input",
+    renderOrders
+);
+
+
+document.getElementById(
+    "paymentFilter"
+).addEventListener(
+    "change",
+    renderOrders
+);
+
+
+document.getElementById(
+    "deliveryFilter"
+).addEventListener(
+    "change",
+    renderOrders
+);
+
+
+/* =========================
+   CLOSE MODAL
+========================= */
+
+document.getElementById(
+    "detailsModal"
+).addEventListener(
+    "click",
+    function(event) {
+
+        if (
+            event.target ===
+            this
+        ) {
+
+            closeDetails();
+
+        }
+
+    }
+);
+
+
+/* =========================
+   START
+========================= */
+
+loadOrders();
+
+</script>
+
+
+</body>
+
+</html>

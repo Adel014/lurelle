@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Custom Orders | Lurelle by Adel</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+
+body {
+    background-color: #FFF8F3;
+    color: #6F5A4D;
+    font-family: Georgia, serif;
+    margin: 0;
+    padding: 0;
+}
+
+
+/* HAMBURGER */
+
+.menu-button {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1001;
+    background-color: #DCC9BE;
+    color: #FFF8F3;
+    border: none;
+    padding: 11px 17px;
+    border-radius: 25px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+
+/* MENU */
+
+#menu {
+    position: fixed;
+    top: 0;
+    left: -270px;
+    width: 250px;
+    height: 100%;
+    background-color: #FFF8F3;
+    padding-top: 90px;
+    box-shadow: 5px 0 15px rgba(111,90,77,0.15);
+    transition: left 0.4s ease;
+    z-index: 1000;
+}
+
+#menu.open {
+    left: 0;
+}
+
+#menu a {
+    display: block;
+    padding: 18px 25px;
+    color: #6F5A4D;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+#menu a:hover {
+    background-color: #F7DCE1;
+}
+
+
+/* PAGE */
+
+section {
+    padding: 100px 20px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 38px;
+}
+
+.intro {
+    max-width: 650px;
+    margin: 0 auto 40px auto;
+    line-height: 1.7;
+    font-size: 17px;
+}
+
+
+/* CUSTOM ORDER CARD */
+
+.order-card {
+    max-width: 600px;
+    margin: auto;
+    padding: 35px;
+    background-color: #F7DCE1;
+    border-radius: 25px;
+}
+
+
+/* FORM */
+
+.order-form {
+    background-color: #FFF8F3;
+    padding: 25px;
+    border-radius: 20px;
+    text-align: left;
+}
+
+.order-form label {
+    display: block;
+    margin-top: 17px;
+    font-weight: bold;
+}
+
+.order-form input,
+.order-form select,
+.order-form textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px;
+    margin-top: 6px;
+    border: 1px solid #DCC9BE;
+    border-radius: 10px;
+    background-color: #FFF8F3;
+    color: #6F5A4D;
+    font-family: Georgia, serif;
+}
+
+.order-form textarea {
+    height: 120px;
+    resize: vertical;
+}
+
+
+.submit-button {
+    display: block;
+    margin: 25px auto 0 auto;
+    background-color: #6F5A4D;
+    color: #FFF8F3;
+    border: none;
+    padding: 13px 25px;
+    border-radius: 25px;
+    cursor: pointer;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+    section {
+        padding: 85px 15px;
+    }
+
+    h1 {
+        font-size: 30px;
+    }
+
+    .order-card {
+        padding: 20px;
+    }
+
+    .order-form {
+        padding: 20px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- HAMBURGER -->
+
+<button class="menu-button" onclick="toggleMenu()">☰</button>
+
+
+<!-- MENU -->
+
+<div id="menu">
+
+<a href="Lurellebyadel.html">Home</a>
+
+<a href="about.html">About</a>
+
+<a href="blog.html">Blog🌸</a>
+
+<a href="patterns.html">Patterns🧶</a>
+
+<a href="collection.html">Collection</a>
+
+<a href="custom-orders.html">Custom Orders</a>
+
+<a href="contact.html">Contact</a>
+
+</div>
+
+
+
+<!-- CUSTOM ORDERS -->
+
+<section>
+
+
+<h1>♡ Custom Orders</h1>
+
+
+<p class="intro">
+
+Have something specific in mind?
+
+Tell Lurelle what you're imagining and let's create something that's uniquely yours. 🧶
+
+</p>
+
+
+
+<div class="order-card">
+
+
+<h2>✦ Create Something Custom</h2>
+
+
+<form
+class="order-form"
+onsubmit="submitCustomOrder(event)">
+
+
+<label>
+
+Your name
+
+</label>
+
+<input
+type="text"
+id="customName"
+placeholder="Your name"
+required>
+
+
+
+<label>
+
+Email
+
+</label>
+
+<input
+type="email"
+id="customEmail"
+placeholder="Your email"
+required>
+
+
+
+<label>
+
+What would you like made?
+
+</label>
+
+<select
+id="customItem"
+required>
+
+<option value="">
+
+Choose an item
+
+</option>
+
+<option>
+
+Bucket Hat
+
+</option>
+
+<option>
+
+Shrug
+
+</option>
+
+<option>
+
+Something else
+
+</option>
+
+</select>
+
+
+
+<label>
+
+Preferred colour
+
+</label>
+
+<input
+type="text"
+id="customColour"
+placeholder="e.g. ivory, pink, blue...">
+
+
+
+<label>
+
+Preferred size
+
+</label>
+
+<input
+type="text"
+id="customSize"
+placeholder="Tell us the size you need">
+
+
+
+<label>
+
+Tell us about your idea
+
+</label>
+
+<textarea
+id="customDescription"
+placeholder="Describe what you'd like..."></textarea>
+
+
+
+<label>
+
+📸 Add a reference photo (optional)
+
+</label>
+
+<input
+type="file"
+id="customPhoto"
+accept="image/*"
+capture="environment">
+
+
+
+<label>
+
+Anything else?
+
+</label>
+
+<textarea
+id="customNote"
+placeholder="Any extra details or requests?"></textarea>
+
+
+
+<button
+class="submit-button"
+type="submit">
+
+Send Custom Request
+
+</button>
+
+
+</form>
+
+</div>
+
+
+</section>
+
+
+
+<script>
+
+function toggleMenu() {
+
+    document
+    .getElementById("menu")
+    .classList.toggle("open");
+
+}
+
+
+function submitCustomOrder(event) {
+
+    event.preventDefault();
+
+
+    var name =
+    document
+    .getElementById("customName")
+    .value;
+
+
+    alert(
+    "Thank you, " +
+    name +
+    "! Your custom request has been received. ♡"
+    );
+
+}
+
+</script>
+
+
+</body>
+
+</html>

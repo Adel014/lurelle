@@ -1,0 +1,1255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Checkout | Lurelle by Adel</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #fff8f3;
+    color: #6f5a4d;
+    font-family: Georgia, serif;
+}
+
+main {
+    max-width: 850px;
+    margin: auto;
+    padding: 35px 20px 70px;
+}
+
+.back {
+    color: #6f5a4d;
+    text-decoration: none;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+h1 {
+    text-align: center;
+    font-size: 38px;
+    margin: 10px 0 8px;
+}
+
+.subtitle {
+    text-align: center;
+    margin: 0 0 30px;
+}
+
+.card {
+    background: #fff;
+    border: 1px solid #dcc9be;
+    border-radius: 24px;
+    padding: 28px;
+    margin-bottom: 22px;
+    box-shadow: 0 6px 20px rgba(111, 90, 77, 0.08);
+}
+
+h2 {
+    margin-top: 0;
+}
+
+.item {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 13px 0;
+    border-bottom: 1px solid #eaded8;
+}
+
+.item:last-child {
+    border-bottom: 0;
+}
+
+.summary {
+    margin-top: 15px;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 7px 0;
+}
+
+.total {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: right;
+    margin-top: 12px;
+}
+
+label {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+input,
+textarea {
+    width: 100%;
+    margin-top: 7px;
+    padding: 13px;
+    border: 1px solid #dcc9be;
+    border-radius: 12px;
+    background: #fff8f3;
+    color: #6f5a4d;
+    font-family: Georgia, serif;
+    font-size: 15px;
+}
+
+textarea {
+    min-height: 90px;
+    resize: vertical;
+}
+
+button {
+    width: 100%;
+    border: 0;
+    border-radius: 30px;
+    padding: 16px;
+    margin-top: 20px;
+    background: #6f5a4d;
+    color: white;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #80675a;
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.notice {
+    padding: 15px;
+    border-radius: 14px;
+    margin-top: 15px;
+    display: none;
+    line-height: 1.5;
+}
+
+.notice.show {
+    display: block;
+}
+
+.success {
+    background: #e4f1e3;
+    color: #4d704d;
+}
+
+.error {
+    background: #f7dfdf;
+    color: #8a5555;
+}
+
+.pending {
+    background: #f1ebe6;
+    color: #6f5a4d;
+}
+
+.discount {
+    background: #f8e4e8;
+    border-radius: 14px;
+    padding: 13px;
+    margin-top: 12px;
+}
+
+.order-number {
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.small {
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.payment {
+    display: none;
+}
+
+.payment.show {
+    display: block;
+}
+
+.debug {
+    display: none;
+    white-space: pre-wrap;
+    background: #f4eeee;
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 12px;
+    overflow: auto;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<main>
+
+
+<a
+    href="collection.html"
+    class="back"
+>
+    ← Back to Collection
+</a>
+
+
+<h1>
+    ♡ Lurelle Checkout
+</h1>
+
+
+<p class="subtitle">
+    Almost yours ♡
+</p>
+
+
+
+<!-- =========================
+     YOUR ORDER
+========================= -->
+
+<div class="card">
+
+    <h2>
+        Your Order
+    </h2>
+
+
+    <div
+        id="orderNumber"
+        class="order-number"
+    >
+        Order not saved yet
+    </div>
+
+
+    <div id="items">
+        Loading order...
+    </div>
+
+
+    <div class="summary">
+
+
+        <div class="summary-row">
+
+            <span>
+                Subtotal
+            </span>
+
+            <strong id="subtotal">
+                ₦0
+            </strong>
+
+        </div>
+
+
+        <div
+            id="discountBox"
+            class="discount"
+            style="display:none"
+        >
+        </div>
+
+
+        <div class="summary-row">
+
+            <span>
+                Discount
+            </span>
+
+            <strong id="discountAmount">
+                ₦0
+            </strong>
+
+        </div>
+
+
+        <div class="total">
+
+            Total:
+            <span id="total">
+                ₦0
+            </span>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================
+     DELIVERY DETAILS
+========================= -->
+
+<div class="card">
+
+    <h2>
+        Delivery Details
+    </h2>
+
+
+    <label>
+
+        Full name
+
+        <input
+            id="customerName"
+            type="text"
+            autocomplete="name"
+        >
+
+    </label>
+
+
+    <label>
+
+        Email
+
+        <input
+            id="customerEmail"
+            type="email"
+            autocomplete="email"
+        >
+
+    </label>
+
+
+    <label>
+
+        Phone number
+
+        <input
+            id="customerPhone"
+            type="tel"
+            autocomplete="tel"
+        >
+
+    </label>
+
+
+    <label>
+
+        Delivery address
+
+        <textarea
+            id="deliveryAddress"
+        ></textarea>
+
+    </label>
+
+
+    <label>
+
+        Extra note
+
+        <textarea
+            id="customerNote"
+            placeholder="Anything you'd like Lurelle to know?"
+        ></textarea>
+
+    </label>
+
+</div>
+
+
+
+<!-- =========================
+     ORDER CONFIRMATION
+========================= -->
+
+<div class="card">
+
+    <h2>
+        Order Confirmation
+    </h2>
+
+
+    <p class="small">
+
+        Your order is saved first.
+        Payment is recorded separately, so an order
+        can exist with
+        <strong>
+            payment status: unpaid
+        </strong>.
+
+    </p>
+
+
+    <button
+        id="saveButton"
+        onclick="saveOrder()"
+    >
+
+        Place Order ♡
+
+    </button>
+
+
+    <div
+        id="orderStatus"
+        class="notice"
+    >
+    </div>
+
+</div>
+
+
+
+<!-- =========================
+     PAYMENT
+========================= -->
+
+<div
+    id="paymentCard"
+    class="card payment"
+>
+
+    <h2>
+        Payment
+    </h2>
+
+
+    <p>
+        Your order has been saved successfully. ♡
+    </p>
+
+
+    <p class="small">
+
+        Your payment system is still in test mode.
+        No real card details, PINs or banking passwords
+        should be entered on this page.
+
+    </p>
+
+
+    <button
+        onclick="showPaymentMessage()"
+    >
+
+        Continue to Payment ♡
+
+    </button>
+
+
+    <div
+        id="paymentStatus"
+        class="notice"
+    >
+    </div>
+
+</div>
+
+
+
+<div
+    id="debugBox"
+    class="debug"
+>
+</div>
+
+
+</main>
+
+
+
+<script>
+
+
+/* ==========================================
+   SUPABASE CONNECTION
+========================================== */
+
+const SUPABASE_URL =
+    "https://ljzydmylrayqdvuxtzps.supabase.co";
+
+
+const SUPABASE_KEY =
+    "sb_publishable_RNQQFOqPdrKbLd6HiMSmwg_6UUNBZqg";
+
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+
+
+/* ==========================================
+   CHECKOUT DATA
+========================================== */
+
+const checkout =
+    JSON.parse(
+        sessionStorage.getItem(
+            "lurelleCheckout"
+        ) || "null"
+    );
+
+
+
+/* ==========================================
+   MONEY
+========================================== */
+
+function money(value) {
+
+    return "₦" +
+        Number(
+            value || 0
+        ).toLocaleString();
+
+}
+
+
+
+/* ==========================================
+   ESCAPE HTML
+========================================== */
+
+function escapeHTML(value) {
+
+    const div =
+        document.createElement(
+            "div"
+        );
+
+
+    div.textContent =
+        value == null
+            ? ""
+            : String(value);
+
+
+    return div.innerHTML;
+
+}
+
+
+
+/* ==========================================
+   CURRENT MONTH
+========================================== */
+
+function currentMonth() {
+
+    const d =
+        new Date();
+
+
+    return (
+        d.getFullYear() +
+        "-" +
+        String(
+            d.getMonth() + 1
+        ).padStart(2, "0")
+    );
+
+}
+
+
+
+/* ==========================================
+   SHOW NOTICE
+========================================== */
+
+function showNotice(
+    element,
+    text,
+    type
+) {
+
+    element.textContent =
+        text;
+
+
+    element.className =
+        "notice show " +
+        type;
+
+}
+
+
+
+/* ==========================================
+   GET ITEMS
+========================================== */
+
+function getItems() {
+
+    if (
+        checkout &&
+        Array.isArray(
+            checkout.items
+        )
+    ) {
+
+        return checkout.items;
+
+    }
+
+
+    return [];
+
+}
+
+
+
+/* ==========================================
+   DISPLAY CHECKOUT
+========================================== */
+
+function displayCheckout() {
+
+    const items =
+        getItems();
+
+
+    const box =
+        document.getElementById(
+            "items"
+        );
+
+
+    if (
+        !items.length
+    ) {
+
+        box.innerHTML =
+            "<p>No checkout items were found.</p>";
+
+
+        document.getElementById(
+            "saveButton"
+        ).disabled = true;
+
+
+        return;
+
+    }
+
+
+    box.innerHTML = "";
+
+
+    items.forEach(
+        item => {
+
+            const quantity =
+                Number(
+                    item.quantity ??
+                    item.qty ??
+                    1
+                );
+
+
+            const price =
+                Number(
+                    item.price ??
+                    item.unit_price ??
+                    0
+                );
+
+
+            const name =
+                item.name ??
+                item.title ??
+                "Item";
+
+
+            const row =
+                document.createElement(
+                    "div"
+                );
+
+
+            row.className =
+                "item";
+
+
+            row.innerHTML =
+
+                "<span>" +
+
+                "<strong>" +
+
+                escapeHTML(
+                    name
+                ) +
+
+                "</strong>" +
+
+                " × " +
+
+                quantity +
+
+                "</span>" +
+
+                "<span>" +
+
+                money(
+                    price *
+                    quantity
+                ) +
+
+                "</span>";
+
+
+            box.appendChild(
+                row
+            );
+
+        }
+    );
+
+
+
+    const subtotal =
+        Number(
+            checkout.subtotal ??
+            checkout.subTotal ??
+
+            items.reduce(
+                (
+                    sum,
+                    item
+                ) =>
+
+                    sum +
+
+                    Number(
+                        item.price ??
+                        item.unit_price ??
+                        0
+                    ) *
+
+                    Number(
+                        item.quantity ??
+                        item.qty ??
+                        1
+                    ),
+
+                0
+            )
+        );
+
+
+
+    const discount =
+        Number(
+            checkout.discountAmount ??
+            checkout.discount_amount ??
+            checkout.discount ??
+            0
+        );
+
+
+
+    const total =
+        Number(
+            checkout.total ??
+            (
+                subtotal -
+                discount
+            )
+        );
+
+
+
+    const rate =
+        Number(
+            checkout.discountRate ??
+            checkout.discount_rate ??
+            0
+        );
+
+
+
+    document.getElementById(
+        "subtotal"
+    ).textContent =
+        money(
+            subtotal
+        );
+
+
+    document.getElementById(
+        "discountAmount"
+    ).textContent =
+        money(
+            discount
+        );
+
+
+    document.getElementById(
+        "total"
+    ).textContent =
+        money(
+            total
+        );
+
+
+
+    if (
+        discount > 0
+    ) {
+
+        const discountBox =
+            document.getElementById(
+                "discountBox"
+            );
+
+
+        discountBox.style.display =
+            "block";
+
+
+        discountBox.textContent =
+            "♡ Monthly discount: " +
+            (
+                rate * 100
+            ) +
+            "% off";
+
+    }
+
+}
+
+
+
+/* ==========================================
+   SAVE ORDER
+========================================== */
+
+async function saveOrder() {
+
+    const button =
+        document.getElementById(
+            "saveButton"
+        );
+
+
+    const status =
+        document.getElementById(
+            "orderStatus"
+        );
+
+
+    if (
+        !checkout ||
+        !getItems().length
+    ) {
+
+        showNotice(
+            status,
+            "No order was found to save.",
+            "error"
+        );
+
+
+        return;
+
+    }
+
+
+
+    const customerName =
+        document.getElementById(
+            "customerName"
+        ).value.trim();
+
+
+    const customerEmail =
+        document.getElementById(
+            "customerEmail"
+        ).value.trim();
+
+
+    const customerPhone =
+        document.getElementById(
+            "customerPhone"
+        ).value.trim();
+
+
+    const deliveryAddress =
+        document.getElementById(
+            "deliveryAddress"
+        ).value.trim();
+
+
+    const customerNote =
+        document.getElementById(
+            "customerNote"
+        ).value.trim();
+
+
+
+    if (
+        !customerName ||
+        !customerEmail ||
+        !customerPhone ||
+        !deliveryAddress
+    ) {
+
+        showNotice(
+            status,
+            "Please fill in your name, email, phone number and delivery address. ♡",
+            "error"
+        );
+
+
+        return;
+
+    }
+
+
+
+    button.disabled =
+        true;
+
+
+    button.textContent =
+        "Saving order... ♡";
+
+
+
+    const items =
+        getItems();
+
+
+
+    const subtotal =
+        Number(
+            checkout.subtotal ??
+            checkout.subTotal ??
+
+            items.reduce(
+                (
+                    sum,
+                    item
+                ) =>
+
+                    sum +
+
+                    Number(
+                        item.price ??
+                        item.unit_price ??
+                        0
+                    ) *
+
+                    Number(
+                        item.quantity ??
+                        item.qty ??
+                        1
+                    ),
+
+                0
+            )
+        );
+
+
+
+    const discount =
+        Number(
+            checkout.discountAmount ??
+            checkout.discount_amount ??
+            checkout.discount ??
+            0
+        );
+
+
+
+    const total =
+        Number(
+            checkout.total ??
+            (
+                subtotal -
+                discount
+            )
+        );
+
+
+
+    const rate =
+        Number(
+            checkout.discountRate ??
+            checkout.discount_rate ??
+            0
+        );
+
+
+
+    /*
+       IMPORTANT:
+
+       We do NOT send:
+
+       id
+       created_at
+       order_number
+       order_status
+       payment_status
+
+       Supabase handles those.
+    */
+
+
+    const orderData = {
+
+        customer_name:
+            customerName,
+
+        customer_email:
+            customerEmail,
+
+        customer_phone:
+            customerPhone,
+
+        delivery_address:
+            deliveryAddress,
+
+        customer_note:
+            customerNote,
+
+        items:
+            items,
+
+        subtotal:
+            subtotal,
+
+        discount_rate:
+            rate,
+
+        discount_amount:
+            discount,
+
+        total:
+            total,
+
+        discount_month:
+            checkout.discountMonth ??
+            checkout.discount_month ??
+            currentMonth()
+
+    };
+
+
+
+    console.log(
+        "Sending order:",
+        orderData
+    );
+
+
+
+    try {
+
+
+        /*
+           IMPORTANT FIX:
+
+           We only INSERT.
+
+           We do NOT use:
+
+           .select()
+           .single()
+
+           because guests are allowed
+           to create orders but are NOT
+           allowed to read orders.
+        */
+
+
+        const result =
+            await supabaseClient
+                .from("orders")
+                .insert(
+                    orderData
+                );
+
+
+
+        console.log(
+            "Supabase result:",
+            result
+        );
+
+
+
+        if (
+            result.error
+        ) {
+
+            throw result.error;
+
+        }
+
+
+
+        /*
+           The INSERT worked.
+        */
+
+
+        document.getElementById(
+            "orderNumber"
+        ).textContent =
+            "Order saved successfully ♡";
+
+
+
+        showNotice(
+            status,
+            "♡ Your order has been saved successfully! Payment is currently unpaid.",
+            "success"
+        );
+
+
+
+        button.textContent =
+            "Order Saved ♡";
+
+
+
+        /*
+           NOW SHOW PAYMENT SECTION
+        */
+
+
+        document.getElementById(
+            "paymentCard"
+        ).classList.add(
+            "show"
+        );
+
+
+    }
+
+
+    catch (
+        error
+    ) {
+
+
+        console.error(
+            "SUPABASE ORDER ERROR:",
+            error
+        );
+
+
+
+        /*
+           SHOW THE REAL ERROR
+           IF IT FAILS AGAIN
+        */
+
+
+        const debugBox =
+            document.getElementById(
+                "debugBox"
+            );
+
+
+        debugBox.style.display =
+            "block";
+
+
+        debugBox.textContent =
+            "SUPABASE ERROR:\n" +
+            JSON.stringify(
+                error,
+                null,
+                2
+            );
+
+
+
+        showNotice(
+            status,
+            "Your order could not be saved yet. Please try again. ♡",
+            "error"
+        );
+
+
+
+        button.disabled =
+            false;
+
+
+        button.textContent =
+            "Place Order ♡";
+
+    }
+
+}
+
+
+
+/* ==========================================
+   PAYMENT TEST MESSAGE
+========================================== */
+
+function showPaymentMessage() {
+
+    showNotice(
+
+        document.getElementById(
+            "paymentStatus"
+        ),
+
+        "Payment is still in test mode. Your order remains saved as unpaid until a real payment system is connected. ♡",
+
+        "pending"
+
+    );
+
+}
+
+
+
+/* ==========================================
+   START
+========================================== */
+
+displayCheckout();
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1591 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Blorelle Manager | Lurelle</title>
+
+<style>
+
+body {
+    margin: 0;
+    background-color: #FFF8F3;
+    color: #6F5A4D;
+    font-family: Georgia, serif;
+}
+
+.manager-page {
+    min-height: 100vh;
+    padding: 60px 25px 90px;
+    box-sizing: border-box;
+}
+
+.back-button {
+    display: inline-block;
+    margin-bottom: 35px;
+    color: #6F5A4D;
+    text-decoration: none;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+.back-button:hover {
+    color: #C98F9F;
+}
+
+.title-area {
+    text-align: center;
+    margin-bottom: 45px;
+}
+
+.small-title {
+    margin: 0 0 10px;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #A28E84;
+}
+
+h1 {
+    margin: 0;
+    font-size: clamp(40px, 7vw, 65px);
+    font-weight: normal;
+}
+
+.subtitle {
+    margin: 12px auto 0;
+    max-width: 560px;
+    font-size: 16px;
+    font-style: italic;
+    line-height: 1.7;
+    color: #8A7468;
+}
+
+.form-box {
+    max-width: 700px;
+    margin: 0 auto;
+    background-color: rgba(255,255,255,0.65);
+    border: 1px solid #E5D6CD;
+    border-radius: 30px;
+    padding: 35px;
+    box-shadow: 0 8px 25px rgba(111,90,77,0.08);
+    box-sizing: border-box;
+}
+
+label {
+    display: block;
+    margin: 0 0 8px;
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    color: #806B60;
+}
+
+input,
+textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 14px 16px;
+    margin-bottom: 22px;
+    border: 1px solid #E5D6CD;
+    border-radius: 17px;
+    background-color: #FFF8F3;
+    color: #6F5A4D;
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+    outline: none;
+}
+
+input:focus,
+textarea:focus {
+    border-color: #DCC9BE;
+}
+
+textarea {
+    min-height: 250px;
+    resize: vertical;
+    line-height: 1.7;
+}
+
+.photo-note {
+    margin: -10px 0 22px;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #A28E84;
+}
+
+.main-button {
+    width: 100%;
+    padding: 16px;
+    border: none;
+    border-radius: 20px;
+    background-color: #DCC9BE;
+    color: #FFF8F3;
+    font-family: Georgia, serif;
+    font-size: 17px;
+    cursor: pointer;
+    transition:
+        background-color 0.3s ease,
+        transform 0.3s ease;
+}
+
+.main-button:hover {
+    background-color: #C98F9F;
+    transform: translateY(-2px);
+}
+
+.cancel-button {
+    display: none;
+    width: 100%;
+    padding: 13px;
+    margin-top: 10px;
+    border: 1px solid #DCC9BE;
+    border-radius: 18px;
+    background-color: transparent;
+    color: #806B60;
+    cursor: pointer;
+    font-family: Georgia, serif;
+}
+
+#message {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+    font-style: italic;
+    color: #8A7468;
+}
+
+.posts-section {
+    max-width: 850px;
+    margin: 80px auto 0;
+}
+
+.posts-title {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.posts-title h2 {
+    margin: 0;
+    font-size: 38px;
+    font-weight: normal;
+}
+
+.post-card {
+    background-color: rgba(255,255,255,0.65);
+    border: 1px solid #E5D6CD;
+    border-radius: 28px;
+    padding: 28px;
+    margin-bottom: 25px;
+    box-shadow: 0 6px 20px rgba(111,90,77,0.06);
+}
+
+.post-card h3 {
+    margin: 0 0 12px;
+    font-size: 28px;
+    font-weight: normal;
+}
+
+.post-date {
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    color: #A28E84;
+    margin-bottom: 18px;
+}
+
+.post-content {
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.8;
+    white-space: pre-wrap;
+}
+
+.post-images {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.post-images img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 18px;
+}
+
+.post-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 22px;
+    flex-wrap: wrap;
+}
+
+.action-button {
+    border: 1px solid #E5D6CD;
+    background-color: #FFF8F3;
+    color: #6F5A4D;
+    border-radius: 15px;
+    padding: 9px 14px;
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+    transition: 0.2s ease;
+}
+
+.action-button:hover {
+    background-color: #F7DCE1;
+}
+
+.action-button.liked {
+    background-color: #F7DCE1;
+    border-color: #DCC9BE;
+}
+
+.like-button {
+    min-width: 105px;
+}
+
+.comments-area {
+    display: none;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #E5D6CD;
+}
+
+.comment {
+    padding: 12px 0;
+    border-bottom: 1px solid #EEE2DB;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.comment-name {
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.comment-form {
+    margin-top: 15px;
+}
+
+.comment-form input {
+    margin-bottom: 10px;
+}
+
+.comment-form textarea {
+    min-height: 80px;
+    margin-bottom: 10px;
+}
+
+.comment-submit {
+    border: none;
+    border-radius: 15px;
+    padding: 10px 15px;
+    background-color: #DCC9BE;
+    color: #FFF8F3;
+    cursor: pointer;
+}
+
+@media (max-width: 700px) {
+
+    .form-box {
+        padding: 25px;
+    }
+
+    .post-images {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<main class="manager-page">
+
+<a href="manager.html" class="back-button">
+    ← Back to Manager
+</a>
+
+<div class="title-area">
+
+    <p class="small-title">
+        behind the scenes
+    </p>
+
+    <h1>
+        Blorelle ♡
+    </h1>
+
+    <p class="subtitle">
+        Write, create and manage your little
+        corner of Lurelle.
+    </p>
+
+</div>
+
+<div class="form-box">
+
+<label for="postTitle">
+    Blog title
+</label>
+
+<input
+    id="postTitle"
+    type="text"
+    placeholder="e.g. A little crochet story ♡"
+>
+
+<label for="postContent">
+    Your Blorelle post
+</label>
+
+<textarea
+    id="postContent"
+    placeholder="Write your Blorelle story here... You can use emojis too! ♡ 😊🌸🧶"
+></textarea>
+
+<label for="postPhotos">
+    Add photos
+</label>
+
+<input
+    id="postPhotos"
+    type="file"
+    accept="image/*"
+    multiple
+>
+
+<p class="photo-note">
+    You can choose more than one photo.
+    Your photo URLs can be connected to your Supabase setup.
+</p>
+
+<button
+    id="saveButton"
+    class="main-button"
+    onclick="savePost()"
+>
+    Publish to Blorelle ♡
+</button>
+
+<button
+    id="cancelButton"
+    class="cancel-button"
+    onclick="cancelEdit()"
+>
+    Cancel Edit
+</button>
+
+<p id="message"></p>
+
+</div>
+
+<section class="posts-section">
+
+<div class="posts-title">
+
+    <p class="small-title">
+        your stories
+    </p>
+
+    <h2>
+        Your Blorelle Posts ♡
+    </h2>
+
+</div>
+
+<div id="postsList">
+
+    <p class="post-date">
+        Loading your Blorelle posts... ♡
+    </p>
+
+</div>
+
+</section>
+
+</main>
+
+<script>
+
+/* =====================================================
+   SUPABASE CONNECTION
+===================================================== */
+
+const SUPABASE_URL =
+    "https://ljzydmylrayqdvuxtzps.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_RNQQFOqPdrKbLd6HiMSmwg_6UUNBZqg";
+
+
+/* =====================================================
+   EDITING
+===================================================== */
+
+let editingPostId = null;
+
+
+/* =====================================================
+   SESSION
+===================================================== */
+
+async function refreshLurelleSession() {
+
+    const refreshToken =
+        localStorage.getItem(
+            "lurelle_refresh_token"
+        );
+
+    if (!refreshToken) {
+        return null;
+    }
+
+    try {
+
+        const response =
+            await fetch(
+                SUPABASE_URL +
+                "/auth/v1/token?grant_type=refresh_token",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json",
+
+                        "apikey":
+                            SUPABASE_PUBLISHABLE_KEY
+                    },
+
+                    body: JSON.stringify({
+                        refresh_token:
+                            refreshToken
+                    })
+                }
+            );
+
+        const data =
+            await response.json();
+
+        if (!response.ok) {
+
+            console.error(
+                "Session refresh failed:",
+                data
+            );
+
+            return null;
+        }
+
+        localStorage.setItem(
+            "lurelle_access_token",
+            data.access_token
+        );
+
+        if (data.refresh_token) {
+
+            localStorage.setItem(
+                "lurelle_refresh_token",
+                data.refresh_token
+            );
+
+        }
+
+        if (data.expires_in) {
+
+            localStorage.setItem(
+                "lurelle_token_expires_at",
+                String(
+                    Date.now() +
+                    data.expires_in * 1000
+                )
+            );
+
+        }
+
+        return data.access_token;
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Could not refresh session:",
+            error
+        );
+
+        return null;
+    }
+}
+
+
+async function getValidAccessToken() {
+
+    let accessToken =
+        localStorage.getItem(
+            "lurelle_access_token"
+        );
+
+    const refreshToken =
+        localStorage.getItem(
+            "lurelle_refresh_token"
+        );
+
+    if (!accessToken || !refreshToken) {
+        return null;
+    }
+
+    const expiresAt =
+        Number(
+            localStorage.getItem(
+                "lurelle_token_expires_at"
+            )
+        ) || 0;
+
+    if (
+        !expiresAt ||
+        Date.now() >= expiresAt - 30000
+    ) {
+
+        accessToken =
+            await refreshLurelleSession();
+
+    }
+
+    return accessToken;
+}
+
+
+function getUserIdFromAccessToken(
+    accessToken
+) {
+
+    try {
+
+        const parts =
+            accessToken.split(".");
+
+        if (parts.length !== 3) {
+            return null;
+        }
+
+        const payload =
+            parts[1]
+                .replace(/-/g, "+")
+                .replace(/_/g, "/");
+
+        return JSON.parse(
+            decodeURIComponent(
+                atob(payload)
+                    .split("")
+                    .map(
+                        function(character) {
+
+                            return "%" +
+                            (
+                                "00" +
+                                character
+                                    .charCodeAt(0)
+                                    .toString(16)
+                            ).slice(-2);
+
+                        }
+                    )
+                    .join("")
+            )
+        ).sub || null;
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Could not read user ID:",
+            error
+        );
+
+        return null;
+    }
+}
+
+
+/* =====================================================
+   PUBLISH / EDIT
+===================================================== */
+
+async function savePost() {
+
+    const title =
+        document
+            .getElementById("postTitle")
+            .value
+            .trim();
+
+    const content =
+        document
+            .getElementById("postContent")
+            .value
+            .trim();
+
+    const message =
+        document.getElementById("message");
+
+
+    if (!title || !content) {
+
+        message.textContent =
+            "Please add a title and write something first. ♡";
+
+        return;
+    }
+
+
+    message.textContent =
+        "Checking your Lurelle session... ♡";
+
+
+    let accessToken =
+        await getValidAccessToken();
+
+
+    if (!accessToken) {
+
+        message.textContent =
+            "Please log in to the Manager first. ♡";
+
+        return;
+    }
+
+
+    let userId =
+        getUserIdFromAccessToken(
+            accessToken
+        );
+
+
+    if (!userId) {
+
+        message.textContent =
+            "We couldn't identify your Lurelle account. Please log in again. ♡";
+
+        return;
+    }
+
+
+    message.textContent =
+        editingPostId
+            ? "Saving your Blorelle changes... ♡"
+            : "Publishing your Blorelle post... ♡";
+
+
+    try {
+
+        let response;
+
+
+        /* =================================================
+           NEW POST
+        ================================================= */
+
+        if (!editingPostId) {
+
+            response =
+                await fetch(
+                    SUPABASE_URL +
+                    "/rest/v1/blorelle_posts",
+                    {
+
+                        method: "POST",
+
+                        headers: {
+
+                            "Content-Type":
+                                "application/json",
+
+                            "apikey":
+                                SUPABASE_PUBLISHABLE_KEY,
+
+                            "Authorization":
+                                "Bearer " +
+                                accessToken,
+
+                            "Prefer":
+                                "return=representation"
+
+                        },
+
+                        body: JSON.stringify({
+
+                            title:
+                                title,
+
+                            content:
+                                content,
+
+                            user_id:
+                                userId
+
+                        })
+
+                    }
+                );
+
+        }
+
+
+        /* =================================================
+           EDIT EXISTING POST
+        ================================================= */
+
+        else {
+
+            response =
+                await fetch(
+                    SUPABASE_URL +
+                    "/rest/v1/blorelle_posts?id=eq." +
+                    encodeURIComponent(
+                        editingPostId
+                    ) +
+                    "&user_id=eq." +
+                    encodeURIComponent(
+                        userId
+                    ),
+                    {
+
+                        method: "PATCH",
+
+                        headers: {
+
+                            "Content-Type":
+                                "application/json",
+
+                            "apikey":
+                                SUPABASE_PUBLISHABLE_KEY,
+
+                            "Authorization":
+                                "Bearer " +
+                                accessToken,
+
+                            "Prefer":
+                                "return=representation"
+
+                        },
+
+                        body: JSON.stringify({
+
+                            title:
+                                title,
+
+                            content:
+                                content
+
+                        })
+
+                    }
+                );
+
+        }
+
+
+        /* =================================================
+           REFRESH IF SESSION EXPIRED
+        ================================================= */
+
+        if (response.status === 401) {
+
+            accessToken =
+                await refreshLurelleSession();
+
+            if (!accessToken) {
+
+                message.textContent =
+                    "Your Manager session expired. Please log in again. ♡";
+
+                return;
+            }
+
+            userId =
+                getUserIdFromAccessToken(
+                    accessToken
+                );
+
+
+            const url =
+                editingPostId
+
+                    ? SUPABASE_URL +
+                      "/rest/v1/blorelle_posts?id=eq." +
+                      encodeURIComponent(
+                          editingPostId
+                      ) +
+                      "&user_id=eq." +
+                      encodeURIComponent(
+                          userId
+                      )
+
+                    : SUPABASE_URL +
+                      "/rest/v1/blorelle_posts";
+
+
+            response =
+                await fetch(
+                    url,
+                    {
+
+                        method:
+                            editingPostId
+                                ? "PATCH"
+                                : "POST",
+
+                        headers: {
+
+                            "Content-Type":
+                                "application/json",
+
+                            "apikey":
+                                SUPABASE_PUBLISHABLE_KEY,
+
+                            "Authorization":
+                                "Bearer " +
+                                accessToken,
+
+                            "Prefer":
+                                "return=representation"
+
+                        },
+
+                        body: JSON.stringify({
+
+                            title:
+                                title,
+
+                            content:
+                                content,
+
+                            ...(editingPostId
+                                ? {}
+                                : {
+                                    user_id:
+                                        userId
+                                })
+
+                        })
+
+                    }
+                );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            console.error(
+                "SUPABASE ERROR:",
+                data
+            );
+
+            message.textContent =
+                "Publish error: " +
+                (
+                    data.message ||
+                    data.error_description ||
+                    JSON.stringify(data)
+                );
+
+            return;
+        }
+
+
+        message.textContent =
+            editingPostId
+                ? "Your Blorelle post was updated. ♡"
+                : "YAY! Your Blorelle post is live. ♡";
+
+
+        clearForm();
+
+
+        /* IMPORTANT:
+           Reload Manager's copy of the same
+           posts immediately.
+        */
+
+        await loadPosts();
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "SAVE ERROR:",
+            error
+        );
+
+        message.textContent =
+            "Something went wrong. Please try again. ♡";
+    }
+}
+
+
+/* =====================================================
+   CLEAR FORM
+===================================================== */
+
+function clearForm() {
+
+    editingPostId = null;
+
+    document
+        .getElementById("postTitle")
+        .value = "";
+
+    document
+        .getElementById("postContent")
+        .value = "";
+
+    document
+        .getElementById("postPhotos")
+        .value = "";
+
+    document
+        .getElementById("saveButton")
+        .textContent =
+            "Publish to Blorelle ♡";
+
+    document
+        .getElementById("cancelButton")
+        .style.display =
+            "none";
+}
+
+
+function cancelEdit() {
+
+    clearForm();
+
+    document
+        .getElementById("message")
+        .textContent = "";
+}
+
+
+/* =====================================================
+   LOAD ONLY THE LOGGED-IN USER'S POSTS
+===================================================== */
+
+async function loadPosts() {
+
+    const postsList =
+        document.getElementById(
+            "postsList"
+        );
+
+    postsList.innerHTML =
+        "<p class='post-date'>Loading your Blorelle posts... ♡</p>";
+
+
+    const accessToken =
+        await getValidAccessToken();
+
+
+    if (!accessToken) {
+
+        postsList.innerHTML =
+            "<p class='post-date'>Please log in to the Manager first. ♡</p>";
+
+        return;
+    }
+
+
+    const userId =
+        getUserIdFromAccessToken(
+            accessToken
+        );
+
+
+    if (!userId) {
+
+        postsList.innerHTML =
+            "<p class='post-date'>We couldn't identify your account. ♡</p>";
+
+        return;
+    }
+
+
+    try {
+
+        let response =
+            await fetch(
+                SUPABASE_URL +
+                "/rest/v1/blorelle_posts?select=*&user_id=eq." +
+                encodeURIComponent(
+                    userId
+                ) +
+                "&order=created_at.desc",
+                {
+
+                    method: "GET",
+
+                    headers: {
+
+                        "apikey":
+                            SUPABASE_PUBLISHABLE_KEY,
+
+                        "Authorization":
+                            "Bearer " +
+                            accessToken
+
+                    }
+
+                }
+            );
+
+
+        if (response.status === 401) {
+
+            const refreshedToken =
+                await refreshLurelleSession();
+
+
+            if (!refreshedToken) {
+
+                postsList.innerHTML =
+                    "<p class='post-date'>Your Manager session expired. Please log in again. ♡</p>";
+
+                return;
+            }
+
+
+            response =
+                await fetch(
+                    SUPABASE_URL +
+                    "/rest/v1/blorelle_posts?select=*&user_id=eq." +
+                    encodeURIComponent(
+                        userId
+                    ) +
+                    "&order=created_at.desc",
+                    {
+
+                        method: "GET",
+
+                        headers: {
+
+                            "apikey":
+                                SUPABASE_PUBLISHABLE_KEY,
+
+                            "Authorization":
+                                "Bearer " +
+                                refreshedToken
+
+                        }
+
+                    }
+                );
+
+        }
+
+
+        const posts =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            console.error(
+                "LOAD POSTS ERROR:",
+                posts
+            );
+
+            postsList.innerHTML =
+                "<p class='post-date'>We couldn't load your Blorelle posts right now. ♡</p>";
+
+            return;
+        }
+
+
+        if (
+            !posts ||
+            posts.length === 0
+        ) {
+
+            postsList.innerHTML =
+                "<p class='post-date'>No Blorelle posts yet. Write your first one above! ♡</p>";
+
+            return;
+        }
+
+
+        postsList.innerHTML = "";
+
+
+        for (
+            const post of posts
+        ) {
+
+            await createPostCard(
+                post,
+                postsList
+            );
+
+        }
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "LOAD ERROR:",
+            error
+        );
+
+        postsList.innerHTML =
+            "<p class='post-date'>Something went wrong while loading Blorelle. ♡</p>";
+    }
+}
+
+
+/* =====================================================
+   CREATE POST CARD
+===================================================== */
+
+async function createPostCard(
+    post,
+    postsList
+) {
+
+    const card =
+        document.createElement(
+            "article"
+        );
+
+    card.className =
+        "post-card";
+
+
+    const title =
+        document.createElement(
+            "h3"
+        );
+
+    title.textContent =
+        post.title;
+
+
+    const date =
+        document.createElement(
+            "div"
+        );
+
+    date.className =
+        "post-date";
+
+    date.textContent =
+        formatDate(
+            post.created_at
+        );
+
+
+    const content =
+        document.createElement(
+            "div"
+        );
+
+    content.className =
+        "post-content";
+
+    content.textContent =
+        post.content;
+
+
+    card.appendChild(title);
+    card.appendChild(date);
+    card.appendChild(content);
+
+
+    /* PHOTOS */
+
+    if (
+        post.image_urls &&
+        Array.isArray(post.image_urls) &&
+        post.image_urls.length > 0
+    ) {
+
+        const imageBox =
+            document.createElement(
+                "div"
+            );
+
+        imageBox.className =
+            "post-images";
+
+
+        post.image_urls.forEach(
+            function(imageUrl) {
+
+                const image =
+                    document.createElement(
+                        "img"
+                    );
+
+                image.src =
+                    imageUrl;
+
+                image.alt =
+                    post.title ||
+                    "Blorelle photo";
+
+                image.loading =
+                    "lazy";
+
+                imageBox.appendChild(
+                    image
+                );
+
+            }
+        );
+
+
+        card.appendChild(
+            imageBox
+        );
+
+    }
+
+
+    /* ACTIONS */
+
+    const actions =
+        document.createElement(
+            "div"
+        );
+
+    actions.className =
+        "post-actions";
+
+
+    const editButton =
+        document.createElement(
+            "button"
+        );
+
+    editButton.className =
+        "action-button";
+
+    editButton.textContent =
+        "✏️ Edit";
+
+    editButton.onclick =
+        function() {
+
+            editPost(post);
+
+        };
+
+
+    const deleteButton =
+        document.createElement(
+            "button"
+        );
+
+    deleteButton.className =
+        "action-button";
+
+    deleteButton.textContent =
+        "🗑️ Delete";
+
+    deleteButton.onclick =
+        function() {
+
+            deletePost(
+                post.id
+            );
+
+        };
+
+
+    actions.appendChild(
+        editButton
+    );
+
+    actions.appendChild(
+        deleteButton
+    );
+
+    card.appendChild(
+        actions
+    );
+
+
+    postsList.appendChild(
+        card
+    );
+}
+
+
+/* =====================================================
+   EDIT
+===================================================== */
+
+function editPost(post) {
+
+    editingPostId =
+        post.id;
+
+    document
+        .getElementById("postTitle")
+        .value =
+            post.title || "";
+
+    document
+        .getElementById("postContent")
+        .value =
+            post.content || "";
+
+    document
+        .getElementById("saveButton")
+        .textContent =
+            "Save Changes ♡";
+
+    document
+        .getElementById("cancelButton")
+        .style.display =
+            "block";
+
+    document
+        .getElementById("postTitle")
+        .scrollIntoView({
+            behavior:
+                "smooth"
+        });
+}
+
+
+/* =====================================================
+   DELETE
+===================================================== */
+
+async function deletePost(
+    postId
+) {
+
+    const confirmed =
+        confirm(
+            "Are you sure you want to delete this Blorelle post?"
+        );
+
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    let accessToken =
+        await getValidAccessToken();
+
+
+    if (!accessToken) {
+
+        alert(
+            "Please log in to the Manager first. ♡"
+        );
+
+        return;
+    }
+
+
+    let userId =
+        getUserIdFromAccessToken(
+            accessToken
+        );
+
+
+    try {
+
+        let response =
+            await fetch(
+                SUPABASE_URL +
+                "/rest/v1/blorelle_posts?id=eq." +
+                encodeURIComponent(
+                    postId
+                ) +
+                "&user_id=eq." +
+                encodeURIComponent(
+                    userId
+                ),
+                {
+
+                    method: "DELETE",
+
+                    headers: {
+
+                        "apikey":
+                            SUPABASE_PUBLISHABLE_KEY,
+
+                        "Authorization":
+                            "Bearer " +
+                            accessToken
+
+                    }
+
+                }
+            );
+
+
+        if (response.status === 401) {
+
+            accessToken =
+                await refreshLurelleSession();
+
+            if (!accessToken) {
+
+                alert(
+                    "Your Manager session expired. Please log in again. ♡"
+                );
+
+                return;
+            }
+
+            userId =
+                getUserIdFromAccessToken(
+                    accessToken
+                );
+
+
+            response =
+                await fetch(
+                    SUPABASE_URL +
+                    "/rest/v1/blorelle_posts?id=eq." +
+                    encodeURIComponent(
+                        postId
+                    ) +
+                    "&user_id=eq." +
+                    encodeURIComponent(
+                        userId
+                    ),
+                    {
+
+                        method: "DELETE",
+
+                        headers: {
+
+                            "apikey":
+                                SUPABASE_PUBLISHABLE_KEY,
+
+                            "Authorization":
+                                "Bearer " +
+                                accessToken
+
+                        }
+
+                    }
+                );
+
+        }
+
+
+        if (!response.ok) {
+
+            const error =
+                await response.text();
+
+            console.error(
+                "DELETE ERROR:",
+                error
+            );
+
+            alert(
+                "The post couldn't be deleted. ♡"
+            );
+
+            return;
+        }
+
+
+        alert(
+            "Your Blorelle post was deleted. ♡"
+        );
+
+
+        loadPosts();
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "DELETE ERROR:",
+            error
+        );
+
+        alert(
+            "Something went wrong while deleting the post. ♡"
+        );
+    }
+}
+
+
+/* =====================================================
+   DATE
+===================================================== */
+
+function formatDate(
+    dateString
+) {
+
+    if (!dateString) {
+        return "";
+    }
+
+    return new Date(
+        dateString
+    ).toLocaleDateString(
+        undefined,
+        {
+
+            year:
+                "numeric",
+
+            month:
+                "long",
+
+            day:
+                "numeric"
+
+        }
+    );
+}
+
+
+/* =====================================================
+   PAGE LOAD
+===================================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        loadPosts();
+
+    }
+);
+
+</script>
+
+</body>
+
+</html>

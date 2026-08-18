@@ -1,0 +1,1850 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Blorelle | Lurelle</title>
+
+<style>
+
+body {
+    margin: 0;
+    background-color: #FFF8F3;
+    color: #6F5A4D;
+    font-family: Georgia, serif;
+}
+
+.menu-button {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1001;
+    background-color: #DCC9BE;
+    color: #FFF8F3;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 25px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+#menu {
+    position: fixed;
+    top: 0;
+    left: -260px;
+    width: 240px;
+    height: 100%;
+    background-color: #FFF8F3;
+    padding-top: 90px;
+    box-shadow: 5px 0 15px rgba(111,90,77,0.15);
+    transition: left 0.4s ease;
+    z-index: 1000;
+}
+
+#menu.open {
+    left: 0;
+}
+
+#menu a {
+    display: block;
+    padding: 18px 25px;
+    color: #6F5A4D;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+#menu a:hover {
+    background-color: #F7DCE1;
+}
+
+.blorelle {
+    min-height: 100vh;
+    padding: 115px 25px 70px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.brand {
+    margin: 0;
+    font-size: clamp(48px, 8vw, 78px);
+    font-weight: normal;
+    letter-spacing: 1px;
+}
+
+.tagline {
+    margin: 10px 0 0;
+    font-size: 21px;
+    font-style: italic;
+    font-weight: 500;
+    color: #8A7468;
+}
+
+.subtagline {
+    margin: 7px 0 0;
+    font-size: 16px;
+    font-style: italic;
+    font-weight: 300;
+    color: #A28E84;
+}
+
+.intro {
+    max-width: 650px;
+    margin: 30px auto 50px;
+    font-size: 17px;
+    line-height: 1.8;
+    color: #806B60;
+}
+
+
+/* =========================
+   LATEST BLORELLE POSTS
+========================= */
+
+.latest-posts {
+    max-width: 850px;
+    margin: 0 auto 55px;
+    text-align: left;
+}
+
+.latest-title {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.latest-title h2 {
+    margin: 0;
+    font-size: 32px;
+    font-weight: normal;
+}
+
+.latest-title p {
+    margin-top: 8px;
+    font-size: 14px;
+    font-style: italic;
+    color: #A28E84;
+}
+
+.posts-status {
+    text-align: center;
+    font-size: 15px;
+    font-style: italic;
+    color: #8B746B;
+}
+
+.blorelle-post {
+    background-color: rgba(255,255,255,0.7);
+    border: 1px solid #E5D6CD;
+    border-radius: 28px;
+    padding: 28px;
+    margin-bottom: 25px;
+    box-shadow: 0 6px 20px rgba(111,90,77,0.07);
+}
+
+.blorelle-post h3 {
+    margin: 0 0 10px;
+    font-size: 28px;
+    font-weight: normal;
+}
+
+.post-date {
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    color: #A28E84;
+    margin-bottom: 18px;
+}
+
+.post-content {
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.8;
+    white-space: pre-wrap;
+    color: #6F5A4D;
+}
+
+.post-images {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.post-images img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    border-radius: 18px;
+}
+
+
+/* =========================
+   POST ACTIONS
+========================= */
+
+.post-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 22px;
+    flex-wrap: wrap;
+}
+
+.action-button {
+    border: 1px solid #E5D6CD;
+    background-color: #FFF8F3;
+    color: #6F5A4D;
+    border-radius: 15px;
+    padding: 9px 14px;
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.action-button:hover {
+    background-color: #F7DCE1;
+    transform: translateY(-1px);
+}
+
+.action-button.liked {
+    background-color: #F7DCE1;
+    border-color: #DCC9BE;
+}
+
+.like-button {
+    min-width: 115px;
+}
+
+.comments-area {
+    display: none;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #E5D6CD;
+}
+
+.comment {
+    padding: 12px 0;
+    border-bottom: 1px solid #EEE2DB;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.comment-name {
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.comment-form {
+    margin-top: 15px;
+}
+
+.comment-form input,
+.comment-form textarea {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #E5D6CD;
+    border-radius: 15px;
+    background-color: #FFF8F3;
+    color: #6F5A4D;
+    font-family: Arial, sans-serif;
+    padding: 11px 13px;
+    margin-bottom: 10px;
+    outline: none;
+}
+
+.comment-form textarea {
+    min-height: 80px;
+    resize: vertical;
+    line-height: 1.5;
+}
+
+.comment-submit {
+    border: none;
+    border-radius: 15px;
+    padding: 10px 15px;
+    background-color: #DCC9BE;
+    color: #FFF8F3;
+    cursor: pointer;
+    font-family: Georgia, serif;
+}
+
+.comment-submit:hover {
+    background-color: #C98F9F;
+}
+
+.comment-status {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    color: #A28E84;
+    font-style: italic;
+}
+
+.footer-note {
+    margin-top: 55px;
+    font-size: 15px;
+    font-style: italic;
+    color: #A28E84;
+}
+
+
+/* =========================
+   PHONE
+========================= */
+
+@media (max-width: 700px) {
+
+    .blorelle {
+        padding-top: 105px;
+    }
+
+    .post-images {
+        grid-template-columns: 1fr;
+    }
+
+    .post-images img {
+        height: 250px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<button class="menu-button" onclick="toggleMenu()">☰</button>
+
+
+<div id="menu">
+
+    <a href="Lurellebyadel.html">Home</a>
+
+    <a href="about.html">About</a>
+
+    <a href="blog.html">Blog🌸</a>
+
+    <a href="patterns.html">Patterns🧶</a>
+
+    <a href="collection.html">Collection</a>
+
+    <a href="custom-orders.html">Custom Orders</a>
+
+    <a href="contact.html">Contact</a>
+
+</div>
+
+
+<main class="blorelle">
+
+
+    <h1 class="brand">
+        Blorelle
+    </h1>
+
+
+    <div class="tagline">
+        the world behind every stitch
+    </div>
+
+
+    <div class="subtagline">
+        ...a little more lurelle
+    </div>
+
+
+    <p class="intro">
+
+        A little corner of Lurelle for stories, styling,
+        inspiration, behind-the-scenes moments and all the
+        lovely little things happening around the brand. ♡
+
+    </p>
+
+
+    <!-- =========================
+         LATEST FROM BLORELLE
+    ========================= -->
+
+    <section class="latest-posts">
+
+        <div class="latest-title">
+
+            <h2>
+                🌸 Latest from Blorelle 🌸
+            </h2>
+
+            <p>
+                The newest little stories, ideas and moments
+                from Lurelle. ♡
+            </p>
+
+        </div>
+
+
+        <div id="postsStatus">
+
+            <p class="posts-status">
+                Loading the latest Blorelle posts... ♡
+            </p>
+
+        </div>
+
+
+        <div id="postsContainer"></div>
+
+    </section>
+
+
+    <div class="footer-note">
+        ♡ stay a little while ♡
+    </div>
+
+
+</main>
+
+
+<script>
+
+/* =========================
+   MENU
+========================= */
+
+function toggleMenu() {
+
+    const menu =
+        document.getElementById("menu");
+
+    menu.classList.toggle("open");
+
+}
+
+
+/* =========================
+   SUPABASE
+========================= */
+
+const SUPABASE_URL =
+    "https://ljzydmylrayqdvuxtzps.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_RNQQFOqPdrKbLd6HiMSmwg_6UUNBZqg";
+
+
+/* =========================
+   GET POSTS
+========================= */
+
+async function loadBlorellePosts() {
+
+    const status =
+        document.getElementById("postsStatus");
+
+    const container =
+        document.getElementById("postsContainer");
+
+
+    try {
+
+        const response =
+            await fetch(
+                SUPABASE_URL +
+                "/rest/v1/blorelle_posts?select=*&order=created_at.desc",
+                {
+
+                    method: "GET",
+
+                    headers: {
+
+                        "apikey":
+                            SUPABASE_PUBLISHABLE_KEY,
+
+                        "Content-Type":
+                            "application/json"
+
+                    }
+
+                }
+            );
+
+
+        const posts =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            console.error(
+                "BLORELLE POSTS ERROR:",
+                posts
+            );
+
+            status.innerHTML =
+                "<p class='posts-status'>" +
+                "We couldn't load the latest Blorelle posts right now. ♡" +
+                "</p>";
+
+            return;
+        }
+
+
+        if (
+            !posts ||
+            posts.length === 0
+        ) {
+
+            status.innerHTML =
+                "<p class='posts-status'>" +
+                "No Blorelle stories yet... check back soon. ♡" +
+                "</p>";
+
+            return;
+        }
+
+
+        /*
+           NEWEST POSTS STAY AT THE TOP.
+           OLDER POSTS CONTINUE BELOW.
+        */
+
+        status.innerHTML = "";
+
+        container.innerHTML = "";
+
+
+        posts.forEach(
+            function(post) {
+
+                createPostCard(
+                    post,
+                    container
+                );
+
+            }
+        );
+
+
+        /*
+           Load likes after posts appear.
+        */
+
+        posts.forEach(
+            function(post) {
+
+                loadLikeInfoForPost(
+                    post
+                );
+
+            }
+        );
+
+    }
+
+
+    catch (error) {
+
+        console.error(
+            "BLORELLE LOADING ERROR:",
+            error
+        );
+
+        status.innerHTML =
+            "<p class='posts-status'>" +
+            "Something went wrong while loading Blorelle. ♡" +
+            "</p>";
+
+    }
+
+}
+
+
+/* =========================
+   CREATE POST
+========================= */
+
+function createPostCard(
+    post,
+    container
+) {
+
+    const article =
+        document.createElement(
+            "article"
+        );
+
+    article.className =
+        "blorelle-post";
+
+    article.dataset.postId =
+        post.id;
+
+
+    const title =
+        document.createElement(
+            "h3"
+        );
+
+    title.textContent =
+        post.title || "Blorelle ♡";
+
+
+    article.appendChild(
+        title
+    );
+
+
+    if (post.created_at) {
+
+        const date =
+            document.createElement(
+                "div"
+            );
+
+        date.className =
+            "post-date";
+
+        date.textContent =
+            formatDate(
+                post.created_at
+            );
+
+        article.appendChild(
+            date
+        );
+
+    }
+
+
+    const content =
+        document.createElement(
+            "div"
+        );
+
+    content.className =
+        "post-content";
+
+    content.textContent =
+        post.content || "";
+
+    article.appendChild(
+        content
+    );
+
+
+    /*
+       PHOTOS
+    */
+
+    if (
+        post.image_urls &&
+        Array.isArray(post.image_urls) &&
+        post.image_urls.length > 0
+    ) {
+
+        const imageBox =
+            document.createElement(
+                "div"
+            );
+
+        imageBox.className =
+            "post-images";
+
+
+        post.image_urls.forEach(
+            function(imageUrl) {
+
+                const image =
+                    document.createElement(
+                        "img"
+                    );
+
+                image.src =
+                    imageUrl;
+
+                image.alt =
+                    post.title ||
+                    "Blorelle photo";
+
+                image.loading =
+                    "lazy";
+
+                imageBox.appendChild(
+                    image
+                );
+
+            }
+        );
+
+
+        article.appendChild(
+            imageBox
+        );
+
+    }
+
+
+    /*
+       ACTIONS
+    */
+
+    const actions =
+        document.createElement(
+            "div"
+        );
+
+    actions.className =
+        "post-actions";
+
+
+    /*
+       LIKE BUTTON
+    */
+
+    const likeButton =
+        document.createElement(
+            "button"
+        );
+
+    likeButton.className =
+        "action-button like-button";
+
+    likeButton.textContent =
+        "👍 Like ...";
+
+
+    likeButton.onclick =
+        async function() {
+
+            await toggleLike(
+                post.id,
+                likeButton
+            );
+
+        };
+
+
+    actions.appendChild(
+        likeButton
+    );
+
+
+    /*
+       COMMENTS BUTTON
+    */
+
+    const commentsButton =
+        document.createElement(
+            "button"
+        );
+
+    commentsButton.className =
+        "action-button";
+
+    commentsButton.textContent =
+        "⌄ Comments";
+
+
+    const commentsArea =
+        document.createElement(
+            "div"
+        );
+
+    commentsArea.className =
+        "comments-area";
+
+
+    commentsButton.onclick =
+        function() {
+
+            if (
+                commentsArea.style.display ===
+                "block"
+            ) {
+
+                commentsArea.style.display =
+                    "none";
+
+                return;
+            }
+
+
+            commentsArea.style.display =
+                "block";
+
+
+            loadComments(
+                post.id,
+                commentsArea
+            );
+
+        };
+
+
+    actions.appendChild(
+        commentsButton
+    );
+
+
+    article.appendChild(
+        actions
+    );
+
+
+    article.appendChild(
+        commentsArea
+    );
+
+
+    container.appendChild(
+        article
+    );
+
+}
+
+
+/* =========================
+   LOAD LIKE INFO
+========================= */
+
+async function loadLikeInfoForPost(
+    post
+) {
+
+    const card =
+        document.querySelector(
+            '[data-post-id="' +
+            post.id +
+            '"]'
+        );
+
+
+    if (!card) {
+        return;
+    }
+
+
+    const likeButton =
+        card.querySelector(
+            ".like-button"
+        );
+
+
+    if (!likeButton) {
+        return;
+    }
+
+
+    try {
+
+        const info =
+            await getLikeInfo(
+                post.id
+            );
+
+
+        updateLikeButton(
+            likeButton,
+            info.count,
+            info.liked
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "LIKE INFO ERROR:",
+            error
+        );
+
+        likeButton.textContent =
+            "👍 Like 0";
+
+    }
+
+}
+
+
+/* =========================
+   GET LIKE INFORMATION
+========================= */
+
+async function getLikeInfo(
+    postId
+) {
+
+    try {
+
+        const countResponse =
+            await fetch(
+                SUPABASE_URL +
+                "/rest/v1/blorelle_likes?post_id=eq." +
+                encodeURIComponent(postId) +
+                "&select=post_id",
+                {
+
+                    method: "GET",
+
+                    headers: {
+
+                        "apikey":
+                            SUPABASE_PUBLISHABLE_KEY,
+
+                        "Content-Type":
+                            "application/json"
+
+                    }
+
+                }
+            );
+
+
+        const likes =
+            await countResponse.json();
+
+
+        if (!countResponse.ok) {
+
+            console.error(
+                "LIKE COUNT ERROR:",
+                likes
+            );
+
+            return {
+                count: 0,
+                liked: false
+            };
+
+        }
+
+
+        const accessToken =
+            localStorage.getItem(
+                "lurelle_access_token"
+            );
+
+
+        let liked =
+            false;
+
+
+        if (accessToken) {
+
+            const userId =
+                getUserIdFromAccessToken(
+                    accessToken
+                );
+
+
+            if (userId) {
+
+                const userLikeResponse =
+                    await fetch(
+                        SUPABASE_URL +
+                        "/rest/v1/blorelle_likes?post_id=eq." +
+                        encodeURIComponent(postId) +
+                        "&user_id=eq." +
+                        encodeURIComponent(userId) +
+                        "&select=post_id",
+                        {
+
+                            method: "GET",
+
+                            headers: {
+
+                                "apikey":
+                                    SUPABASE_PUBLISHABLE_KEY,
+
+                                "Authorization":
+                                    "Bearer " +
+                                    accessToken
+
+                            }
+
+                        }
+                    );
+
+
+                const userLikes =
+                    await userLikeResponse.json();
+
+
+                liked =
+                    Array.isArray(userLikes) &&
+                    userLikes.length > 0;
+
+            }
+
+        }
+
+
+        return {
+
+            count:
+                Array.isArray(likes)
+                    ? likes.length
+                    : 0,
+
+            liked:
+                liked
+
+        };
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "LIKE INFO ERROR:",
+            error
+        );
+
+        return {
+            count: 0,
+            liked: false
+        };
+
+    }
+
+}
+
+
+/* =========================
+   UPDATE LIKE BUTTON
+========================= */
+
+function updateLikeButton(
+    button,
+    count,
+    liked
+) {
+
+    if (liked) {
+
+        button.textContent =
+            "💗 Liked " +
+            count;
+
+        button.classList.add(
+            "liked"
+        );
+
+    }
+
+    else {
+
+        button.textContent =
+            "👍 Like " +
+            count;
+
+        button.classList.remove(
+            "liked"
+        );
+
+    }
+
+}
+
+
+/* =========================
+   GET USER ID
+========================= */
+
+function getUserIdFromAccessToken(
+    accessToken
+) {
+
+    try {
+
+        const parts =
+            accessToken.split(".");
+
+
+        if (parts.length !== 3) {
+            return null;
+        }
+
+
+        const payload =
+            parts[1]
+                .replace(/-/g, "+")
+                .replace(/_/g, "/");
+
+
+        return JSON.parse(
+            decodeURIComponent(
+                atob(payload)
+                    .split("")
+                    .map(
+                        function(character) {
+
+                            return "%" +
+                            (
+                                "00" +
+                                character
+                                    .charCodeAt(0)
+                                    .toString(16)
+                            ).slice(-2);
+
+                        }
+                    )
+                    .join("")
+            )
+        ).sub || null;
+
+    }
+
+    catch (error) {
+
+        return null;
+
+    }
+
+}
+
+
+/* =========================
+   LIKE / UNLIKE
+========================= */
+
+async function toggleLike(
+    postId,
+    button
+) {
+
+    const accessToken =
+        localStorage.getItem(
+            "lurelle_access_token"
+        );
+
+
+    if (!accessToken) {
+
+        alert(
+            "Please log in first. ♡"
+        );
+
+        return;
+
+    }
+
+
+    const userId =
+        getUserIdFromAccessToken(
+            accessToken
+        );
+
+
+    if (!userId) {
+
+        alert(
+            "We couldn't identify your account. Please log in again. ♡"
+        );
+
+        return;
+
+    }
+
+
+    try {
+
+        const checkResponse =
+            await fetch(
+                SUPABASE_URL +
+                "/rest/v1/blorelle_likes?post_id=eq." +
+                encodeURIComponent(postId) +
+                "&user_id=eq." +
+                encodeURIComponent(userId) +
+                "&select=post_id",
+                {
+
+                    method: "GET",
+
+                    headers: {
+
+                        "apikey":
+                            SUPABASE_PUBLISHABLE_KEY,
+
+                        "Authorization":
+                            "Bearer " +
+                            accessToken
+
+                    }
+
+                }
+            );
+
+
+        const existingLikes =
+            await checkResponse.json();
+
+
+        if (!checkResponse.ok) {
+
+            console.error(
+                "CHECK LIKE ERROR:",
+                existingLikes
+            );
+
+            alert(
+                "We couldn't check the like right now. ♡"
+            );
+
+            return;
+
+        }
+
+
+        const alreadyLiked =
+            Array.isArray(existingLikes) &&
+            existingLikes.length > 0;
+
+
+        /*
+           UNLIKE
+        */
+
+        if (alreadyLiked) {
+
+            const deleteResponse =
+                await fetch(
+                    SUPABASE_URL +
+                    "/rest/v1/blorelle_likes?post_id=eq." +
+                    encodeURIComponent(postId) +
+                    "&user_id=eq." +
+                    encodeURIComponent(userId),
+                    {
+
+                        method: "DELETE",
+
+                        headers: {
+
+                            "apikey":
+                                SUPABASE_PUBLISHABLE_KEY,
+
+                            "Authorization":
+                                "Bearer " +
+                                accessToken
+
+                        }
+
+                    }
+                );
+
+
+            if (!deleteResponse.ok) {
+
+                console.error(
+                    "UNLIKE ERROR:",
+                    await deleteResponse.text()
+                );
+
+                alert(
+                    "Unlike didn't work. ♡"
+                );
+
+                return;
+
+            }
+
+
+            const info =
+                await getLikeInfo(
+                    postId
+                );
+
+
+            updateLikeButton(
+                button,
+                info.count,
+                false
+            );
+
+
+            return;
+
+        }
+
+
+        /*
+           LIKE
+        */
+
+        const insertResponse =
+            await fetch(
+                SUPABASE_URL +
+                "/rest/v1/blorelle_likes",
+                {
+
+                    method: "POST",
+
+                    headers: {
+
+                        "Content-Type":
+                            "application/json",
+
+                        "apikey":
+                            SUPABASE_PUBLISHABLE_KEY,
+
+                        "Authorization":
+                            "Bearer " +
+                            accessToken
+
+                    },
+
+                    body: JSON.stringify({
+
+                        post_id:
+                            postId,
+
+                        user_id:
+                            userId
+
+                    })
+
+                }
+            );
+
+
+        if (!insertResponse.ok) {
+
+            const error =
+                await insertResponse.text();
+
+
+            console.error(
+                "LIKE ERROR:",
+                error
+            );
+
+
+            if (
+                error.includes("duplicate") ||
+                error.includes("23505")
+            ) {
+
+                const info =
+                    await getLikeInfo(
+                        postId
+                    );
+
+
+                updateLikeButton(
+                    button,
+                    info.count,
+                    true
+                );
+
+                return;
+
+            }
+
+
+            alert(
+                "Your like couldn't be added. ♡"
+            );
+
+            return;
+
+        }
+
+
+        /*
+           GET FRESH COUNT
+        */
+
+        const newInfo =
+            await getLikeInfo(
+                postId
+            );
+
+
+        /*
+           SWEET MESSAGE
+        */
+
+        button.textContent =
+            "💕 Thanks for liking! " +
+            newInfo.count;
+
+
+        button.classList.add(
+            "liked"
+        );
+
+
+        setTimeout(
+            function() {
+
+                updateLikeButton(
+                    button,
+                    newInfo.count,
+                    true
+                );
+
+            },
+            1500
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "TOGGLE LIKE ERROR:",
+            error
+        );
+
+        alert(
+            "Something went wrong with the like. ♡"
+        );
+
+    }
+
+}
+
+
+/* =========================
+   LOAD COMMENTS
+========================= */
+
+async function loadComments(
+    postId,
+    container
+) {
+
+    container.innerHTML =
+        "<p class='comment-status'>Loading comments... ♡</p>";
+
+
+    try {
+
+        const response =
+            await fetch(
+                SUPABASE_URL +
+                "/rest/v1/blorelle_comments?post_id=eq." +
+                encodeURIComponent(postId) +
+                "&select=*&order=created_at.asc",
+                {
+
+                    method: "GET",
+
+                    headers: {
+
+                        "apikey":
+                            SUPABASE_PUBLISHABLE_KEY,
+
+                        "Content-Type":
+                            "application/json"
+
+                    }
+
+                }
+            );
+
+
+        const comments =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            console.error(
+                "COMMENTS ERROR:",
+                comments
+            );
+
+            container.innerHTML =
+                "<p class='comment-status'>" +
+                "Comments couldn't load. ♡" +
+                "</p>";
+
+            return;
+
+        }
+
+
+        container.innerHTML =
+            "";
+
+
+        if (
+            !comments ||
+            comments.length === 0
+        ) {
+
+            const none =
+                document.createElement(
+                    "p"
+                );
+
+            none.className =
+                "comment-status";
+
+            none.textContent =
+                "No comments yet. Be the first. ♡";
+
+            container.appendChild(
+                none
+            );
+
+        }
+
+        else {
+
+            comments.forEach(
+                function(comment) {
+
+                    const div =
+                        document.createElement(
+                            "div"
+                        );
+
+                    div.className =
+                        "comment";
+
+
+                    const name =
+                        document.createElement(
+                            "div"
+                        );
+
+                    name.className =
+                        "comment-name";
+
+                    name.textContent =
+                        comment.name;
+
+
+                    const text =
+                        document.createElement(
+                            "div"
+                        );
+
+                    text.textContent =
+                        comment.comment;
+
+
+                    div.appendChild(
+                        name
+                    );
+
+                    div.appendChild(
+                        text
+                    );
+
+
+                    container.appendChild(
+                        div
+                    );
+
+                }
+            );
+
+        }
+
+
+        /*
+           COMMENT FORM
+        */
+
+        const form =
+            document.createElement(
+                "div"
+            );
+
+        form.className =
+            "comment-form";
+
+
+        const nameInput =
+            document.createElement(
+                "input"
+            );
+
+        nameInput.placeholder =
+            "Your name";
+
+
+        const commentInput =
+            document.createElement(
+                "textarea"
+            );
+
+        commentInput.placeholder =
+            "Write a comment...";
+
+
+        const submit =
+            document.createElement(
+                "button"
+            );
+
+        submit.className =
+            "comment-submit";
+
+        submit.textContent =
+            "Post Comment ♡";
+
+
+        submit.onclick =
+            async function() {
+
+                await addComment(
+                    postId,
+                    nameInput,
+                    commentInput,
+                    container
+                );
+
+            };
+
+
+        form.appendChild(
+            nameInput
+        );
+
+        form.appendChild(
+            commentInput
+        );
+
+        form.appendChild(
+            submit
+        );
+
+
+        container.appendChild(
+            form
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "COMMENTS LOAD ERROR:",
+            error
+        );
+
+        container.innerHTML =
+            "<p class='comment-status'>" +
+            "Something went wrong. ♡" +
+            "</p>";
+
+    }
+
+}
+
+
+/* =========================
+   ADD COMMENT
+========================= */
+
+async function addComment(
+    postId,
+    nameInput,
+    commentInput,
+    container
+) {
+
+    const name =
+        nameInput.value.trim();
+
+    const comment =
+        commentInput.value.trim();
+
+
+    if (!name || !comment) {
+
+        alert(
+            "Please enter your name and comment. ♡"
+        );
+
+        return;
+
+    }
+
+
+    const accessToken =
+        localStorage.getItem(
+            "lurelle_access_token"
+        );
+
+
+    if (!accessToken) {
+
+        alert(
+            "Please log in first. ♡"
+        );
+
+        return;
+
+    }
+
+
+    const userId =
+        getUserIdFromAccessToken(
+            accessToken
+        );
+
+
+    if (!userId) {
+
+        alert(
+            "We couldn't identify your account. Please log in again. ♡"
+        );
+
+        return;
+
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                SUPABASE_URL +
+                "/rest/v1/blorelle_comments",
+                {
+
+                    method: "POST",
+
+                    headers: {
+
+                        "Content-Type":
+                            "application/json",
+
+                        "apikey":
+                            SUPABASE_PUBLISHABLE_KEY,
+
+                        "Authorization":
+                            "Bearer " +
+                            accessToken
+
+                    },
+
+                    body: JSON.stringify({
+
+                        post_id:
+                            postId,
+
+                        name:
+                            name,
+
+                        comment:
+                            comment,
+
+                        user_id:
+                            userId
+
+                    })
+
+                }
+            );
+
+
+        if (!response.ok) {
+
+            console.error(
+                "COMMENT ERROR:",
+                await response.text()
+            );
+
+            alert(
+                "Your comment couldn't be posted. ♡"
+            );
+
+            return;
+
+        }
+
+
+        nameInput.value =
+            "";
+
+        commentInput.value =
+            "";
+
+
+        loadComments(
+            postId,
+            container
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "COMMENT ERROR:",
+            error
+        );
+
+        alert(
+            "Something went wrong. ♡"
+        );
+
+    }
+
+}
+
+
+/* =========================
+   DATE
+========================= */
+
+function formatDate(
+    dateString
+) {
+
+    if (!dateString) {
+        return "";
+    }
+
+
+    return new Date(
+        dateString
+    ).toLocaleDateString(
+        undefined,
+        {
+
+            year:
+                "numeric",
+
+            month:
+                "long",
+
+            day:
+                "numeric"
+
+        }
+    );
+
+}
+
+
+/* =========================
+   PAGE LOAD
+========================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        loadBlorellePosts();
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>

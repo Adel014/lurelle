@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<title>About | Lurelle by Adel</title>
+
+<style>
+
+body {
+background-color: #FFF8F3;
+color: #6F5A4D;
+font-family: Georgia, serif;
+margin: 0;
+}
+
+section {
+max-width: 800px;
+margin: 0 auto;
+padding: 80px 30px;
+text-align: center;
+}
+
+h1 {
+color: #6F5A4D;
+font-size: 38px;
+}
+
+h2 {
+color: #6F5A4D;
+font-size: 28px;
+margin-top: 50px;
+}
+
+p {
+font-size: 17px;
+line-height: 1.8;
+}
+
+.menu-button {
+position: fixed;
+top: 20px;
+left: 20px;
+z-index: 1001;
+background-color: #DCC9BE;
+color: #FFF8F3;
+border: none;
+padding: 11px 17px;
+border-radius: 25px;
+font-size: 20px;
+cursor: pointer;
+}
+
+#menu {
+position: fixed;
+top: 0;
+left: -270px;
+width: 250px;
+height: 100%;
+background-color: #FFF8F3;
+padding-top: 90px;
+box-shadow: 5px 0 15px rgba(111,90,77,0.15);
+transition: left 0.4s ease;
+z-index: 1000;
+}
+
+#menu.open {
+left: 0;
+}
+
+#menu a {
+display: block;
+padding: 18px 25px;
+color: #6F5A4D;
+text-decoration: none;
+font-size: 18px;
+}
+
+#menu a:hover {
+background-color: #F7DCE1;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<button class="menu-button" onclick="toggleMenu()">☰</button>
+
+<div id="menu">
+
+<a href="Lurellebyadel.html">Home</a>
+
+<a href="about.html">About</a>
+
+<a href="blog.html">Blog🌸</a>
+
+<a href="patterns.html">Patterns🧶</a>
+
+<a href="collection.html">Collection</a>
+
+<a href="custom-orders.html">Custom Orders</a>
+
+<a href="contact.html">Contact</a>
+
+</div>
+
+<section>
+
+<h1>Meet the Girl Behind Lurelle 🎀</h1>
+
+<p>
+hii, I'm Adel! 💕 Lurelle is my little crochet world where I get to turn yarn, random ideas, (and way too much time😭) into cute handmade pieces.
+</p>
+
+<p>
+I started crocheting because I wanted to create things that were truly my own, and honestly, I ended up loving it way more than I expected.
+</p>
+
+<h2>About Lurelle</h2>
+
+<p>
+Everything here is handmade with love, from the first stitch to the finishing touches. Lurelle is all about creating cute, personal pieces that feel special and completely your own.
+</p>
+
+<p>
+Welcome to my little crochet corner. I hope you find something you love. ♡
+</p>
+
+</section>
+
+<script>
+
+function toggleMenu() {
+
+var menu = document.getElementById("menu");
+
+menu.classList.toggle("open");
+
+}
+
+</script>
+
+</body>
+
+</html>

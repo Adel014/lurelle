@@ -1,0 +1,1503 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Collection | Lurelle by Adel</title>
+
+<style>
+
+/* =========================
+   GENERAL
+========================= */
+
+body {
+    background-color: #FFF8F3;
+    color: #6F5A4D;
+    font-family: Georgia, serif;
+    margin: 0;
+    padding: 0;
+}
+
+section {
+    padding: 90px 20px;
+    text-align: center;
+}
+
+h1 {
+    color: #6F5A4D;
+    font-size: 38px;
+}
+
+h2 {
+    color: #6F5A4D;
+}
+
+.intro {
+    font-size: 17px;
+    line-height: 1.7;
+}
+
+
+/* =========================
+   HAMBURGER
+========================= */
+
+.menu-button {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1001;
+    background-color: #DCC9BE;
+    color: #FFF8F3;
+    border: none;
+    padding: 11px 17px;
+    border-radius: 25px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+
+/* =========================
+   CART BUTTON
+========================= */
+
+.cart-button {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1001;
+    background-color: #DCC9BE;
+    color: #6F5A4D;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(111,90,77,0.12);
+}
+
+
+/* =========================
+   MENU
+========================= */
+
+#menu {
+    position: fixed;
+    top: 0;
+    left: -270px;
+    width: 250px;
+    height: 100%;
+    background-color: #FFF8F3;
+    padding-top: 90px;
+    box-shadow: 5px 0 15px rgba(111,90,77,0.15);
+    transition: left 0.4s ease;
+    z-index: 1000;
+}
+
+#menu.open {
+    left: 0;
+}
+
+#menu a {
+    display: block;
+    padding: 18px 25px;
+    color: #6F5A4D;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+#menu a:hover {
+    background-color: #F7DCE1;
+}
+
+
+/* =========================
+   MONTHLY SPECIAL
+========================= */
+
+.special {
+    max-width: 650px;
+    margin: 30px auto 45px auto;
+    padding: 25px;
+    background-color: #F7DCE1;
+    border-radius: 25px;
+}
+
+.special p {
+    line-height: 1.7;
+}
+
+
+/* =========================
+   CATEGORY
+========================= */
+
+.category-title {
+    margin-top: 55px;
+    margin-bottom: 25px;
+}
+
+
+/* =========================
+   PRODUCTS
+========================= */
+
+.product-grid {
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+}
+
+.product-card {
+    background-color: #FFF;
+    border: 1px solid #DCC9BE;
+    border-radius: 25px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(111,90,77,0.07);
+}
+
+.product-image {
+    width: 100%;
+    max-height: 280px;
+    object-fit: cover;
+    border-radius: 18px;
+    margin-bottom: 15px;
+}
+
+.price {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.add-button,
+.review-button,
+.leave-review-button,
+.submit-review-button {
+    border: none;
+    border-radius: 25px;
+    padding: 11px 18px;
+    margin-top: 10px;
+    cursor: pointer;
+    background-color: #6F5A4D;
+    color: #FFF8F3;
+}
+
+.review-button {
+    background-color: #DCC9BE;
+    color: #6F5A4D;
+}
+
+
+/* =========================
+   REVIEWS
+========================= */
+
+.review-area {
+    display: none;
+    margin-top: 20px;
+    text-align: left;
+    background-color: #FDF0F1;
+    border-radius: 18px;
+    padding: 18px;
+}
+
+.review-area.open {
+    display: block;
+}
+
+.review-card {
+    background-color: #FFF8F3;
+    border-radius: 15px;
+    padding: 15px;
+    margin-top: 12px;
+}
+
+.review-summary {
+    margin: 6px 0 16px;
+    font-size: 14px;
+    color: #8B6F63;
+}
+
+.review-date {
+    margin-top: 8px;
+    font-size: 12px;
+    color: #9B8378;
+}
+
+.review-form {
+    display: none;
+    margin-top: 15px;
+}
+
+.review-form.open {
+    display: block;
+}
+
+.review-form input,
+.review-form textarea,
+.review-form select {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    margin-top: 6px;
+    border: 1px solid #DCC9BE;
+    border-radius: 10px;
+    background-color: #FFF8F3;
+    color: #6F5A4D;
+}
+
+.review-form textarea {
+    min-height: 80px;
+}
+
+
+/* =========================
+   COMING SOON
+========================= */
+
+.coming-soon {
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #F7DCE1;
+    border-radius: 25px;
+}
+
+
+/* =========================
+   CART
+========================= */
+
+.cart {
+    max-width: 650px;
+    margin: 50px auto 0;
+    background-color: #F7DCE1;
+    border-radius: 25px;
+    padding: 25px;
+    text-align: left;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 0;
+    border-bottom: 1px solid #DCC9BE;
+}
+
+.cart-controls {
+    display: flex;
+    gap: 6px;
+}
+
+.cart-controls button {
+    border: none;
+    background-color: #DCC9BE;
+    color: #6F5A4D;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.discount-box {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 15px;
+    background-color: #FFF8F3;
+}
+
+.discount-amount {
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.cart-total {
+    text-align: right;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.checkout-button {
+    width: 100%;
+    margin-top: 20px;
+    border: none;
+    padding: 13px 22px;
+    border-radius: 25px;
+    cursor: pointer;
+    background-color: #6F5A4D;
+    color: #FFF8F3;
+    font-size: 16px;
+}
+
+
+/* =========================
+   STATUS
+========================= */
+
+.collection-status {
+    text-align: center;
+    font-style: italic;
+    color: #A28E84;
+    padding: 25px;
+}
+
+.error-message {
+    text-align: center;
+    padding: 25px;
+    color: #8B5F5F;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 700px) {
+
+    section {
+        padding: 80px 12px;
+    }
+
+    h1 {
+        font-size: 30px;
+    }
+
+    .product-grid {
+        grid-template-columns: 1fr;
+        max-width: 420px;
+    }
+
+    .product-card {
+        width: 100%;
+    }
+
+    .cart-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+}
+
+</style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+
+const SUPABASE_URL =
+    "https://ljzydmylrayqdvuxtzps.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_RNQQFOqPdrKbLd6HiMSmwg_6UUNBZqg";
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+    );
+
+</script>
+
+</head>
+
+
+<body>
+
+
+<button
+    class="menu-button"
+    onclick="toggleMenu()">
+
+    ☰
+
+</button>
+
+
+<button
+    class="cart-button"
+    onclick="scrollToCart()">
+
+    🛒 Cart
+    (<span id="cartCount">0</span>)
+
+</button>
+
+
+<div id="menu">
+
+    <a href="Lurellebyadel.html">
+        Home
+    </a>
+
+    <a href="about.html">
+        About
+    </a>
+
+<a href="blog.html">Blog🌸</a>
+
+<a href="patterns.html">Patterns🧶</a>
+    
+<a href="collection.html">
+        Collection
+    </a>
+
+    <a href="custom-orders.html">
+        Custom Orders
+    </a>
+
+    <a href="contact.html">
+        Contact
+    </a>
+
+</div>
+
+
+<section>
+
+
+<h1>
+    My Crochet Collection ✦
+</h1>
+
+
+<p class="intro">
+
+    Little handmade pieces, made with love and a little bit of creativity. ♡
+
+</p>
+
+
+<div class="special">
+
+    <h2>
+        ✨ Lurelle Monthly Specials ✨
+    </h2>
+
+    <p>
+        The first 5 completed orders of every month receive a special discount!
+    </p>
+
+    <p>
+
+        🥇 1st order — <strong>20% OFF</strong><br>
+
+        🥈 2nd order — <strong>10% OFF</strong><br>
+
+        🥉 3rd order — <strong>10% OFF</strong><br>
+
+        🎀 4th order — <strong>5% OFF</strong><br>
+
+        🎀 5th order — <strong>5% OFF</strong>
+
+    </p>
+
+    <p>
+        Once the 5 monthly spots are gone, regular prices apply.
+    </p>
+
+    <p id="monthlyStatus">
+        Checking this month's available spots... ♡
+    </p>
+
+</div>
+
+
+<h2 class="category-title">
+    ♡ Collection
+</h2>
+
+
+<div
+    id="supabase-products"
+    class="product-grid">
+
+    <p class="collection-status">
+        Loading the collection... ♡
+    </p>
+
+</div>
+
+
+<div class="coming-soon">
+
+    <h2>
+        🎀 Coming Soon
+    </h2>
+
+    <p>
+        There's always something new being created behind the scenes at Lurelle.
+    </p>
+
+</div>
+
+
+<!-- CART -->
+
+<div
+    class="cart"
+    id="cart">
+
+
+    <h2>
+        🛒 Your Cart
+    </h2>
+
+
+    <div id="cartItems">
+
+        Your cart is empty. ♡
+
+    </div>
+
+
+    <div class="discount-box">
+
+        <div id="discountMessage">
+            No monthly discount applied yet.
+        </div>
+
+        <div
+            id="discountAmount"
+            class="discount-amount">
+        </div>
+
+    </div>
+
+
+    <div
+        id="cartTotal"
+        class="cart-total">
+
+        Total: ₦0
+
+    </div>
+
+
+    <button
+        class="checkout-button"
+        onclick="openCheckout()">
+
+        Proceed to Checkout
+
+    </button>
+
+
+</div>
+
+
+</section>
+
+
+<script>
+
+
+/* =========================
+   CART
+========================= */
+
+let cart = [];
+
+
+/* =========================
+   MONTHLY ORDER COUNT
+========================= */
+
+let monthlyOrderCount = 0;
+
+
+/* =========================
+   MONTHLY DISCOUNT
+========================= */
+
+function getCurrentMonthStart() {
+
+    const now =
+        new Date();
+
+
+    return new Date(
+        now.getFullYear(),
+        now.getMonth(),
+        1,
+        0,
+        0,
+        0,
+        0
+    ).toISOString();
+
+}
+
+
+function getDiscountRate() {
+
+    if (monthlyOrderCount === 0) {
+        return 0.20;
+    }
+
+    if (
+        monthlyOrderCount === 1 ||
+        monthlyOrderCount === 2
+    ) {
+        return 0.10;
+    }
+
+    if (
+        monthlyOrderCount === 3 ||
+        monthlyOrderCount === 4
+    ) {
+        return 0.05;
+    }
+
+    return 0;
+
+}
+
+
+function getDiscountNumber() {
+
+    if (
+        monthlyOrderCount >= 5
+    ) {
+
+        return 0;
+
+    }
+
+
+    return monthlyOrderCount + 1;
+
+}
+
+
+/* =========================
+   LOAD MONTHLY ORDERS
+========================= */
+
+async function loadMonthlyOrderCount() {
+
+    const result =
+        await supabaseClient
+            .from("orders")
+            .select(
+                "id",
+                {
+                    count: "exact",
+                    head: true
+                }
+            )
+            .gte(
+                "created_at",
+                getCurrentMonthStart()
+            );
+
+
+    if (result.error) {
+
+        console.error(
+            "MONTHLY ORDER COUNT ERROR:",
+            result.error
+        );
+
+        monthlyOrderCount = 0;
+
+        document.getElementById(
+            "monthlyStatus"
+        ).textContent =
+            "Monthly discount status could not be checked yet. ♡";
+
+        displayCart();
+
+        return;
+
+    }
+
+
+    monthlyOrderCount =
+        result.count || 0;
+
+
+    const spotsLeft =
+        Math.max(
+            5 - monthlyOrderCount,
+            0
+        );
+
+
+    document.getElementById(
+        "monthlyStatus"
+    ).textContent =
+
+        spotsLeft > 0
+
+        ? spotsLeft +
+          " monthly discount spot" +
+          (
+              spotsLeft === 1
+              ? ""
+              : "s"
+          ) +
+          " remaining. ♡"
+
+        : "All 5 monthly discount spots have been used. ♡";
+
+
+    displayCart();
+
+}
+
+
+/* =========================
+   ADD TO CART
+========================= */
+
+function addToCart(
+    name,
+    price
+) {
+
+    const existing =
+        cart.find(
+            function(item) {
+
+                return (
+                    item.name ===
+                    name
+                );
+
+            }
+        );
+
+
+    if (existing) {
+
+        existing.quantity++;
+
+    }
+
+    else {
+
+        cart.push({
+
+            name: name,
+
+            price: Number(price),
+
+            quantity: 1
+
+        });
+
+    }
+
+
+    displayCart();
+
+}
+
+
+/* =========================
+   QUANTITY
+========================= */
+
+function changeQuantity(
+    index,
+    change
+) {
+
+    cart[index].quantity +=
+        change;
+
+
+    if (
+        cart[index].quantity <= 0
+    ) {
+
+        cart.splice(
+            index,
+            1
+        );
+
+    }
+
+
+    displayCart();
+
+}
+
+
+/* =========================
+   REMOVE
+========================= */
+
+function removeItem(index) {
+
+    cart.splice(
+        index,
+        1
+    );
+
+
+    displayCart();
+
+}
+
+
+/* =========================
+   TOTALS
+========================= */
+
+function getTotals() {
+
+    let subtotal = 0;
+
+
+    cart.forEach(
+        function(item) {
+
+            subtotal +=
+                Number(item.price) *
+                Number(item.quantity);
+
+        }
+    );
+
+
+    const rate =
+        getDiscountRate();
+
+
+    const discount =
+        subtotal * rate;
+
+
+    const total =
+        subtotal - discount;
+
+
+    return {
+
+        subtotal:
+            subtotal,
+
+        rate:
+            rate,
+
+        discount:
+            discount,
+
+        total:
+            total
+
+    };
+
+}
+
+
+/* =========================
+   DISPLAY CART
+========================= */
+
+function displayCart() {
+
+    const cartItems =
+        document.getElementById(
+            "cartItems"
+        );
+
+
+    const cartCount =
+        document.getElementById(
+            "cartCount"
+        );
+
+
+    const cartTotal =
+        document.getElementById(
+            "cartTotal"
+        );
+
+
+    const discountMessage =
+        document.getElementById(
+            "discountMessage"
+        );
+
+
+    const discountAmount =
+        document.getElementById(
+            "discountAmount"
+        );
+
+
+    let quantity = 0;
+
+
+    cart.forEach(
+        function(item) {
+
+            quantity +=
+                Number(
+                    item.quantity
+                );
+
+        }
+    );
+
+
+    cartCount.textContent =
+        quantity;
+
+
+    if (
+        cart.length === 0
+    ) {
+
+        cartItems.innerHTML =
+            "Your cart is empty. ♡";
+
+        cartTotal.textContent =
+            "Total: ₦0";
+
+        discountMessage.textContent =
+            "No monthly discount applied yet.";
+
+        discountAmount.textContent =
+            "";
+
+        return;
+
+    }
+
+
+    let html = "";
+
+
+    cart.forEach(
+        function(item, index) {
+
+            html += `
+
+                <div class="cart-item">
+
+                    <div>
+
+                        <strong>
+                            ${escapeHTML(
+                                item.name
+                            )}
+                        </strong>
+
+                        <br>
+
+                        ₦${Number(
+                            item.price
+                        ).toLocaleString()}
+
+                        × ${item.quantity}
+
+                    </div>
+
+
+                    <div class="cart-controls">
+
+                        <button
+                            onclick="changeQuantity(${index}, -1)">
+
+                            −
+
+                        </button>
+
+
+                        <button
+                            onclick="changeQuantity(${index}, 1)">
+
+                            +
+
+                        </button>
+
+
+                        <button
+                            onclick="removeItem(${index})">
+
+                            ×
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }
+    );
+
+
+    cartItems.innerHTML =
+        html;
+
+
+    const totals =
+        getTotals();
+
+
+    if (
+        totals.rate > 0
+    ) {
+
+        discountMessage.textContent =
+
+            "🎀 Monthly Special: Order " +
+            getDiscountNumber() +
+            " gets " +
+            (
+                totals.rate * 100
+            ) +
+            "% OFF!";
+
+
+        discountAmount.textContent =
+
+            "You save: ₦" +
+            totals.discount.toLocaleString();
+
+    }
+
+    else {
+
+        discountMessage.textContent =
+            "Monthly special spots are currently full.";
+
+        discountAmount.textContent =
+            "";
+
+    }
+
+
+    cartTotal.textContent =
+        "Total: ₦" +
+        totals.total.toLocaleString();
+
+}
+
+
+/* =========================
+   ESCAPE HTML
+========================= */
+
+function escapeHTML(text) {
+
+    const div =
+        document.createElement(
+            "div"
+        );
+
+
+    div.textContent =
+        text == null
+        ? ""
+        : String(text);
+
+
+    return div.innerHTML;
+
+}
+
+
+/* =========================
+   MENU
+========================= */
+
+function toggleMenu() {
+
+    document
+        .getElementById(
+            "menu"
+        )
+        .classList.toggle(
+            "open"
+        );
+
+}
+
+
+/* =========================
+   CART SCROLL
+========================= */
+
+function scrollToCart() {
+
+    document
+        .getElementById(
+            "cart"
+        )
+        .scrollIntoView({
+            behavior: "smooth"
+        });
+
+}
+
+
+/* =========================
+   CHECKOUT
+========================= */
+
+function openCheckout() {
+
+    if (
+        cart.length === 0
+    ) {
+
+        alert(
+            "Your cart is empty. ♡"
+        );
+
+        return;
+
+    }
+
+
+    const totals =
+        getTotals();
+
+
+    const checkoutData = {
+
+        items:
+            cart.map(
+                function(item) {
+
+                    return {
+
+                        name:
+                            item.name,
+
+                        price:
+                            Number(
+                                item.price
+                            ),
+
+                        quantity:
+                            Number(
+                                item.quantity
+                            )
+
+                    };
+
+                }
+            ),
+
+        subtotal:
+            totals.subtotal,
+
+        discountRate:
+            totals.rate,
+
+        discount:
+            totals.discount,
+
+        total:
+            totals.total,
+
+        monthlyOrderNumber:
+            getDiscountNumber(),
+
+        month:
+            getCurrentMonthKey()
+
+    };
+
+
+    sessionStorage.setItem(
+        "lurelleCheckout",
+        JSON.stringify(
+            checkoutData
+        )
+    );
+
+
+    window.location.href =
+        "order.html";
+
+}
+
+
+/* =========================
+   CURRENT MONTH KEY
+========================= */
+
+function getCurrentMonthKey() {
+
+    const now =
+        new Date();
+
+
+    return (
+        now.getFullYear() +
+        "-" +
+        String(
+            now.getMonth() + 1
+        ).padStart(
+            2,
+            "0"
+        )
+    );
+
+}
+
+
+/* =========================
+   PRODUCTS
+========================= */
+
+async function loadProductsFromSupabase() {
+
+    const container =
+        document.getElementById(
+            "supabase-products"
+        );
+
+
+    try {
+
+        const result =
+            await supabaseClient
+                .from("products")
+                .select("*")
+                .order(
+                    "created_at",
+                    {
+                        ascending: false
+                    }
+                );
+
+
+        if (
+            result.error
+        ) {
+
+            throw result.error;
+
+        }
+
+
+        const products =
+            result.data || [];
+
+
+        container.innerHTML =
+            "";
+
+
+        if (
+            products.length === 0
+        ) {
+
+            container.innerHTML = `
+
+                <div class="product-card">
+
+                    <h2>
+                        No pieces in the collection yet ♡
+                    </h2>
+
+                    <p>
+                        New handmade pieces will appear here whenever you add them to your collection.
+                    </p>
+
+                    <p>
+                        ✨ Stay tuned.
+                    </p>
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        products.forEach(
+            function(product) {
+
+                const card =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                card.className =
+                    "product-card";
+
+
+                if (
+                    product.image_url
+                ) {
+
+                    const image =
+                        document.createElement(
+                            "img"
+                        );
+
+
+                    image.className =
+                        "product-image";
+
+
+                    image.src =
+                        product.image_url;
+
+
+                    image.alt =
+                        product.name ||
+                        "Lurelle product";
+
+
+                    image.loading =
+                        "lazy";
+
+
+                    card.appendChild(
+                        image
+                    );
+
+                }
+
+
+                const content =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                content.innerHTML = `
+
+                    <h2>
+                        ${escapeHTML(
+                            product.name ||
+                            "Lurelle Piece"
+                        )}
+                    </h2>
+
+                    <p>
+                        ${escapeHTML(
+                            product.description ||
+                            ""
+                        )}
+                    </p>
+
+                    <p class="price">
+                        ₦${Number(
+                            product.price || 0
+                        ).toLocaleString()}
+                    </p>
+
+                    <button
+                        class="add-button">
+
+                        Add to Cart
+
+                    </button>
+
+                `;
+
+
+                card.appendChild(
+                    content
+                );
+
+
+                const button =
+                    content.querySelector(
+                        ".add-button"
+                    );
+
+
+                button.addEventListener(
+                    "click",
+                    function() {
+
+                        addToCart(
+                            product.name,
+                            Number(
+                                product.price || 0
+                            )
+                        );
+
+                    }
+                );
+
+
+                container.appendChild(
+                    card
+                );
+
+            }
+        );
+
+    }
+
+
+    catch (error) {
+
+        console.error(
+            "PRODUCT LOADING ERROR:",
+            error
+        );
+
+
+        container.innerHTML = `
+
+            <div class="product-card">
+
+                <h2>
+                    Couldn't load the collection ♡
+                </h2>
+
+                <p>
+                    Please try again later.
+                </p>
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+/* =========================
+   START
+========================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    async function() {
+
+        displayCart();
+
+        loadProductsFromSupabase();
+
+        await loadMonthlyOrderCount();
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>
