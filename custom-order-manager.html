@@ -1,0 +1,1769 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Lurelle | Custom Order Manager</title>
+
+
+<style>
+
+/* =========================
+   GENERAL
+========================= */
+
+body {
+
+    margin: 0;
+
+    background-color: #FFF8F3;
+
+    color: #6F5A4D;
+
+    font-family: Georgia, serif;
+
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.header {
+
+    max-width: 1100px;
+
+    margin: 0 auto;
+
+    padding: 45px 25px 20px;
+
+    text-align: center;
+
+}
+
+
+.back-button {
+
+    display: inline-block;
+
+    margin-bottom: 25px;
+
+    padding: 10px 18px;
+
+    border-radius: 18px;
+
+    background-color: #DCC9BE;
+
+    color: #FFF8F3;
+
+    text-decoration: none;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 14px;
+
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease;
+
+}
+
+
+.back-button:hover {
+
+    background-color: #C98F9F;
+
+    transform: translateY(-1px);
+
+}
+
+
+.header h1 {
+
+    margin: 0;
+
+    font-size: 45px;
+
+    font-weight: normal;
+
+}
+
+
+.header p {
+
+    margin: 10px 0 0;
+
+    font-size: 16px;
+
+    font-style: italic;
+
+    color: #8A7468;
+
+}
+
+
+/* =========================
+   CONTROLS
+========================= */
+
+.controls {
+
+    max-width: 1050px;
+
+    margin: 20px auto 30px;
+
+    padding: 0 25px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 15px;
+
+    flex-wrap: wrap;
+
+}
+
+
+.order-count {
+
+    font-size: 15px;
+
+    font-style: italic;
+
+    color: #A28E84;
+
+}
+
+
+.refresh-button {
+
+    border: none;
+
+    border-radius: 18px;
+
+    padding: 11px 18px;
+
+    background-color: #DCC9BE;
+
+    color: #FFF8F3;
+
+    font-family: Georgia, serif;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease;
+
+}
+
+
+.refresh-button:hover {
+
+    background-color: #C98F9F;
+
+    transform: translateY(-1px);
+
+}
+
+
+/* =========================
+   STATUS
+========================= */
+
+.page-status {
+
+    text-align: center;
+
+    margin: 25px;
+
+    font-size: 15px;
+
+    font-style: italic;
+
+    color: #A28E84;
+
+}
+
+
+/* =========================
+   ORDERS CONTAINER
+========================= */
+
+.orders-container {
+
+    max-width: 1050px;
+
+    margin: 0 auto;
+
+    padding: 0 25px 70px;
+
+}
+
+
+/* =========================
+   ORDER CARD
+========================= */
+
+.order-card {
+
+    background-color: rgba(255,255,255,0.75);
+
+    border: 1px solid #E5D6CD;
+
+    border-radius: 30px;
+
+    padding: 28px;
+
+    margin-bottom: 25px;
+
+    box-shadow:
+        0 7px 22px
+        rgba(111,90,77,0.08);
+
+}
+
+
+/* =========================
+   ORDER HEADER
+========================= */
+
+.order-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-start;
+
+    gap: 20px;
+
+    flex-wrap: wrap;
+
+    padding-bottom: 20px;
+
+    border-bottom: 1px solid #EEE2DB;
+
+}
+
+
+.customer-name {
+
+    margin: 0;
+
+    font-size: 28px;
+
+    font-weight: normal;
+
+}
+
+
+.order-date {
+
+    margin-top: 7px;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 12px;
+
+    color: #A28E84;
+
+}
+
+
+/* =========================
+   STATUS
+========================= */
+
+.status-area {
+
+    text-align: right;
+
+}
+
+
+.status-label {
+
+    display: block;
+
+    margin-bottom: 6px;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 10px;
+
+    letter-spacing: 1px;
+
+    text-transform: uppercase;
+
+    color: #A28E84;
+
+}
+
+
+.status-select {
+
+    border: 1px solid #DCC9BE;
+
+    border-radius: 16px;
+
+    padding: 9px 13px;
+
+    background-color: #FFF8F3;
+
+    color: #6F5A4D;
+
+    font-family: Georgia, serif;
+
+    cursor: pointer;
+
+    outline: none;
+
+}
+
+
+/* =========================
+   DETAILS GRID
+========================= */
+
+.details-grid {
+
+    margin-top: 22px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 14px;
+
+}
+
+
+.detail-box {
+
+    background-color: #FFF8F3;
+
+    border: 1px solid #EEE2DB;
+
+    border-radius: 18px;
+
+    padding: 15px;
+
+}
+
+
+.detail-label {
+
+    margin-bottom: 6px;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 10px;
+
+    letter-spacing: 1px;
+
+    text-transform: uppercase;
+
+    color: #A28E84;
+
+}
+
+
+.detail-value {
+
+    font-size: 15px;
+
+    line-height: 1.5;
+
+    word-break: break-word;
+
+}
+
+
+/* =========================
+   LONG INFORMATION
+========================= */
+
+.long-detail {
+
+    margin-top: 14px;
+
+    background-color: #FFF8F3;
+
+    border: 1px solid #EEE2DB;
+
+    border-radius: 18px;
+
+    padding: 17px;
+
+}
+
+
+.long-detail .detail-value {
+
+    white-space: pre-wrap;
+
+}
+
+
+/* =========================
+   PHOTO
+========================= */
+
+.photo-area {
+
+    margin-top: 15px;
+
+    padding: 17px;
+
+    background-color: #FFF8F3;
+
+    border: 1px solid #EEE2DB;
+
+    border-radius: 18px;
+
+}
+
+
+.photo-button {
+
+    display: inline-block;
+
+    margin-top: 7px;
+
+    padding: 9px 14px;
+
+    border-radius: 15px;
+
+    background-color: #F7DCE1;
+
+    color: #6F5A4D;
+
+    text-decoration: none;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 13px;
+
+}
+
+
+.photo-button:hover {
+
+    background-color: #DCC9BE;
+
+}
+
+
+/* =========================
+   ACTIONS
+========================= */
+
+.order-actions {
+
+    margin-top: 22px;
+
+    padding-top: 18px;
+
+    border-top: 1px solid #EEE2DB;
+
+    display: flex;
+
+    justify-content: flex-end;
+
+}
+
+
+.delete-button {
+
+    border: none;
+
+    border-radius: 15px;
+
+    padding: 10px 15px;
+
+    background-color: #F7DCE1;
+
+    color: #6F5A4D;
+
+    font-family: Georgia, serif;
+
+    cursor: pointer;
+
+}
+
+
+.delete-button:hover {
+
+    background-color: #C98F9F;
+
+    color: #FFF8F3;
+
+}
+
+
+/* =========================
+   EMPTY
+========================= */
+
+.empty-orders {
+
+    text-align: center;
+
+    padding: 70px 20px;
+
+    font-size: 17px;
+
+    font-style: italic;
+
+    color: #A28E84;
+
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 650px) {
+
+    .header {
+
+        padding-top: 30px;
+
+    }
+
+
+    .header h1 {
+
+        font-size: 34px;
+
+    }
+
+
+    .controls {
+
+        align-items: stretch;
+
+    }
+
+
+    .refresh-button {
+
+        width: 100%;
+
+    }
+
+
+    .details-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .order-card {
+
+        padding: 20px;
+
+    }
+
+
+    .status-area {
+
+        text-align: left;
+
+        width: 100%;
+
+    }
+
+
+    .status-select {
+
+        width: 100%;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header class="header">
+
+
+    <a
+        href="manager.html"
+        class="back-button">
+
+        ← Back to Manager
+
+    </a>
+
+
+    <h1>
+        Custom Orders ♡
+    </h1>
+
+
+    <p>
+        A little space for all the lovely things customers are dreaming up.
+    </p>
+
+
+</header>
+
+
+<!-- =========================
+     CONTROLS
+========================= -->
+
+<div class="controls">
+
+
+    <div
+        id="orderCount"
+        class="order-count">
+
+        Loading orders... ♡
+
+    </div>
+
+
+    <button
+        class="refresh-button"
+        onclick="loadOrders()">
+
+        ↻ Refresh Orders
+
+    </button>
+
+
+</div>
+
+
+<!-- =========================
+     STATUS
+========================= -->
+
+<div
+    id="pageStatus"
+    class="page-status">
+
+    Loading custom orders... ♡
+
+</div>
+
+
+<!-- =========================
+     ORDERS
+========================= -->
+
+<main
+    id="ordersContainer"
+    class="orders-container">
+
+</main>
+
+
+<script>
+
+
+/* =========================
+   SUPABASE
+========================= */
+
+const SUPABASE_URL =
+    "https://ljzydmylrayqdvuxtzps.supabase.co";
+
+
+const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_RNQQFOqPdrKbLd6HiMSmwg_6UUNBZqg";
+
+
+/* =========================
+   LOAD ORDERS
+========================= */
+
+async function loadOrders() {
+
+
+    const status =
+        document.getElementById(
+            "pageStatus"
+        );
+
+
+    const count =
+        document.getElementById(
+            "orderCount"
+        );
+
+
+    const container =
+        document.getElementById(
+            "ordersContainer"
+        );
+
+
+    status.textContent =
+        "Loading custom orders... ♡";
+
+
+    count.textContent =
+        "Loading...";
+
+
+    container.innerHTML =
+        "";
+
+
+    try {
+
+
+        const response =
+            await fetch(
+
+                SUPABASE_URL +
+
+                "/rest/v1/custom_order" +
+
+                "?select=*" +
+
+                "&order=created_at.desc",
+
+                {
+
+                    method: "GET",
+
+                    headers: {
+
+                        "apikey":
+                            SUPABASE_PUBLISHABLE_KEY,
+
+                        "Content-Type":
+                            "application/json"
+
+                    }
+
+                }
+
+            );
+
+
+        const orders =
+            await response.json();
+
+
+        if (!response.ok) {
+
+
+            console.error(
+                "CUSTOM ORDER ERROR:",
+                orders
+            );
+
+
+            status.textContent =
+                "We couldn't load the custom orders. ♡";
+
+
+            count.textContent =
+                "";
+
+
+            return;
+
+        }
+
+
+        if (
+            !orders ||
+            orders.length === 0
+        ) {
+
+
+            status.textContent =
+                "";
+
+
+            count.textContent =
+                "0 orders";
+
+
+            container.innerHTML =
+
+                "<div class='empty-orders'>" +
+
+                "No custom orders yet. ♡" +
+
+                "</div>";
+
+
+            return;
+
+        }
+
+
+        status.textContent =
+            "";
+
+
+        count.textContent =
+            orders.length +
+
+            (
+                orders.length === 1
+                    ? " order"
+                    : " orders"
+            );
+
+
+        orders.forEach(
+            function(order) {
+
+                createOrderCard(
+                    order,
+                    container
+                );
+
+            }
+        );
+
+
+    }
+
+
+    catch (error) {
+
+
+        console.error(
+            "CUSTOM ORDER ERROR:",
+            error
+        );
+
+
+        status.textContent =
+            "Something went wrong while loading the orders. ♡";
+
+
+        count.textContent =
+            "";
+
+    }
+
+}
+
+
+/* =========================
+   CREATE ORDER CARD
+========================= */
+
+function createOrderCard(
+    order,
+    container
+) {
+
+
+    const card =
+        document.createElement(
+            "article"
+        );
+
+
+    card.className =
+        "order-card";
+
+
+    /* =========================
+       HEADER
+    ========================= */
+
+    const header =
+        document.createElement(
+            "div"
+        );
+
+
+    header.className =
+        "order-header";
+
+
+    const customerArea =
+        document.createElement(
+            "div"
+        );
+
+
+    const customerName =
+        document.createElement(
+            "h2"
+        );
+
+
+    customerName.className =
+        "customer-name";
+
+
+    customerName.textContent =
+        order.name ||
+        "Unnamed Customer";
+
+
+    const orderDate =
+        document.createElement(
+            "div"
+        );
+
+
+    orderDate.className =
+        "order-date";
+
+
+    orderDate.textContent =
+        formatDate(
+            order.created_at
+        );
+
+
+    customerArea.appendChild(
+        customerName
+    );
+
+
+    customerArea.appendChild(
+        orderDate
+    );
+
+
+    /* =========================
+       STATUS
+    ========================= */
+
+    const statusArea =
+        document.createElement(
+            "div"
+        );
+
+
+    statusArea.className =
+        "status-area";
+
+
+    const statusLabel =
+        document.createElement(
+            "span"
+        );
+
+
+    statusLabel.className =
+        "status-label";
+
+
+    statusLabel.textContent =
+        "Order Status";
+
+
+    const statusSelect =
+        document.createElement(
+            "select"
+        );
+
+
+    statusSelect.className =
+        "status-select";
+
+
+    const statuses = [
+
+        "New",
+
+        "In Progress",
+
+        "Completed"
+
+    ];
+
+
+    statuses.forEach(
+        function(status) {
+
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+
+            option.value =
+                status;
+
+
+            option.textContent =
+                status;
+
+
+            if (
+                order.status ===
+                status
+            ) {
+
+                option.selected =
+                    true;
+
+            }
+
+
+            statusSelect.appendChild(
+                option
+            );
+
+        }
+    );
+
+
+    statusSelect.onchange =
+        async function() {
+
+            await updateOrderStatus(
+
+                order.id,
+
+                statusSelect.value,
+
+                statusSelect
+
+            );
+
+        };
+
+
+    statusArea.appendChild(
+        statusLabel
+    );
+
+
+    statusArea.appendChild(
+        statusSelect
+    );
+
+
+    header.appendChild(
+        customerArea
+    );
+
+
+    header.appendChild(
+        statusArea
+    );
+
+
+    card.appendChild(
+        header
+    );
+
+
+    /* =========================
+       DETAILS
+    ========================= */
+
+    const details =
+        document.createElement(
+            "div"
+        );
+
+
+    details.className =
+        "details-grid";
+
+
+    addDetail(
+        details,
+        "Email",
+        order.email
+    );
+
+
+    addDetail(
+        details,
+        "Item",
+        order.item
+    );
+
+
+    addDetail(
+        details,
+        "Colour",
+        order.colour
+    );
+
+
+    addDetail(
+        details,
+        "Size",
+        order.size
+    );
+
+
+    card.appendChild(
+        details
+    );
+
+
+    /* =========================
+       DESCRIPTION
+    ========================= */
+
+    if (
+        order.description
+    ) {
+
+
+        addLongDetail(
+
+            card,
+
+            "Custom Idea",
+
+            order.description
+
+        );
+
+    }
+
+
+    /* =========================
+       NOTE
+    ========================= */
+
+    if (
+        order.note
+    ) {
+
+
+        addLongDetail(
+
+            card,
+
+            "Customer Note",
+
+            order.note
+
+        );
+
+    }
+
+
+    /* =========================
+       PHOTO
+    ========================= */
+
+    if (
+        order.photo_url
+    ) {
+
+
+        const photoArea =
+            document.createElement(
+                "div"
+            );
+
+
+        photoArea.className =
+            "photo-area";
+
+
+        const label =
+            document.createElement(
+                "div"
+            );
+
+
+        label.className =
+            "detail-label";
+
+
+        label.textContent =
+            "Reference Photo";
+
+
+        const link =
+            document.createElement(
+                "a"
+            );
+
+
+        link.className =
+            "photo-button";
+
+
+        link.href =
+            order.photo_url;
+
+
+        link.target =
+            "_blank";
+
+
+        link.rel =
+            "noopener";
+
+
+        link.textContent =
+            "📸 View Reference Photo";
+
+
+        photoArea.appendChild(
+            label
+        );
+
+
+        photoArea.appendChild(
+            link
+        );
+
+
+        card.appendChild(
+            photoArea
+        );
+
+    }
+
+
+    /* =========================
+       DELETE
+    ========================= */
+
+    const actions =
+        document.createElement(
+            "div"
+        );
+
+
+    actions.className =
+        "order-actions";
+
+
+    const deleteButton =
+        document.createElement(
+            "button"
+        );
+
+
+    deleteButton.className =
+        "delete-button";
+
+
+    deleteButton.textContent =
+        "Delete Order";
+
+
+    deleteButton.onclick =
+        async function() {
+
+            await deleteOrder(
+
+                order.id,
+
+                card
+
+            );
+
+        };
+
+
+    actions.appendChild(
+        deleteButton
+    );
+
+
+    card.appendChild(
+        actions
+    );
+
+
+    container.appendChild(
+        card
+    );
+
+}
+
+
+/* =========================
+   DETAIL BOX
+========================= */
+
+function addDetail(
+    container,
+    label,
+    value
+) {
+
+
+    const box =
+        document.createElement(
+            "div"
+        );
+
+
+    box.className =
+        "detail-box";
+
+
+    const labelElement =
+        document.createElement(
+            "div"
+        );
+
+
+    labelElement.className =
+        "detail-label";
+
+
+    labelElement.textContent =
+        label;
+
+
+    const valueElement =
+        document.createElement(
+            "div"
+        );
+
+
+    valueElement.className =
+        "detail-value";
+
+
+    valueElement.textContent =
+        value ||
+        "Not provided";
+
+
+    box.appendChild(
+        labelElement
+    );
+
+
+    box.appendChild(
+        valueElement
+    );
+
+
+    container.appendChild(
+        box
+    );
+
+}
+
+
+/* =========================
+   LONG DETAIL
+========================= */
+
+function addLongDetail(
+    card,
+    label,
+    value
+) {
+
+
+    const box =
+        document.createElement(
+            "div"
+        );
+
+
+    box.className =
+        "long-detail";
+
+
+    const labelElement =
+        document.createElement(
+            "div"
+        );
+
+
+    labelElement.className =
+        "detail-label";
+
+
+    labelElement.textContent =
+        label;
+
+
+    const valueElement =
+        document.createElement(
+            "div"
+        );
+
+
+    valueElement.className =
+        "detail-value";
+
+
+    valueElement.textContent =
+        value;
+
+
+    box.appendChild(
+        labelElement
+    );
+
+
+    box.appendChild(
+        valueElement
+    );
+
+
+    card.appendChild(
+        box
+    );
+
+}
+
+
+/* =========================
+   UPDATE STATUS
+========================= */
+
+async function updateOrderStatus(
+    orderId,
+    newStatus,
+    select
+) {
+
+
+    try {
+
+
+        const response =
+            await fetch(
+
+                SUPABASE_URL +
+
+                "/rest/v1/custom_order" +
+
+                "?id=eq." +
+
+                encodeURIComponent(
+                    orderId
+                ),
+
+                {
+
+                    method: "PATCH",
+
+                    headers: {
+
+                        "Content-Type":
+                            "application/json",
+
+                        "apikey":
+                            SUPABASE_PUBLISHABLE_KEY,
+
+                        "Prefer":
+                            "return=minimal"
+
+                    },
+
+                    body:
+                        JSON.stringify({
+
+                            status:
+                                newStatus
+
+                        })
+
+                }
+
+            );
+
+
+        if (!response.ok) {
+
+
+            console.error(
+                "STATUS ERROR:",
+                await response.text()
+            );
+
+
+            alert(
+                "The order status couldn't be updated. ♡"
+            );
+
+
+            return;
+
+        }
+
+
+        console.log(
+            "Order status updated:",
+            newStatus
+        );
+
+    }
+
+
+    catch (error) {
+
+
+        console.error(
+            "STATUS ERROR:",
+            error
+        );
+
+
+        alert(
+            "Something went wrong while updating the order. ♡"
+        );
+
+    }
+
+}
+
+
+/* =========================
+   DELETE ORDER
+========================= */
+
+async function deleteOrder(
+    orderId,
+    card
+) {
+
+
+    const confirmed =
+        confirm(
+
+            "Are you sure you want to delete this order? ♡"
+
+        );
+
+
+    if (!confirmed) {
+
+        return;
+
+    }
+
+
+    try {
+
+
+        const response =
+            await fetch(
+
+                SUPABASE_URL +
+
+                "/rest/v1/custom_order" +
+
+                "?id=eq." +
+
+                encodeURIComponent(
+                    orderId
+                ),
+
+                {
+
+                    method: "DELETE",
+
+                    headers: {
+
+                        "apikey":
+                            SUPABASE_PUBLISHABLE_KEY,
+
+                        "Content-Type":
+                            "application/json"
+
+                    }
+
+                }
+
+            );
+
+
+        if (!response.ok) {
+
+
+            console.error(
+                "DELETE ERROR:",
+                await response.text()
+            );
+
+
+            alert(
+                "The order couldn't be deleted. ♡"
+            );
+
+
+            return;
+
+        }
+
+
+        card.remove();
+
+
+        updateOrderCount();
+
+
+    }
+
+
+    catch (error) {
+
+
+        console.error(
+            "DELETE ERROR:",
+            error
+        );
+
+
+        alert(
+            "Something went wrong while deleting the order. ♡"
+        );
+
+    }
+
+}
+
+
+/* =========================
+   UPDATE COUNT
+========================= */
+
+function updateOrderCount() {
+
+
+    const cards =
+        document.querySelectorAll(
+            ".order-card"
+        );
+
+
+    const count =
+        document.getElementById(
+            "orderCount"
+        );
+
+
+    if (
+        cards.length === 0
+    ) {
+
+
+        count.textContent =
+            "0 orders";
+
+
+        document.getElementById(
+            "ordersContainer"
+        ).innerHTML =
+
+            "<div class='empty-orders'>" +
+
+            "No custom orders yet. ♡" +
+
+            "</div>";
+
+
+        return;
+
+    }
+
+
+    count.textContent =
+        cards.length +
+
+        (
+            cards.length === 1
+                ? " order"
+                : " orders"
+        );
+
+}
+
+
+/* =========================
+   DATE
+========================= */
+
+function formatDate(
+    dateString
+) {
+
+
+    if (!dateString) {
+
+        return "Date unavailable";
+
+    }
+
+
+    return new Date(
+        dateString
+    ).toLocaleString(
+        undefined,
+        {
+
+            year:
+                "numeric",
+
+            month:
+                "long",
+
+            day:
+                "numeric",
+
+            hour:
+                "numeric",
+
+            minute:
+                "2-digit"
+
+        }
+
+    );
+
+}
+
+
+/* =========================
+   PAGE LOAD
+========================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        loadOrders();
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>
+
