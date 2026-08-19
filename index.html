@@ -1,322 +1,910 @@
+```html
 <!DOCTYPE html>
-
-<html>
+<html lang="en">
 
 <head>
 
-<title>Welcome to Lurelle by Adel</title>
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Lurelle by Adel</title>
+
 
 <style>
 
+/* =========================
+   GENERAL PAGE
+========================= */
+
 body {
-background-color: #FFF8F3;
-color: #6F5A4D;
-font-family: Georgia, serif;
-margin: 0;
-}
-
-header {
-background-color: #FFF8F3;
-padding: 45px 20px;
-text-align: center;
-}
-
-.logo {
-    width: 50px !important;
-    height: auto !important;
-    display: block;
-    margin: 10px auto;
-}
-
-h1 {
-color: #6F5A4D;
-font-size: 32px;
-margin-bottom: 15px;
-}
-
-h2 {
-color: #DCC9BE;
-text-align: center;
-font-size: 28px;
-margin-top: 40px;
-}
-
-h3 {
-color: #6F5A4D;
-font-size: 22px;
-}
-
-p {
-font-size: 17px;
-line-height: 1.7;
-}
-
-button {
-background-color: #DCC9BE;
-color: #6F5A4D;
-border: none;
-padding: 12px 25px;
-border-radius: 25px;
-font-size: 16px;
-cursor: pointer;
-}
-
-button:hover {
-background-color: #EBC2C6;
-}
-
-section {
-padding: 30px 25px;
-text-align: center;
-}
-
-.product-card {
-background-color: #FFF8F3;
-border: 1px solid #DCC9BE;
-border-radius: 18px;
-padding: 25px;
-margin: 25px auto;
-max-width: 380px;
-text-align: center;
-box-shadow: 0 5px 15px rgba(111,90,77,0.08);
-}
-
-.product-card h3 {
-color: #6F5A4D;
-font-size: 22px;
-margin-bottom: 10px;
-}
-
-.product-card p {
-font-size: 16px;
+    margin: 0;
+    background-color: #FFF8F3;
+    color: #6F5A4D;
+    font-family: Georgia, serif;
 }
 
 
-}
-.contact-section {
-background-color: #FFF8F3;
-border-top: 1px solid #DCC9BE;
-padding: 45px 25px;
-text-align: center;
-}
-
-.custom-section {
-    width: 85%;
-    max-width: 900px;
-    margin: 50px auto;
-    padding: 40px 25px;
-    background-color: #F7DCE1;
-    border-radius: 30px;
-    text-align: center;
-    box-sizing: border-box;
-}
-
-footer {
-background-color: #DCC9BE;
-color: #6F5A4D;
-text-align: center;
-padding: 25px;
-margin-top: 30px;
-}
+/* =========================
+   HAMBURGER BUTTON
+========================= */
 
 .menu-button {
-position: fixed;
-top: 20px;
-left: 20px;
-z-index: 1001;
-background-color: #DCC9BE;
-color: #FFF8F3;
-border: none;
-padding: 12px 18px;
-border-radius: 25px;
-font-size: 20px;
-cursor: pointer;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1001;
+
+    background-color: #DCC9BE;
+    color: #FFF8F3;
+
+    border: none;
+    padding: 12px 18px;
+
+    border-radius: 25px;
+
+    font-size: 20px;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.3s ease,
+        transform 0.2s ease;
 }
+
+
+.menu-button:hover {
+    background-color: #C98F9F;
+    transform: translateY(-2px);
+}
+
+
+/* =========================
+   MENU
+========================= */
 
 #menu {
-position: fixed;
-top: 0;
-left: -260px;
-width: 240px;
-height: 100%;
-background-color: #FFF8F3;
-padding-top: 90px;
-box-shadow: 5px 0 15px rgba(111,90,77,0.15);
-transition: left 0.4s ease;
-z-index: 1000;
+    position: fixed;
+
+    top: 0;
+    left: -260px;
+
+    width: 240px;
+    height: 100%;
+
+    background-color: #FFF8F3;
+
+    padding-top: 90px;
+
+    box-shadow:
+        5px 0 15px
+        rgba(111,90,77,0.15);
+
+    transition: left 0.4s ease;
+
+    z-index: 1000;
 }
+
 
 #menu.open {
-left: 0;
+    left: 0;
 }
+
 
 #menu a {
-display: block;
-padding: 18px 25px;
-color: #6F5A4D;
-text-decoration: none;
-font-size: 18px;
+    display: block;
+
+    padding: 18px 25px;
+
+    color: #6F5A4D;
+
+    text-decoration: none;
+
+    font-size: 18px;
+
+    transition:
+        background-color 0.2s ease,
+        padding-left 0.2s ease;
 }
 
+
 #menu a:hover {
-background-color: #F7DCE1;
+    background-color: #F7DCE1;
+    padding-left: 32px;
+}
+
+
+/* =========================
+   HOMEPAGE
+========================= */
+
+.home {
+    min-height: 100vh;
+
+    padding:
+        85px
+        25px
+        70px;
+
+    box-sizing: border-box;
+
+    text-align: center;
+}
+
+
+/* =========================
+   LOGO
+========================= */
+
+.logo {
+    width: 150px;
+    height: 150px;
+
+    object-fit: cover;
+
+    border-radius: 50%;
+
+    margin-bottom: 25px;
+
+    box-shadow:
+        0 5px 18px
+        rgba(111,90,77,0.08);
+}
+
+
+/* =========================
+   BRAND
+========================= */
+
+.brand {
+    margin: 0;
+
+    font-size:
+        clamp(
+            55px,
+            10vw,
+            90px
+        );
+
+    font-weight: normal;
+
+    letter-spacing: 1px;
+}
+
+
+.tagline {
+    margin-top: 12px;
+
+    font-size: 21px;
+
+    font-style: italic;
+
+    color: #8A7468;
+}
+
+
+.intro {
+    max-width: 620px;
+
+    margin:
+        25px auto
+        65px;
+
+    font-size: 17px;
+
+    line-height: 1.8;
+
+    color: #806B60;
+}
+
+
+/* =========================
+   LITTLE INTRODUCTION
+========================= */
+
+.welcome {
+    max-width: 750px;
+
+    margin: 0 auto 65px;
+
+    padding: 35px 30px;
+
+    background-color:
+        rgba(255,255,255,0.65);
+
+    border:
+        1px solid #E5D6CD;
+
+    border-radius: 30px;
+
+    box-shadow:
+        0 7px 22px
+        rgba(111,90,77,0.06);
+}
+
+
+.welcome h2 {
+    margin: 0 0 15px;
+
+    font-size: 31px;
+
+    font-weight: normal;
+}
+
+
+.welcome p {
+    margin: 0;
+
+    font-size: 16px;
+
+    line-height: 1.8;
+
+    color: #806B60;
+}
+
+
+/* =========================
+   EXPLORE SECTION
+========================= */
+
+.explore {
+    max-width: 1050px;
+
+    margin: 0 auto;
+}
+
+
+.explore-heading {
+    margin-bottom: 35px;
+}
+
+
+.explore-heading h2 {
+    margin: 0;
+
+    font-size: 35px;
+
+    font-weight: normal;
+}
+
+
+.explore-heading p {
+    margin-top: 10px;
+
+    font-size: 15px;
+
+    font-style: italic;
+
+    color: #A28E84;
+}
+
+
+/* =========================
+   INVITATION CARDS
+========================= */
+
+.invitation-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 22px;
+
+    text-align: left;
+}
+
+
+.invitation-card {
+
+    position: relative;
+
+    min-height: 210px;
+
+    padding: 30px;
+
+    box-sizing: border-box;
+
+    background-color:
+        rgba(255,255,255,0.7);
+
+    border:
+        1px solid #E5D6CD;
+
+    border-radius: 30px;
+
+    box-shadow:
+        0 6px 20px
+        rgba(111,90,77,0.06);
+
+    overflow: hidden;
+
+    transition:
+        transform 0.3s ease,
+        background-color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+
+.invitation-card:hover {
+
+    transform:
+        translateY(-5px);
+
+    background-color:
+        #F7DCE1;
+
+    box-shadow:
+        0 10px 25px
+        rgba(111,90,77,0.11);
+}
+
+
+/* CARD NUMBER */
+
+.card-number {
+
+    font-family: Arial, sans-serif;
+
+    font-size: 12px;
+
+    letter-spacing: 2px;
+
+    color: #B39D92;
+
+    margin-bottom: 18px;
+}
+
+
+/* CARD TITLE */
+
+.invitation-card h3 {
+
+    margin: 0 0 12px;
+
+    font-size: 27px;
+
+    font-weight: normal;
+
+    color: #6F5A4D;
+}
+
+
+/* CARD TEXT */
+
+.invitation-card p {
+
+    margin: 0;
+
+    max-width: 390px;
+
+    font-size: 16px;
+
+    line-height: 1.7;
+
+    color: #806B60;
+}
+
+
+/* LITTLE CARD DECORATION */
+
+.card-heart {
+
+    position: absolute;
+
+    right: 25px;
+
+    bottom: 18px;
+
+    font-size: 28px;
+
+    color: #DCC9BE;
+
+    transition:
+        transform 0.3s ease;
+}
+
+
+.invitation-card:hover
+.card-heart {
+
+    transform:
+        rotate(10deg)
+        scale(1.15);
+}
+
+
+/* =========================
+   FINAL MESSAGE
+========================= */
+
+.final-message {
+
+    max-width: 700px;
+
+    margin:
+        75px auto
+        0;
+
+    padding:
+        45px
+        25px;
+
+    text-align: center;
+}
+
+
+.final-message h2 {
+
+    margin: 0;
+
+    font-size: 34px;
+
+    font-weight: normal;
+}
+
+
+.final-message p {
+
+    margin:
+        15px auto
+        0;
+
+    max-width: 560px;
+
+    font-size: 16px;
+
+    line-height: 1.8;
+
+    color: #8A7468;
+
+    font-style: italic;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer {
+
+    margin-top: 30px;
+
+    padding:
+        25px;
+
+    text-align: center;
+
+    font-size: 14px;
+
+    font-style: italic;
+
+    color: #A28E84;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 750px) {
+
+    .home {
+        padding-top: 95px;
+    }
+
+
+    .invitation-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .invitation-card {
+
+        min-height: 190px;
+
+    }
+
+
+    .welcome {
+
+        padding: 30px 22px;
+
+    }
+
+}
+
+
+@media (max-width: 450px) {
+
+    .brand {
+
+        font-size: 54px;
+
+    }
+
+
+    .tagline {
+
+        font-size: 18px;
+
+    }
+
+
+    .invitation-card {
+
+        padding: 25px;
+
+    }
+
+
+    .invitation-card h3 {
+
+        font-size: 24px;
+
+    }
+
 }
 
 </style>
 
 </head>
 
+
 <body>
 
-<button class="menu-button" onclick="toggleMenu()">☰</button>
+
+<!-- =========================
+     HAMBURGER
+========================= -->
+
+<button
+    class="menu-button"
+    onclick="toggleMenu()"
+    aria-label="Open menu"
+>
+    ☰
+</button>
+
+
+<!-- =========================
+     NAVIGATION
+========================= -->
 
 <div id="menu">
 
-<a href="index.html">Home</a>
+    <a href="Lurellebyadel.html">
+        Home
+    </a>
 
-<a href="about.html">About</a>
+    <a href="about.html">
+        About
+    </a>
 
-<a href="blog.html">Blog🌸</a>
+    <a href="blog.html">
+        Blog🌸
+    </a>
 
-<a href="patterns.html">Patterns🧶</a>
+    <a href="patterns.html">
+        Patterns🧶
+    </a>
 
-<a href="collection.html">Collection</a>
+    <a href="collection.html">
+        Collection
+    </a>
 
-<a href="custom-orders.html">Custom Orders</a>
+    <a href="custom-orders.html">
+        Custom Orders
+    </a>
 
-<a href="contact.html">Contact</a>
-
-</div>
-<header id="home">
-
-
-<img src="lurelle-logo.jpg.JPG" style="width:150px !important;height:auto !important;">
-    <h1>🌸 Welcome to Lurelle by Adel 💕</h1>
-
-<p>Handmade with love, made for you. ♡</p>
-
-<a href="#collection">
-<button>Explore Lurelle</button>
-</a>
-
-</header>
-
-<section id="about">
-
-<h2>Meet the Girl Behind Lurelle 🎀</h2>
-
-<p>
-hii, I'm Adel! 💕 Lurelle is my little crochet world where I get to turn yarn, random ideas, (and way too much time😭) into cute handmade pieces. I started crocheting because I wanted to create things that were truly my own, and honestly, I ended up loving it way more than I expected.
-</p>
-
-<p>
-Everything here is handmade by me, from the first stitch to the finishing touches, with lots of love. I hope each piece feels personal and special to whoever gets it. Welcome to Lurelle — I'm so happy you're here. ♡
-</p>
-
-</section>
-
-<section id="collection">
-
-<h2>My Crochet Collection ✦</h2>
-
-<p>
-little handmade pieces, made with love and a little bit of creativity. 🤎
-</p>
-
-<p>
-♡ ───── ✦ ───── ♡
-</p>
-
-<div class="product-card">
-
-<h3>Bucket Hats 🎀</h3>
-
-<p>
-cute handmade crochet bucket hats made to add a little something extra to your outfit.
-</p>
-
-<button>Explore Bucket Hats</button>
+    <a href="contact.html">
+        Contact
+    </a>
 
 </div>
 
-<div class="product-card">
 
-<h3>Shrugs ♡</h3>
+<!-- =========================
+     HOMEPAGE
+========================= -->
 
-<p>
-soft handmade crochet shrugs for when you want something cute, cozy, and completely your own.
-</p>
+<main class="home">
 
-<button>Explore Shrugs</button>
 
-</div>
+    <!-- LOGO -->
 
-<div class="product-card">
+    <img
+        class="logo"
+        src="C:\Users\Ebehi\Downloads\ADEL'S STUFF( DONT OPEN )\MY BUSINESS\CROCHET BUSINESS\New folder\lurelle-logo.jpg.JPG"
+        alt="Lurelle by Adel logo"
+    >
 
-<h3>More Coming Soon ✦</h3>
 
-<p>
-there's always something new being created behind the scenes at Lurelle. stay tuned!
-</p>
+    <!-- BRAND -->
 
-</div>
+    <h1 class="brand">
+        Lurelle
+    </h1>
 
-</section>
 
-<section id="custom" class="custom-section">
+    <p class="tagline">
+        handmade with love, made for you
+    </p>
 
-<h2>Made Just for You 🎀</h2>
 
-<p>
-Have something special in mind? Let's make it happen.
-</p>
+    <p class="intro">
+        Welcome to my little corner of the internet.
+        Come wander through Lurelle with me —
+        there might be something here you'll love. ♡
+    </p>
 
-<p>
-Choose your colours, style, and little details, and I'll create a crochet piece that's uniquely yours.
-</p>
 
-<button>Request a Custom Order</button>
+    <!-- =========================
+         WELCOME
+    ========================= -->
 
-</section>
+    <section class="welcome">
 
-<section id="contact" class="contact-section">
+        <h2>
+            Let's take a little walk...
+        </h2>
 
-<h2>Let's Keep in Touch ♡</h2>
+        <p>
+            There's a lot to discover around here.
+            So take your time, have a look around,
+            and see where Lurelle takes you.
+        </p>
 
-<p>
-Have a question, want to place an order, or just want to say hii? I'd love to hear from you. You can even send me your crochet creations that my tutorials helped you create 💕
-</p>
+    </section>
 
-<p>
-Youtube: @yourusername
-</p>
 
-<p>
-Email: ebehi1@outlook.com
-</p>
+    <!-- =========================
+         EXPLORE
+    ========================= -->
 
-</section>
+    <section class="explore">
 
-<footer>
 
-<p>♡ Lurelle by Adel ♡</p>
+        <div class="explore-heading">
 
-<p>Handmade with love, made for you.</p>
+            <h2>
+                Where shall we wander?
+            </h2>
 
-</footer>
+            <p>
+                A few little places you might want to visit... ♡
+            </p>
+
+        </div>
+
+
+        <div class="invitation-grid">
+
+
+            <!-- ABOUT -->
+
+            <article class="invitation-card">
+
+                <div class="card-number">
+                    01
+                </div>
+
+                <h3>
+                    Meet the girl...
+                </h3>
+
+                <p>
+                    Wondering about the girl behind
+                    Lurelle? Well... you'll have to
+                    find her in the About page. ♡
+                </p>
+
+                <span class="card-heart">
+                    ♡
+                </span>
+
+            </article>
+
+
+            <!-- COLLECTION -->
+
+            <article class="invitation-card">
+
+                <div class="card-number">
+                    02
+                </div>
+
+                <h3>
+                    Wanna match with me?
+                </h3>
+
+                <p>
+                    Maybe your next favourite little
+                    piece is waiting for you in the
+                    Collection...
+                </p>
+
+                <span class="card-heart">
+                    ♡
+                </span>
+
+            </article>
+
+
+            <!-- BLORELLE -->
+
+            <article class="invitation-card">
+
+                <div class="card-number">
+                    03
+                </div>
+
+                <h3>
+                    Come behind the stitches...
+                </h3>
+
+                <p>
+                    Stories, ideas, inspiration and
+                    little moments from the world
+                    behind Lurelle.
+                </p>
+
+                <span class="card-heart">
+                    ♡
+                </span>
+
+            </article>
+
+
+            <!-- PATTERNS -->
+
+            <article class="invitation-card">
+
+                <div class="card-number">
+                    04
+                </div>
+
+                <h3>
+                    Wanna make something with me?
+                </h3>
+
+                <p>
+                    Grab your yarn and come see
+                    what little creations you could
+                    make yourself. 🧶
+                </p>
+
+                <span class="card-heart">
+                    ♡
+                </span>
+
+            </article>
+
+
+            <!-- CUSTOM ORDERS -->
+
+            <article class="invitation-card">
+
+                <div class="card-number">
+                    05
+                </div>
+
+                <h3>
+                    Got an idea?
+                </h3>
+
+                <p>
+                    Maybe it's something you've
+                    imagined that isn't in the
+                    Collection yet...
+                </p>
+
+                <span class="card-heart">
+                    ♡
+                </span>
+
+            </article>
+
+
+            <!-- CONTACT -->
+
+            <article class="invitation-card">
+
+                <div class="card-number">
+                    06
+                </div>
+
+                <h3>
+                    Got something to say?
+                </h3>
+
+                <p>
+                    Questions, ideas, little thoughts?
+                    I'll be around. Come say hello. ♡
+                </p>
+
+                <span class="card-heart">
+                    ♡
+                </span>
+
+            </article>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         ENDING
+    ========================= -->
+
+    <section class="final-message">
+
+        <h2>
+            Six little doors. ♡
+        </h2>
+
+        <p>
+            Which one do you wanna open?
+            You know where to find them...
+        </p>
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <div class="footer">
+        ♡ stay a little while ♡
+    </div>
+
+
+</main>
+
 
 <script>
 
+/* =========================
+   MENU
+========================= */
+
 function toggleMenu() {
 
-var menu = document.getElementById("menu");
+    const menu =
+        document.getElementById("menu");
 
-menu.classList.toggle("open");
+    menu.classList.toggle("open");
 
 }
 
+
+/* CLOSE MENU WHEN A LINK IS CLICKED */
+
+document
+    .querySelectorAll("#menu a")
+    .forEach(function(link) {
+
+        link.addEventListener(
+            "click",
+            function() {
+
+                document
+                    .getElementById("menu")
+                    .classList.remove("open");
+
+            }
+        );
+
+    });
+
 </script>
+
 
 </body>
 
 </html>
+```
