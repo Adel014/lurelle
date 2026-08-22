@@ -11,10 +11,6 @@
 
 <style>
 
-/* =========================
-   GENERAL
-========================= */
-
 body {
     background-color: #FFF8F3;
     color: #6F5A4D;
@@ -436,7 +432,7 @@ const supabaseClient =
 
 <div id="menu">
 
-    <a href="index.html">
+    <a href="Lurellebyadel.html">
         Home
     </a>
 
@@ -444,11 +440,15 @@ const supabaseClient =
         About
     </a>
 
-<a href="blog.html">Blog🌸</a>
+    <a href="blog.html">
+        Blog🌸
+    </a>
 
-<a href="patterns.html">Patterns🧶</a>
-    
-<a href="collection.html">
+    <a href="patterns.html">
+        Patterns🧶
+    </a>
+
+    <a href="collection.html">
         Collection
     </a>
 
@@ -485,7 +485,7 @@ const supabaseClient =
     </h2>
 
     <p>
-        The first 5 completed orders of every month receive a special discount!
+        The first 5 orders of every month receive a special discount!
     </p>
 
     <p>
@@ -548,7 +548,6 @@ const supabaseClient =
     class="cart"
     id="cart">
 
-
     <h2>
         🛒 Your Cart
     </h2>
@@ -592,7 +591,6 @@ const supabaseClient =
 
     </button>
 
-
 </div>
 
 
@@ -610,106 +608,40 @@ let cart = [];
 
 
 /* =========================
-   MONTHLY ORDER COUNT
+   MONTHLY DISCOUNT DATA
 ========================= */
 
 let monthlyOrderCount = 0;
 
+let currentDiscountRate = 0;
 
-/* =========================
-   MONTHLY DISCOUNT
-========================= */
-
-function getCurrentMonthStart() {
-
-    const now =
-        new Date();
-
-
-    return new Date(
-        now.getFullYear(),
-        now.getMonth(),
-        1,
-        0,
-        0,
-        0,
-        0
-    ).toISOString();
-
-}
-
-
-function getDiscountRate() {
-
-    if (monthlyOrderCount === 0) {
-        return 0.20;
-    }
-
-    if (
-        monthlyOrderCount === 1 ||
-        monthlyOrderCount === 2
-    ) {
-        return 0.10;
-    }
-
-    if (
-        monthlyOrderCount === 3 ||
-        monthlyOrderCount === 4
-    ) {
-        return 0.05;
-    }
-
-    return 0;
-
-}
-
-
-function getDiscountNumber() {
-
-    if (
-        monthlyOrderCount >= 5
-    ) {
-
-        return 0;
-
-    }
-
-
-    return monthlyOrderCount + 1;
-
-}
+let currentDiscountNumber = 0;
 
 
 /* =========================
-   LOAD MONTHLY ORDERS
+   GET MONTHLY DISCOUNT
 ========================= */
 
-async function loadMonthlyOrderCount() {
+async function loadMonthlyDiscount() {
 
     const result =
-        await supabaseClient
-            .from("orders")
-            .select(
-                "id",
-                {
-                    count: "exact",
-                    head: true
-                }
-            )
-            .gte(
-                "created_at",
-                getCurrentMonthStart()
-            );
+        await supabaseClient.rpc(
+            "get_monthly_discount"
+        );
 
 
     if (result.error) {
 
         console.error(
-            "MONTHLY ORDER COUNT ERROR:",
+            "MONTHLY DISCOUNT ERROR:",
             result.error
         );
 
         monthlyOrderCount = 0;
+
+        currentDiscountRate = 0;
+
+        currentDiscountNumber = 0;
 
         document.getElementById(
             "monthlyStatus"
@@ -723,8 +655,65 @@ async function loadMonthlyOrderCount() {
     }
 
 
-    monthlyOrderCount =
-        result.count || 0;
+    const data =
+        result.data;
+
+
+    if (!data) {
+
+        monthlyOrderCount = 0;
+
+        currentDiscountRate = 0;
+
+        currentDiscountNumber = 0;
+
+        displayCart();
+
+        return;
+
+    }
+
+
+    currentDiscountRate =
+        Number(
+            data.discount_rate
+        ) || 0;
+
+
+    currentDiscountNumber =
+        Number(
+            data.order_number
+        ) || 0;
+
+
+    /*
+       The function tells us the number
+       of the NEXT order.
+
+       Therefore:
+
+       1 = 20%
+       2 = 10%
+       3 = 10%
+       4 = 5%
+       5 = 5%
+       0 = no discount
+    */
+
+    if (
+        currentDiscountNumber > 0
+    ) {
+
+        monthlyOrderCount =
+            currentDiscountNumber - 1;
+
+    }
+
+    else {
+
+        monthlyOrderCount = 5;
+
+    }
 
 
     const spotsLeft =
@@ -758,6 +747,24 @@ async function loadMonthlyOrderCount() {
 
 
 /* =========================
+   DISCOUNT
+========================= */
+
+function getDiscountRate() {
+
+    return currentDiscountRate;
+
+}
+
+
+function getDiscountNumber() {
+
+    return currentDiscountNumber;
+
+}
+
+
+/* =========================
    ADD TO CART
 ========================= */
 
@@ -771,8 +778,7 @@ function addToCart(
             function(item) {
 
                 return (
-                    item.name ===
-                    name
+                    item.name === name
                 );
 
             }
@@ -1052,13 +1058,14 @@ function displayCart() {
 
 
     if (
-        totals.rate > 0
+        totals.rate > 0 &&
+        currentDiscountNumber > 0
     ) {
 
         discountMessage.textContent =
 
             "🎀 Monthly Special: Order " +
-            getDiscountNumber() +
+            currentDiscountNumber +
             " gets " +
             (
                 totals.rate * 100
@@ -1210,7 +1217,7 @@ function openCheckout() {
             totals.total,
 
         monthlyOrderNumber:
-            getDiscountNumber(),
+            currentDiscountNumber,
 
         month:
             getCurrentMonthKey()
@@ -1490,7 +1497,7 @@ document.addEventListener(
 
         loadProductsFromSupabase();
 
-        await loadMonthlyOrderCount();
+        await loadMonthlyDiscount();
 
     }
 );
