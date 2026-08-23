@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 
@@ -17,7 +17,6 @@ body {
     padding: 0;
 }
 
-
 /* HAMBURGER */
 
 .menu-button {
@@ -33,7 +32,6 @@ body {
     font-size: 20px;
     cursor: pointer;
 }
-
 
 /* MENU */
 
@@ -66,7 +64,6 @@ body {
     background-color: #F7DCE1;
 }
 
-
 /* PAGE */
 
 section {
@@ -84,7 +81,6 @@ h1 {
     line-height: 1.7;
     font-size: 17px;
 }
-
 
 /* CONTACT CARD */
 
@@ -116,7 +112,6 @@ h1 {
 .contact-option a:hover {
     text-decoration: underline;
 }
-
 
 /* MESSAGE FORM */
 
@@ -169,6 +164,9 @@ h1 {
     cursor: pointer;
 }
 
+.message-button:hover {
+    background-color: #C98F9F;
+}
 
 /* MOBILE */
 
@@ -193,14 +191,11 @@ h1 {
 
 </head>
 
-
 <body>
-
 
 <!-- HAMBURGER -->
 
 <button class="menu-button" onclick="toggleMenu()">☰</button>
-
 
 <!-- MENU -->
 
@@ -222,119 +217,85 @@ h1 {
 
 </div>
 
-
-
 <!-- CONTACT PAGE -->
 
 <section>
 
-
 <h1>♡ Get in Touch</h1>
 
-
 <p class="intro">
-
 Have a question about an order, a custom piece, or anything Lurelle?
-
+<br>
 I'd love to hear from you. ♡
-
 </p>
 
-
-
 <div class="contact-card">
-
 
 <div class="contact-option">
 
 <h2>💌 Email</h2>
 
 <p>
-
 <a href="mailto:ebehi1@outlook.com">
-
 ebehi1@outlook.com
-
 </a>
-
 </p>
 
 </div>
-
-
 
 <div class="contact-option">
 
 <h2>📱 Socials</h2>
 
 <p>
-
 Follow Lurelle for new drops, behind-the-scenes moments and more.
-
 </p>
 
 <p>
-
-<a href="#" onclick="socialMessage()">
-
+<a href="#" onclick="socialMessage(); return false;">
 ♡ Visit Lurelle's socials
-
 </a>
-
 </p>
 
 </div>
-
-
-
-<!-- YOUTUBE -->
 
 <div class="contact-option">
 
 <h2>▶️ YouTube</h2>
 
 <p>
-
 Watch Lurelle by Adel for videos, tutorials, behind-the-scenes moments and more.
-
 </p>
 
 <p>
-<a href="https://www.youtube.com/@LurellebyAdel1" target="_blank">
-    ♡ Visit my channel
+<a
+href="https://www.youtube.com/@LurellebyAdel1"
+target="_blank"
+rel="noopener noreferrer"
+>
+♡ Visit my channel
 </a>
-
 </p>
 
 </div>
-
-
 
 <div class="contact-option">
 
 <h2>🧶 Custom Orders</h2>
 
 <p>
-
 Want something made especially for you?
-
 </p>
 
 <p>
-
 <a href="custom-orders.html">
-
 ♡ Request a Custom Order
-
 </a>
-
 </p>
 
 </div>
 
-
 </div>
-
 
 
 <!-- MESSAGE FORM -->
@@ -343,43 +304,70 @@ Want something made especially for you?
 
 <h2>♡ Send a Message</h2>
 
+<form
+action="https://formspree.io/f/moeazpwy"
+method="POST"
+>
 
-<label>Your name</label>
+<label for="messageName">
+Your name
+</label>
 
 <input
 type="text"
 id="messageName"
-placeholder="Your name">
+name="name"
+placeholder="Your name"
+autocomplete="name"
+required
+>
 
 
-<label>Your email</label>
+<label for="messageEmail">
+Your email
+</label>
 
 <input
 type="email"
 id="messageEmail"
-placeholder="Your email">
+name="email"
+placeholder="Your email"
+autocomplete="email"
+required
+>
 
 
-<label>Your message</label>
+<label for="messageText">
+Your message
+</label>
 
 <textarea
 id="messageText"
-placeholder="Write your message here..."></textarea>
+name="message"
+placeholder="Write your message here..."
+required
+></textarea>
+
+
+<input
+type="hidden"
+name="_subject"
+value="New Lurelle Contact Message"
+>
 
 
 <button
 class="message-button"
-onclick="sendMessage()">
-
+type="submit"
+>
 Send Message
-
 </button>
+
+</form>
 
 </div>
 
-
 </section>
-
 
 
 <script>
@@ -393,54 +381,16 @@ function toggleMenu() {
 }
 
 
-function sendMessage() {
-
-    var name =
-    document.getElementById("messageName").value.trim();
-
-    var email =
-    document.getElementById("messageEmail").value.trim();
-
-    var message =
-    document.getElementById("messageText").value.trim();
-
-
-    if (
-        name === "" ||
-        email === "" ||
-        message === ""
-    ) {
-
-        alert(
-        "Please fill in all the fields. ♡"
-        );
-
-        return;
-
-    }
-
-
-    alert(
-    "Thank you, " +
-    name +
-    "! Your message is ready to be sent. ♡"
-    );
-
-}
-
-
 function socialMessage() {
 
     alert(
-    "Lurelle's social links will be added here soon. ♡"
+        "Lurelle's social links will be added here soon. ♡"
     );
 
 }
 
 </script>
 
-
 </body>
 
 </html>
-
