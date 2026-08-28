@@ -10,10 +10,9 @@
     content="width=device-width, initial-scale=1.0"
 >
 
-<title>Checkout | Lurelle by Adel</title>
-<link rel="icon" type="image/svg+xml" href="lurelle-butterfly.svg">
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<title>Order | Lurelle by Adel</title>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 
@@ -140,6 +139,14 @@ button:disabled {
     cursor: not-allowed;
 }
 
+.transfer-button {
+    background: #c98f9f;
+}
+
+.transfer-button:hover {
+    background: #b8798b;
+}
+
 .notice {
     padding: 15px;
     border-radius: 14px;
@@ -162,11 +169,6 @@ button:disabled {
     color: #8a5555;
 }
 
-.pending {
-    background: #f1ebe6;
-    color: #6f5a4d;
-}
-
 .discount {
     background: #f8e4e8;
     border-radius: 14px;
@@ -186,12 +188,16 @@ button:disabled {
     line-height: 1.6;
 }
 
-.payment {
-    display: none;
+.payment-choice {
+    margin-top: 25px;
 }
 
-.payment.show {
-    display: block;
+.payment-choice h2 {
+    margin-bottom: 8px;
+}
+
+.payment-choice p {
+    line-height: 1.6;
 }
 
 .debug {
@@ -204,6 +210,22 @@ button:disabled {
     overflow: auto;
 }
 
+@media (max-width: 600px) {
+
+    main {
+        padding: 25px 15px 60px;
+    }
+
+    h1 {
+        font-size: 30px;
+    }
+
+    .card {
+        padding: 22px;
+    }
+
+}
+
 </style>
 
 </head>
@@ -212,7 +234,6 @@ button:disabled {
 <body>
 
 <main>
-
 
 <a
     href="collection.html"
@@ -223,14 +244,13 @@ button:disabled {
 
 
 <h1>
-    ♡ Lurelle Checkout
+    ♡ Lurelle Order
 </h1>
 
 
 <p class="subtitle">
     Almost yours ♡
 </p>
-
 
 
 <!-- =========================
@@ -243,7 +263,6 @@ button:disabled {
         Your Order
     </h2>
 
-
     <div
         id="orderNumber"
         class="order-number"
@@ -251,14 +270,11 @@ button:disabled {
         Order not saved yet
     </div>
 
-
     <div id="items">
         Loading order...
     </div>
 
-
     <div class="summary">
-
 
         <div class="summary-row">
 
@@ -303,11 +319,9 @@ button:disabled {
 
         </div>
 
-
     </div>
 
 </div>
-
 
 
 <!-- =========================
@@ -385,37 +399,35 @@ button:disabled {
 </div>
 
 
-
 <!-- =========================
-     ORDER CONFIRMATION
+     SAVE ORDER
 ========================= -->
 
-<div class="card">
+<div class="card payment-choice">
 
     <h2>
-        Order Confirmation
+        Save Your Order
     </h2>
 
-
     <p class="small">
-
-        Your order is saved first.
-        Payment is recorded separately, so an order
-        can exist with
-        <strong>
-            payment status: unpaid
-        </strong>.
-
+        Choose how you'd like to pay. Your order will be saved with the payment method you select. ♡
     </p>
 
 
     <button
-        id="saveButton"
-        onclick="saveOrder()"
+        id="cashButton"
+        onclick="saveOrder('Cash')"
     >
+        Save Order as Cash ♡
+    </button>
 
-        Place Order ♡
 
+    <button
+        id="transferButton"
+        class="transfer-button"
+        onclick="saveOrder('Transfer')"
+    >
+        Save Order as Transfer ♡
     </button>
 
 
@@ -428,54 +440,6 @@ button:disabled {
 </div>
 
 
-
-<!-- =========================
-     PAYMENT
-========================= -->
-
-<div
-    id="paymentCard"
-    class="card payment"
->
-
-    <h2>
-        Payment
-    </h2>
-
-
-    <p>
-        Your order has been saved successfully. ♡
-    </p>
-
-
-    <p class="small">
-
-        Your payment system is still in test mode.
-        No real card details, PINs or banking passwords
-        should be entered on this page.
-
-    </p>
-
-
-    <button
-        onclick="showPaymentMessage()"
-    >
-
-        Continue to Payment ♡
-
-    </button>
-
-
-    <div
-        id="paymentStatus"
-        class="notice"
-    >
-    </div>
-
-</div>
-
-
-
 <div
     id="debugBox"
     class="debug"
@@ -486,9 +450,7 @@ button:disabled {
 </main>
 
 
-
 <script>
-
 
 /* ==========================================
    SUPABASE CONNECTION
@@ -509,9 +471,8 @@ const supabaseClient =
     );
 
 
-
 /* ==========================================
-   CHECKOUT DATA
+   ORDER DATA
 ========================================== */
 
 const checkout =
@@ -520,7 +481,6 @@ const checkout =
             "lurelleCheckout"
         ) || "null"
     );
-
 
 
 /* ==========================================
@@ -537,7 +497,6 @@ function money(value) {
 }
 
 
-
 /* ==========================================
    ESCAPE HTML
 ========================================== */
@@ -545,21 +504,16 @@ function money(value) {
 function escapeHTML(value) {
 
     const div =
-        document.createElement(
-            "div"
-        );
-
+        document.createElement("div");
 
     div.textContent =
         value == null
             ? ""
             : String(value);
 
-
     return div.innerHTML;
 
 }
-
 
 
 /* ==========================================
@@ -571,7 +525,6 @@ function currentMonth() {
     const d =
         new Date();
 
-
     return (
         d.getFullYear() +
         "-" +
@@ -581,7 +534,6 @@ function currentMonth() {
     );
 
 }
-
 
 
 /* ==========================================
@@ -597,13 +549,11 @@ function showNotice(
     element.textContent =
         text;
 
-
     element.className =
         "notice show " +
         type;
 
 }
-
 
 
 /* ==========================================
@@ -623,11 +573,9 @@ function getItems() {
 
     }
 
-
     return [];
 
 }
-
 
 
 /* ==========================================
@@ -639,25 +587,24 @@ function displayCheckout() {
     const items =
         getItems();
 
-
     const box =
         document.getElementById(
             "items"
         );
 
 
-    if (
-        !items.length
-    ) {
+    if (!items.length) {
 
         box.innerHTML =
-            "<p>No checkout items were found.</p>";
-
+            "<p>No order items were found.</p>";
 
         document.getElementById(
-            "saveButton"
+            "cashButton"
         ).disabled = true;
 
+        document.getElementById(
+            "transferButton"
+        ).disabled = true;
 
         return;
 
@@ -738,7 +685,6 @@ function displayCheckout() {
     );
 
 
-
     const subtotal =
         Number(
             checkout.subtotal ??
@@ -769,7 +715,6 @@ function displayCheckout() {
         );
 
 
-
     const discount =
         Number(
             checkout.discountAmount ??
@@ -777,7 +722,6 @@ function displayCheckout() {
             checkout.discount ??
             0
         );
-
 
 
     const total =
@@ -790,7 +734,6 @@ function displayCheckout() {
         );
 
 
-
     const rate =
         Number(
             checkout.discountRate ??
@@ -799,45 +742,33 @@ function displayCheckout() {
         );
 
 
-
     document.getElementById(
         "subtotal"
     ).textContent =
-        money(
-            subtotal
-        );
+        money(subtotal);
 
 
     document.getElementById(
         "discountAmount"
     ).textContent =
-        money(
-            discount
-        );
+        money(discount);
 
 
     document.getElementById(
         "total"
     ).textContent =
-        money(
-            total
-        );
+        money(total);
 
 
-
-    if (
-        discount > 0
-    ) {
+    if (discount > 0) {
 
         const discountBox =
             document.getElementById(
                 "discountBox"
             );
 
-
         discountBox.style.display =
             "block";
-
 
         discountBox.textContent =
             "♡ Monthly discount: " +
@@ -851,16 +782,23 @@ function displayCheckout() {
 }
 
 
-
 /* ==========================================
    SAVE ORDER
 ========================================== */
 
-async function saveOrder() {
+async function saveOrder(
+    paymentMethod
+) {
 
-    const button =
+    const cashButton =
         document.getElementById(
-            "saveButton"
+            "cashButton"
+        );
+
+
+    const transferButton =
+        document.getElementById(
+            "transferButton"
         );
 
 
@@ -881,11 +819,9 @@ async function saveOrder() {
             "error"
         );
 
-
         return;
 
     }
-
 
 
     const customerName =
@@ -918,7 +854,6 @@ async function saveOrder() {
         ).value.trim();
 
 
-
     if (
         !customerName ||
         !customerEmail ||
@@ -932,25 +867,51 @@ async function saveOrder() {
             "error"
         );
 
+        return;
+
+    }
+
+
+    if (
+        paymentMethod !== "Cash" &&
+        paymentMethod !== "Transfer"
+    ) {
+
+        showNotice(
+            status,
+            "Please choose Cash or Transfer.",
+            "error"
+        );
 
         return;
 
     }
 
 
+    cashButton.disabled =
+        true;
 
-    button.disabled =
+    transferButton.disabled =
         true;
 
 
-    button.textContent =
-        "Saving order... ♡";
+    if (
+        paymentMethod === "Cash"
+    ) {
 
+        cashButton.textContent =
+            "Saving Cash Order... ♡";
+
+    } else {
+
+        transferButton.textContent =
+            "Saving Transfer Order... ♡";
+
+    }
 
 
     const items =
         getItems();
-
 
 
     const subtotal =
@@ -983,7 +944,6 @@ async function saveOrder() {
         );
 
 
-
     const discount =
         Number(
             checkout.discountAmount ??
@@ -991,7 +951,6 @@ async function saveOrder() {
             checkout.discount ??
             0
         );
-
 
 
     const total =
@@ -1004,29 +963,12 @@ async function saveOrder() {
         );
 
 
-
     const rate =
         Number(
             checkout.discountRate ??
             checkout.discount_rate ??
             0
         );
-
-
-
-    /*
-       IMPORTANT:
-
-       We do NOT send:
-
-       id
-       created_at
-       order_number
-       order_status
-       payment_status
-
-       Supabase handles those.
-    */
 
 
     const orderData = {
@@ -1064,10 +1006,12 @@ async function saveOrder() {
         discount_month:
             checkout.discountMonth ??
             checkout.discount_month ??
-            currentMonth()
+            currentMonth(),
+
+        payment_method:
+            paymentMethod
 
     };
-
 
 
     console.log(
@@ -1076,25 +1020,7 @@ async function saveOrder() {
     );
 
 
-
     try {
-
-
-        /*
-           IMPORTANT FIX:
-
-           We only INSERT.
-
-           We do NOT use:
-
-           .select()
-           .single()
-
-           because guests are allowed
-           to create orders but are NOT
-           allowed to read orders.
-        */
-
 
         const result =
             await supabaseClient
@@ -1104,27 +1030,17 @@ async function saveOrder() {
                 );
 
 
-
         console.log(
             "Supabase result:",
             result
         );
 
 
-
-        if (
-            result.error
-        ) {
+        if (result.error) {
 
             throw result.error;
 
         }
-
-
-
-        /*
-           The INSERT worked.
-        */
 
 
         document.getElementById(
@@ -1133,51 +1049,70 @@ async function saveOrder() {
             "Order saved successfully ♡";
 
 
+        if (
+            paymentMethod === "Cash"
+        ) {
 
-        showNotice(
-            status,
-            "♡ Your order has been saved successfully! Payment is currently unpaid.",
-            "success"
-        );
-
-
-
-        button.textContent =
-            "Order Saved ♡";
+            showNotice(
+                status,
+                "♡ Your order has been saved as a Cash order!",
+                "success"
+            );
 
 
-
-        /*
-           NOW SHOW PAYMENT SECTION
-        */
+            cashButton.textContent =
+                "Cash Order Saved ♡";
 
 
-        document.getElementById(
-            "paymentCard"
-        ).classList.add(
-            "show"
-        );
+            transferButton.disabled =
+                true;
 
+
+        }
+
+
+        if (
+            paymentMethod === "Transfer"
+        ) {
+
+            showNotice(
+                status,
+                "♡ Your order has been saved as a Transfer order. Taking you to the transfer details...",
+                "success"
+            );
+
+
+            transferButton.textContent =
+                "Transfer Order Saved ♡";
+
+
+            /*
+             * Give the success message
+             * a moment to appear before
+             * opening the transfer page.
+             */
+
+            setTimeout(
+                function() {
+
+                    window.location.href =
+                        "transfer.html";
+
+                },
+                1200
+            );
+
+        }
 
     }
 
 
-    catch (
-        error
-    ) {
-
+    catch (error) {
 
         console.error(
             "SUPABASE ORDER ERROR:",
             error
         );
-
-
-
-        /*
-           SHOW THE REAL ERROR
-           IF IT FAILS AGAIN
-        */
 
 
         const debugBox =
@@ -1199,7 +1134,6 @@ async function saveOrder() {
             );
 
 
-
         showNotice(
             status,
             "Your order could not be saved yet. Please try again. ♡",
@@ -1207,40 +1141,23 @@ async function saveOrder() {
         );
 
 
+        cashButton.disabled =
+            false;
 
-        button.disabled =
+        transferButton.disabled =
             false;
 
 
-        button.textContent =
-            "Place Order ♡";
+        cashButton.textContent =
+            "Save Order as Cash ♡";
+
+
+        transferButton.textContent =
+            "Save Order as Transfer ♡";
 
     }
 
 }
-
-
-
-/* ==========================================
-   PAYMENT TEST MESSAGE
-========================================== */
-
-function showPaymentMessage() {
-
-    showNotice(
-
-        document.getElementById(
-            "paymentStatus"
-        ),
-
-        "Payment is still in test mode. Your order remains saved as unpaid until a real payment system is connected. ♡",
-
-        "pending"
-
-    );
-
-}
-
 
 
 /* ==========================================
@@ -1252,4 +1169,5 @@ displayCheckout();
 </script>
 
 </body>
+
 </html>
