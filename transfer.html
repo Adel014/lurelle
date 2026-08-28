@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Payment | Lurelle by Adel</title>
+<link rel="icon" type="image/svg+xml" href="lurelle-butterfly.svg">
+<style>
+
+body {
+    margin: 0;
+    background-color: #FFF8F3;
+    color: #6F5A4D;
+    font-family: Georgia, serif;
+}
+
+.menu-button {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1001;
+    background-color: #DCC9BE;
+    color: #FFF8F3;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 25px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.menu-button:hover {
+    background-color: #C98F9F;
+    transform: translateY(-2px);
+}
+
+#menu {
+    position: fixed;
+    top: 0;
+    left: -260px;
+    width: 240px;
+    height: 100%;
+    background-color: #FFF8F3;
+    padding-top: 90px;
+    box-shadow: 5px 0 15px rgba(111,90,77,0.15);
+    transition: left 0.4s ease;
+    z-index: 1000;
+}
+
+#menu.open {
+    left: 0;
+}
+
+#menu a {
+    display: block;
+    padding: 18px 25px;
+    color: #6F5A4D;
+    text-decoration: none;
+    font-size: 18px;
+    transition: background-color 0.2s ease, padding-left 0.2s ease;
+}
+
+#menu a:hover {
+    background-color: #F7DCE1;
+    padding-left: 32px;
+}
+
+.payment-page {
+    min-height: 100vh;
+    box-sizing: border-box;
+    padding: 95px 20px 70px;
+    text-align: center;
+}
+
+.payment-page h1 {
+    margin: 0;
+    font-size: clamp(42px, 8vw, 64px);
+    font-weight: normal;
+}
+
+.subtitle {
+    max-width: 560px;
+    margin: 15px auto 45px;
+    font-size: 17px;
+    line-height: 1.8;
+    color: #806B60;
+}
+
+.payment-card {
+    position: relative;
+    max-width: 650px;
+    margin: 0 auto;
+    padding: 45px 35px;
+    box-sizing: border-box;
+    background-color: #F7DCE1;
+    border: 1px solid #E5C9CE;
+    border-radius: 32px;
+    box-shadow: 0 10px 28px rgba(111,90,77,0.08);
+    overflow: hidden;
+}
+
+.payment-card::before {
+    content: "✦";
+    position: absolute;
+    top: 20px;
+    left: 25px;
+    color: #DCCFE8;
+    font-size: 22px;
+}
+
+.payment-card::after {
+    content: "♡";
+    position: absolute;
+    right: 25px;
+    bottom: 18px;
+    color: #DCCFE8;
+    font-size: 25px;
+}
+
+.card-label {
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: #A28E84;
+    margin-bottom: 14px;
+}
+
+.payment-card h2 {
+    margin: 0 0 30px;
+    font-size: 29px;
+    font-weight: normal;
+}
+
+.bank-details {
+    background-color: rgba(255,255,255,0.72);
+    border: 1px solid #E5D6CD;
+    border-radius: 23px;
+    padding: 25px;
+    text-align: left;
+}
+
+.detail {
+    padding: 15px 0;
+    border-bottom: 1px solid #E5D6CD;
+}
+
+.detail:first-child {
+    padding-top: 0;
+}
+
+.detail:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.detail-label {
+    display: block;
+    margin-bottom: 7px;
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: #A28E84;
+}
+
+.detail-value {
+    font-size: 18px;
+    color: #6F5A4D;
+    word-break: break-word;
+}
+
+.copy-button {
+    display: block;
+    margin: 18px auto 0;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 20px;
+    background-color: #DCCFE8;
+    color: #6F5A4D;
+    font-family: Georgia, serif;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.copy-button:hover {
+    background-color: #DCC9BE;
+    transform: translateY(-2px);
+}
+
+.instructions {
+    max-width: 500px;
+    margin: 28px auto 0;
+    font-size: 15px;
+    line-height: 1.8;
+    color: #806B60;
+}
+
+.transfer-button {
+    display: block;
+    margin: 28px auto 0;
+    padding: 14px 25px;
+    border: none;
+    border-radius: 25px;
+    background-color: #6F5A4D;
+    color: #FFF8F3;
+    font-family: Georgia, serif;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.transfer-button:hover {
+    background-color: #C98F9F;
+    transform: translateY(-2px);
+}
+
+.confirmation-message {
+    display: none;
+    max-width: 500px;
+    margin: 25px auto 0;
+    padding: 20px;
+    background-color: rgba(255,255,255,0.72);
+    border: 1px solid #E5D6CD;
+    border-radius: 20px;
+    font-size: 15px;
+    line-height: 1.7;
+    color: #806B60;
+}
+
+.confirmation-message.show {
+    display: block;
+}
+
+.footer {
+    margin-top: 55px;
+    font-size: 14px;
+    font-style: italic;
+    color: #A28E84;
+}
+
+@media (max-width: 600px) {
+
+    .payment-page {
+        padding: 90px 15px 55px;
+    }
+
+    .payment-card {
+        padding: 38px 20px;
+    }
+
+    .payment-card h2 {
+        font-size: 26px;
+    }
+
+    .bank-details {
+        padding: 20px;
+    }
+
+    .detail-value {
+        font-size: 17px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<button
+    class="menu-button"
+    onclick="toggleMenu()"
+    aria-label="Open menu"
+>
+    ☰
+</button>
+
+<div id="menu">
+
+    <a href="index.html">Home</a>
+
+    <a href="about.html">About</a>
+
+    <a href="blog.html">Blog🌸</a>
+
+    <a href="patterns.html">Patterns🧶</a>
+
+    <a href="collection.html">Collection</a>
+
+    <a href="custom-orders.html">Custom Orders</a>
+
+    <a href="contact.html">Contact</a>
+
+</div>
+
+<main class="payment-page">
+
+    <h1>
+        Payment
+    </h1>
+
+    <p class="subtitle">
+        You're almost there. ♡
+        Complete your order with a bank transfer
+        using the details below.
+    </p>
+
+    <section class="payment-card">
+
+        <div class="card-label">
+            LURELLE PAYMENT
+        </div>
+
+        <h2>
+            Bank Transfer
+        </h2>
+
+        <div class="bank-details">
+
+            <div class="detail">
+
+                <span class="detail-label">
+                    Bank
+                </span>
+
+                <span class="detail-value">
+                    YOUR BANK NAME
+                </span>
+
+            </div>
+
+            <div class="detail">
+
+                <span class="detail-label">
+                    Account Name
+                </span>
+
+                <span class="detail-value">
+                    YOUR ACCOUNT NAME
+                </span>
+
+            </div>
+
+            <div class="detail">
+
+                <span class="detail-label">
+                    Account Number
+                </span>
+
+                <span
+                    class="detail-value"
+                    id="accountNumber"
+                >
+                    YOUR ACCOUNT NUMBER
+                </span>
+
+                <button
+                    class="copy-button"
+                    onclick="copyAccountNumber()"
+                >
+                    Copy Account Number
+                </button>
+
+            </div>
+
+        </div>
+
+        <p class="instructions">
+            Please transfer the exact amount shown
+            for your order. Keep your payment receipt
+            after completing the transfer.
+        </p>
+
+        <button
+            class="transfer-button"
+            onclick="showConfirmation()"
+        >
+            I've made my transfer ♡
+        </button>
+
+        <div
+            class="confirmation-message"
+            id="confirmationMessage"
+        >
+            Thank you! ♡
+            Please go to the <strong>Contact</strong>
+            page and send your payment confirmation
+            so we can confirm your order.
+        </div>
+
+    </section>
+
+    <div class="footer">
+        ♡ thank you for supporting Lurelle ♡
+    </div>
+
+</main>
+
+<script>
+
+function toggleMenu() {
+
+    const menu =
+        document.getElementById("menu");
+
+    menu.classList.toggle("open");
+
+}
+
+document
+    .querySelectorAll("#menu a")
+    .forEach(function(link) {
+
+        link.addEventListener(
+            "click",
+            function() {
+
+                document
+                    .getElementById("menu")
+                    .classList.remove("open");
+
+            }
+        );
+
+    });
+
+
+function copyAccountNumber() {
+
+    const accountNumber =
+        document
+            .getElementById("accountNumber")
+            .textContent
+            .trim();
+
+    navigator.clipboard
+        .writeText(accountNumber)
+        .then(function() {
+
+            alert(
+                "Account number copied! ♡"
+            );
+
+        })
+        .catch(function() {
+
+            alert(
+                "Please copy the account number manually. ♡"
+            );
+
+        });
+
+}
+
+
+function showConfirmation() {
+
+    const message =
+        document.getElementById(
+            "confirmationMessage"
+        );
+
+    message.classList.add("show");
+
+}
+
+</script>
+
+</body>
+
+</html>
