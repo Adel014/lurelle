@@ -1,0 +1,131 @@
+/* =========================================
+   LURELLE — WARM DARK MODE
+========================================= */
+
+body.dark-mode {
+    background-color: #29231F;
+    color: #F7EEE7;
+}
+
+
+/* TEXT */
+
+body.dark-mode .tagline,
+body.dark-mode .intro,
+body.dark-mode .welcome p,
+body.dark-mode .explore-heading p,
+body.dark-mode .invitation-card p,
+body.dark-mode .take-signature,
+body.dark-mode .final-message p,
+body.dark-mode .footer {
+    color: #D8C5BA;
+}
+
+
+/* HAMBURGER */
+
+body.dark-mode .menu-button {
+    background-color: #6F5A4D;
+    color: #F7EEE7;
+}
+
+body.dark-mode .menu-button:hover {
+    background-color: #C98F9F;
+}
+
+
+/* MENU */
+
+body.dark-mode #menu {
+    background-color: #302924;
+    box-shadow:
+        5px 0 15px
+        rgba(0,0,0,0.25);
+}
+
+body.dark-mode #menu a {
+    color: #F7EEE7;
+}
+
+body.dark-mode #menu a:hover {
+    background-color: #4A3736;
+}
+
+
+/* WELCOME */
+
+body.dark-mode .welcome {
+    background-color: rgba(53,45,40,0.9);
+    border-color: #55473F;
+    box-shadow:
+        0 7px 22px
+        rgba(0,0,0,0.18);
+}
+
+
+/* INVITATION CARDS */
+
+body.dark-mode .invitation-card {
+    background-color: #352D28;
+    border-color: #55473F;
+    box-shadow:
+        0 6px 20px
+        rgba(0,0,0,0.18);
+}
+
+body.dark-mode .invitation-card:hover {
+    background-color: #4A3736;
+}
+
+body.dark-mode .invitation-card h3 {
+    color: #F7EEE7;
+}
+
+body.dark-mode .card-number {
+    color: #BFA99D;
+}
+
+body.dark-mode .card-heart {
+    color: #C98F9F;
+}
+
+
+/* TAKE WITH YOU */
+
+body.dark-mode .take-with-you {
+    background-color: #4A3736;
+    border-color: #654C4F;
+    box-shadow:
+        0 8px 24px
+        rgba(0,0,0,0.18);
+}
+
+body.dark-mode .take-label {
+    color: #CBB6AA;
+}
+
+body.dark-mode .take-with-you h2,
+body.dark-mode .take-quote {
+    color: #F7EEE7;
+}
+
+body.dark-mode .take-with-you::before,
+body.dark-mode .take-with-you::after {
+    color: #C98F9F;
+}
+
+
+/* FINAL MESSAGE */
+
+body.dark-mode .final-message h2 {
+    color: #F7EEE7;
+}
+
+
+/* LOGO */
+
+body.dark-mode .logo {
+    box-shadow:
+        0 5px 18px
+        rgba(0,0,0,0.22);
+}
