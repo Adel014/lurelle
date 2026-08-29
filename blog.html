@@ -8,9 +8,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Blorelle | Lurelle</title>
+
 <link rel="icon" type="image/svg+xml" href="lurelle-butterfly.svg">
 
+<!-- DARK MODE -->
+<link rel="stylesheet" href="darkmode.css">
+
 <style>
+
+/* =========================
+   GENERAL
+========================= */
 
 body {
     margin: 0;
@@ -21,34 +29,109 @@ body {
 
 
 /* =========================
+   DARK MODE BUTTON
+========================= */
+
+.dark-mode-button {
+    position: fixed;
+
+    top: 20px;
+    right: 20px;
+
+    z-index: 1001;
+
+    border: none;
+
+    background-color: #DCC9BE;
+    color: #FFF8F3;
+
+    padding: 10px 15px;
+
+    border-radius: 25px;
+
+    font-size: 16px;
+
+    cursor: pointer;
+
+    font-family: Georgia, serif;
+
+    transition:
+        background-color 0.3s ease,
+        transform 0.2s ease;
+}
+
+
+.dark-mode-button:hover {
+    background-color: #C98F9F;
+
+    transform:
+        translateY(-2px);
+}
+
+
+/* =========================
    HAMBURGER
 ========================= */
 
 .menu-button {
     position: fixed;
+
     top: 20px;
     left: 20px;
+
     z-index: 1001;
+
     background-color: #DCC9BE;
     color: #FFF8F3;
+
     border: none;
+
     padding: 12px 18px;
+
     border-radius: 25px;
+
     font-size: 20px;
+
     cursor: pointer;
+
+    transition:
+        background-color 0.3s ease,
+        transform 0.2s ease;
 }
 
 
+.menu-button:hover {
+    background-color: #C98F9F;
+
+    transform:
+        translateY(-2px);
+}
+
+
+/* =========================
+   MENU
+========================= */
+
 #menu {
     position: fixed;
+
     top: 0;
     left: -260px;
+
     width: 240px;
     height: 100%;
+
     background-color: #FFF8F3;
+
     padding-top: 90px;
-    box-shadow: 5px 0 15px rgba(111,90,77,0.15);
-    transition: left 0.4s ease;
+
+    box-shadow:
+        5px 0 15px
+        rgba(111,90,77,0.15);
+
+    transition:
+        left 0.4s ease;
+
     z-index: 1000;
 }
 
@@ -60,15 +143,25 @@ body {
 
 #menu a {
     display: block;
+
     padding: 18px 25px;
+
     color: #6F5A4D;
+
     text-decoration: none;
+
     font-size: 18px;
+
+    transition:
+        background-color 0.2s ease,
+        padding-left 0.2s ease;
 }
 
 
 #menu a:hover {
     background-color: #F7DCE1;
+
+    padding-left: 32px;
 }
 
 
@@ -77,44 +170,84 @@ body {
 ========================= */
 
 .blorelle {
+
     min-height: 100vh;
-    padding: 115px 25px 70px;
+
+    padding:
+        115px
+        25px
+        70px;
+
     text-align: center;
+
     box-sizing: border-box;
 }
 
 
 .brand {
+
     margin: 0;
-    font-size: clamp(48px, 8vw, 78px);
+
+    font-size:
+        clamp(
+            48px,
+            8vw,
+            78px
+        );
+
     font-weight: normal;
+
     letter-spacing: 1px;
 }
 
 
 .tagline {
-    margin: 10px 0 0;
+
+    margin:
+        10px
+        0
+        0;
+
     font-size: 21px;
+
     font-style: italic;
+
     font-weight: 500;
+
     color: #8A7468;
 }
 
 
 .subtagline {
-    margin: 7px 0 0;
+
+    margin:
+        7px
+        0
+        0;
+
     font-size: 16px;
+
     font-style: italic;
+
     font-weight: 300;
+
     color: #A28E84;
 }
 
 
 .intro {
+
     max-width: 650px;
-    margin: 30px auto 50px;
+
+    margin:
+        30px
+        auto
+        50px;
+
     font-size: 17px;
+
     line-height: 1.8;
+
     color: #806B60;
 }
 
@@ -124,37 +257,56 @@ body {
 ========================= */
 
 .latest-posts {
+
     max-width: 850px;
-    margin: 0 auto 55px;
+
+    margin:
+        0
+        auto
+        55px;
+
     text-align: left;
 }
 
 
 .latest-title {
+
     text-align: center;
+
     margin-bottom: 30px;
 }
 
 
 .latest-title h2 {
+
     margin: 0;
+
     font-size: 32px;
+
     font-weight: normal;
 }
 
 
 .latest-title p {
+
     margin-top: 8px;
+
     font-size: 14px;
+
     font-style: italic;
+
     color: #A28E84;
 }
 
 
 .posts-status {
+
     text-align: center;
+
     font-size: 15px;
+
     font-style: italic;
+
     color: #8B746B;
 }
 
@@ -164,35 +316,60 @@ body {
 ========================= */
 
 .blorelle-post {
-    background-color: rgba(255,255,255,0.7);
-    border: 1px solid #E5D6CD;
+
+    background-color:
+        rgba(255,255,255,0.7);
+
+    border:
+        1px solid #E5D6CD;
+
     border-radius: 28px;
+
     padding: 28px;
+
     margin-bottom: 25px;
-    box-shadow: 0 6px 20px rgba(111,90,77,0.07);
+
+    box-shadow:
+        0 6px 20px
+        rgba(111,90,77,0.07);
 }
 
 
 .blorelle-post h3 {
-    margin: 0 0 10px;
+
+    margin:
+        0
+        0
+        10px;
+
     font-size: 28px;
+
     font-weight: normal;
 }
 
 
 .post-date {
+
     font-family: Arial, sans-serif;
+
     font-size: 12px;
+
     color: #A28E84;
+
     margin-bottom: 18px;
 }
 
 
 .post-content {
+
     font-family: Arial, sans-serif;
+
     font-size: 15px;
+
     line-height: 1.8;
+
     white-space: pre-wrap;
+
     color: #6F5A4D;
 }
 
@@ -202,17 +379,26 @@ body {
 ========================= */
 
 .post-images {
+
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
     gap: 12px;
+
     margin-top: 20px;
 }
 
 
 .post-images img {
+
     width: 100%;
+
     height: 240px;
+
     object-fit: cover;
+
     border-radius: 18px;
 }
 
@@ -222,21 +408,36 @@ body {
 ========================= */
 
 .post-actions {
+
     display: flex;
+
     gap: 10px;
+
     margin-top: 22px;
+
     flex-wrap: wrap;
 }
 
 
 .action-button {
-    border: 1px solid #E5D6CD;
+
+    border:
+        1px solid #E5D6CD;
+
     background-color: #FFF8F3;
+
     color: #6F5A4D;
+
     border-radius: 15px;
-    padding: 9px 14px;
+
+    padding:
+        9px
+        14px;
+
     cursor: pointer;
+
     font-family: Arial, sans-serif;
+
     transition:
         background-color 0.2s ease,
         transform 0.2s ease;
@@ -244,18 +445,24 @@ body {
 
 
 .action-button:hover {
+
     background-color: #F7DCE1;
-    transform: translateY(-1px);
+
+    transform:
+        translateY(-1px);
 }
 
 
 .action-button.liked {
+
     background-color: #F7DCE1;
+
     border-color: #DCC9BE;
 }
 
 
 .like-button {
+
     min-width: 115px;
 }
 
@@ -265,83 +472,133 @@ body {
 ========================= */
 
 .comments-area {
+
     display: none;
+
     margin-top: 20px;
+
     padding-top: 20px;
-    border-top: 1px solid #E5D6CD;
+
+    border-top:
+        1px solid #E5D6CD;
 }
 
 
 .comment {
-    padding: 12px 0;
-    border-bottom: 1px solid #EEE2DB;
+
+    padding:
+        12px
+        0;
+
+    border-bottom:
+        1px solid #EEE2DB;
+
     font-family: Arial, sans-serif;
+
     font-size: 14px;
+
     line-height: 1.5;
 }
 
 
 .comment-name {
+
     font-weight: bold;
+
     margin-bottom: 4px;
 }
 
 
 .comment-form {
+
     margin-top: 15px;
 }
 
 
 .comment-form input,
 .comment-form textarea {
+
     width: 100%;
+
     box-sizing: border-box;
-    border: 1px solid #E5D6CD;
+
+    border:
+        1px solid #E5D6CD;
+
     border-radius: 15px;
+
     background-color: #FFF8F3;
+
     color: #6F5A4D;
+
     font-family: Arial, sans-serif;
-    padding: 11px 13px;
+
+    padding:
+        11px
+        13px;
+
     margin-bottom: 10px;
+
     outline: none;
 }
 
 
 .comment-form textarea {
+
     min-height: 80px;
+
     resize: vertical;
+
     line-height: 1.5;
 }
 
 
 .comment-submit {
+
     border: none;
+
     border-radius: 15px;
-    padding: 10px 15px;
+
+    padding:
+        10px
+        15px;
+
     background-color: #DCC9BE;
+
     color: #FFF8F3;
+
     cursor: pointer;
+
     font-family: Georgia, serif;
 }
 
 
 .comment-submit:hover {
+
     background-color: #C98F9F;
 }
 
 
 .comment-status {
+
     font-family: Arial, sans-serif;
+
     font-size: 13px;
+
     color: #A28E84;
+
     font-style: italic;
 }
 
 
 .footer-note {
+
     margin-top: 55px;
+
     font-size: 15px;
+
     font-style: italic;
+
     color: #A28E84;
 }
 
@@ -353,17 +610,28 @@ body {
 @media (max-width: 700px) {
 
     .blorelle {
+
         padding-top: 105px;
     }
 
 
     .post-images {
+
         grid-template-columns: 1fr;
     }
 
 
     .post-images img {
+
         height: 250px;
+    }
+
+
+    .dark-mode-button {
+
+        top: 75px;
+
+        right: 20px;
     }
 
 }
@@ -383,10 +651,29 @@ body {
 <button
     class="menu-button"
     onclick="toggleMenu()"
+    aria-label="Open menu"
 >
     ☰
 </button>
 
+
+<!-- =========================
+     DARK MODE
+========================= -->
+
+<button
+    class="dark-mode-button"
+    onclick="toggleDarkMode()"
+    id="darkModeButton"
+    aria-label="Toggle dark mode"
+>
+    🌙
+</button>
+
+
+<!-- =========================
+     MENU
+========================= -->
 
 <div id="menu">
 
@@ -452,6 +739,10 @@ body {
     </p>
 
 
+    <!-- =========================
+         LATEST POSTS
+    ========================= -->
+
     <section class="latest-posts">
 
 
@@ -506,6 +797,84 @@ function toggleMenu() {
     menu.classList.toggle("open");
 
 }
+
+
+/* =========================
+   DARK MODE
+========================= */
+
+function toggleDarkMode() {
+
+    document.body.classList.toggle("dark-mode");
+
+
+    const button =
+        document.getElementById(
+            "darkModeButton"
+        );
+
+
+    if (
+        document.body.classList.contains(
+            "dark-mode"
+        )
+    ) {
+
+        button.textContent = "☀️";
+
+        localStorage.setItem(
+            "lurelle_dark_mode",
+            "on"
+        );
+
+    }
+
+    else {
+
+        button.textContent = "🌙";
+
+        localStorage.setItem(
+            "lurelle_dark_mode",
+            "off"
+        );
+
+    }
+
+}
+
+
+/* REMEMBER DARK MODE */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        const savedMode =
+            localStorage.getItem(
+                "lurelle_dark_mode"
+            );
+
+
+        const button =
+            document.getElementById(
+                "darkModeButton"
+            );
+
+
+        if (
+            savedMode === "on"
+        ) {
+
+            document.body.classList.add(
+                "dark-mode"
+            );
+
+            button.textContent = "☀️";
+
+        }
+
+    }
+);
 
 
 /* =========================
@@ -572,6 +941,7 @@ function getVisitorId() {
 function generateFallbackUUID() {
 
     return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx"
+
         .replace(
             /[xy]/g,
             function(character) {
@@ -614,8 +984,10 @@ async function loadBlorellePosts() {
 
         const response =
             await fetch(
+
                 SUPABASE_URL +
                 "/rest/v1/blorelle_posts?select=*&order=created_at.desc",
+
                 {
 
                     method: "GET",
@@ -631,6 +1003,7 @@ async function loadBlorellePosts() {
                     }
 
                 }
+
             );
 
 
@@ -651,6 +1024,7 @@ async function loadBlorellePosts() {
                 "We couldn't load the latest Blorelle posts right now. ♡" +
                 "</p>";
 
+
             return;
 
         }
@@ -665,6 +1039,7 @@ async function loadBlorellePosts() {
                 "<p class='posts-status'>" +
                 "No Blorelle stories yet... check back soon. ♡" +
                 "</p>";
+
 
             return;
 
@@ -939,6 +1314,7 @@ function createPostCard(
                 commentsArea.style.display =
                     "none";
 
+
                 return;
 
             }
@@ -1055,10 +1431,12 @@ async function getLikeInfo(
 
         const countResponse =
             await fetch(
+
                 SUPABASE_URL +
                 "/rest/v1/blorelle_likes?post_id=eq." +
                 encodeURIComponent(postId) +
                 "&select=post_id",
+
                 {
 
                     method: "GET",
@@ -1074,6 +1452,7 @@ async function getLikeInfo(
                     }
 
                 }
+
             );
 
 
@@ -1103,12 +1482,14 @@ async function getLikeInfo(
 
         const userLikeResponse =
             await fetch(
+
                 SUPABASE_URL +
                 "/rest/v1/blorelle_likes?post_id=eq." +
                 encodeURIComponent(postId) +
                 "&user_id=eq." +
                 encodeURIComponent(visitorId) +
                 "&select=post_id",
+
                 {
 
                     method: "GET",
@@ -1124,6 +1505,7 @@ async function getLikeInfo(
                     }
 
                 }
+
             );
 
 
@@ -1226,12 +1608,14 @@ async function toggleLike(
 
         const checkResponse =
             await fetch(
+
                 SUPABASE_URL +
                 "/rest/v1/blorelle_likes?post_id=eq." +
                 encodeURIComponent(postId) +
                 "&user_id=eq." +
                 encodeURIComponent(visitorId) +
                 "&select=post_id",
+
                 {
 
                     method: "GET",
@@ -1247,6 +1631,7 @@ async function toggleLike(
                     }
 
                 }
+
             );
 
 
@@ -1283,11 +1668,13 @@ async function toggleLike(
 
             const deleteResponse =
                 await fetch(
+
                     SUPABASE_URL +
                     "/rest/v1/blorelle_likes?post_id=eq." +
                     encodeURIComponent(postId) +
                     "&user_id=eq." +
                     encodeURIComponent(visitorId),
+
                     {
 
                         method: "DELETE",
@@ -1303,6 +1690,7 @@ async function toggleLike(
                         }
 
                     }
+
                 );
 
 
@@ -1346,8 +1734,10 @@ async function toggleLike(
 
         const insertResponse =
             await fetch(
+
                 SUPABASE_URL +
                 "/rest/v1/blorelle_likes",
+
                 {
 
                     method: "POST",
@@ -1376,6 +1766,7 @@ async function toggleLike(
                     })
 
                 }
+
             );
 
 
@@ -1483,17 +1874,21 @@ async function loadComments(
 ) {
 
     container.innerHTML =
-        "<p class='comment-status'>Loading comments... ♡</p>";
+        "<p class='comment-status'>" +
+        "Loading comments... ♡" +
+        "</p>";
 
 
     try {
 
         const response =
             await fetch(
+
                 SUPABASE_URL +
                 "/rest/v1/blorelle_comments?post_id=eq." +
                 encodeURIComponent(postId) +
                 "&select=*&order=created_at.asc",
+
                 {
 
                     method: "GET",
@@ -1509,6 +1904,7 @@ async function loadComments(
                     }
 
                 }
+
             );
 
 
@@ -1764,8 +2160,10 @@ async function addComment(
 
         const response =
             await fetch(
+
                 SUPABASE_URL +
                 "/rest/v1/blorelle_comments",
+
                 {
 
                     method: "POST",
@@ -1800,6 +2198,7 @@ async function addComment(
                     })
 
                 }
+
             );
 
 
