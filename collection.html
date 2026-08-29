@@ -8,7 +8,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Collection | Lurelle by Adel</title>
+
 <link rel="icon" type="image/svg+xml" href="lurelle-butterfly.svg">
+
+<!-- SHARED DARK MODE -->
+<link rel="stylesheet" href="darkmode.css">
+
 <style>
 
 body {
@@ -48,13 +53,27 @@ h2 {
     top: 20px;
     left: 20px;
     z-index: 1001;
+
     background-color: #DCC9BE;
     color: #FFF8F3;
+
     border: none;
     padding: 11px 17px;
+
     border-radius: 25px;
+
     font-size: 20px;
+
     cursor: pointer;
+
+    transition:
+        background-color 0.3s ease,
+        transform 0.2s ease;
+}
+
+.menu-button:hover {
+    background-color: #C98F9F;
+    transform: translateY(-2px);
 }
 
 
@@ -67,14 +86,22 @@ h2 {
     top: 20px;
     right: 20px;
     z-index: 1001;
+
     background-color: #DCC9BE;
     color: #6F5A4D;
+
     border: none;
     padding: 12px 18px;
+
     border-radius: 25px;
+
     font-size: 16px;
+
     cursor: pointer;
-    box-shadow: 0 4px 12px rgba(111,90,77,0.12);
+
+    box-shadow:
+        0 4px 12px
+        rgba(111,90,77,0.12);
 }
 
 
@@ -84,14 +111,23 @@ h2 {
 
 #menu {
     position: fixed;
+
     top: 0;
     left: -270px;
+
     width: 250px;
     height: 100%;
+
     background-color: #FFF8F3;
+
     padding-top: 90px;
-    box-shadow: 5px 0 15px rgba(111,90,77,0.15);
+
+    box-shadow:
+        5px 0 15px
+        rgba(111,90,77,0.15);
+
     transition: left 0.4s ease;
+
     z-index: 1000;
 }
 
@@ -101,14 +137,23 @@ h2 {
 
 #menu a {
     display: block;
+
     padding: 18px 25px;
+
     color: #6F5A4D;
+
     text-decoration: none;
+
     font-size: 18px;
+
+    transition:
+        background-color 0.2s ease,
+        padding-left 0.2s ease;
 }
 
 #menu a:hover {
     background-color: #F7DCE1;
+    padding-left: 32px;
 }
 
 
@@ -118,9 +163,15 @@ h2 {
 
 .special {
     max-width: 650px;
-    margin: 30px auto 45px auto;
+
+    margin:
+        30px auto
+        45px auto;
+
     padding: 25px;
+
     background-color: #F7DCE1;
+
     border-radius: 25px;
 }
 
@@ -145,25 +196,41 @@ h2 {
 
 .product-grid {
     max-width: 900px;
+
     margin: 0 auto;
+
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
     gap: 25px;
 }
 
 .product-card {
     background-color: #FFF;
-    border: 1px solid #DCC9BE;
+
+    border:
+        1px solid #DCC9BE;
+
     border-radius: 25px;
+
     padding: 25px;
-    box-shadow: 0 5px 15px rgba(111,90,77,0.07);
+
+    box-shadow:
+        0 5px 15px
+        rgba(111,90,77,0.07);
 }
 
 .product-image {
     width: 100%;
+
     max-height: 280px;
+
     object-fit: cover;
+
     border-radius: 18px;
+
     margin-bottom: 15px;
 }
 
@@ -177,11 +244,17 @@ h2 {
 .leave-review-button,
 .submit-review-button {
     border: none;
+
     border-radius: 25px;
+
     padding: 11px 18px;
+
     margin-top: 10px;
+
     cursor: pointer;
+
     background-color: #6F5A4D;
+
     color: #FFF8F3;
 }
 
@@ -197,10 +270,15 @@ h2 {
 
 .review-area {
     display: none;
+
     margin-top: 20px;
+
     text-align: left;
+
     background-color: #FDF0F1;
+
     border-radius: 18px;
+
     padding: 18px;
 }
 
@@ -210,25 +288,35 @@ h2 {
 
 .review-card {
     background-color: #FFF8F3;
+
     border-radius: 15px;
+
     padding: 15px;
+
     margin-top: 12px;
 }
 
 .review-summary {
-    margin: 6px 0 16px;
+    margin:
+        6px 0
+        16px;
+
     font-size: 14px;
+
     color: #8B6F63;
 }
 
 .review-date {
     margin-top: 8px;
+
     font-size: 12px;
+
     color: #9B8378;
 }
 
 .review-form {
     display: none;
+
     margin-top: 15px;
 }
 
@@ -239,13 +327,22 @@ h2 {
 .review-form input,
 .review-form textarea,
 .review-form select {
+
     width: 100%;
+
     box-sizing: border-box;
+
     padding: 10px;
+
     margin-top: 6px;
-    border: 1px solid #DCC9BE;
+
+    border:
+        1px solid #DCC9BE;
+
     border-radius: 10px;
+
     background-color: #FFF8F3;
+
     color: #6F5A4D;
 }
 
@@ -260,9 +357,13 @@ h2 {
 
 .coming-soon {
     max-width: 500px;
+
     margin: 40px auto;
+
     padding: 30px;
+
     background-color: #F7DCE1;
+
     border-radius: 25px;
 }
 
@@ -273,20 +374,33 @@ h2 {
 
 .cart {
     max-width: 650px;
-    margin: 50px auto 0;
+
+    margin:
+        50px auto
+        0;
+
     background-color: #F7DCE1;
+
     border-radius: 25px;
+
     padding: 25px;
+
     text-align: left;
 }
 
 .cart-item {
     display: flex;
+
     justify-content: space-between;
+
     align-items: center;
+
     gap: 15px;
+
     padding: 15px 0;
-    border-bottom: 1px solid #DCC9BE;
+
+    border-bottom:
+        1px solid #DCC9BE;
 }
 
 .cart-controls {
@@ -296,18 +410,26 @@ h2 {
 
 .cart-controls button {
     border: none;
+
     background-color: #DCC9BE;
+
     color: #6F5A4D;
+
     width: 30px;
     height: 30px;
+
     border-radius: 50%;
+
     cursor: pointer;
 }
 
 .discount-box {
     margin-top: 20px;
+
     padding: 15px;
+
     border-radius: 15px;
+
     background-color: #FFF8F3;
 }
 
@@ -318,20 +440,31 @@ h2 {
 
 .cart-total {
     text-align: right;
+
     font-size: 20px;
+
     font-weight: bold;
+
     margin-top: 20px;
 }
 
 .checkout-button {
     width: 100%;
+
     margin-top: 20px;
+
     border: none;
+
     padding: 13px 22px;
+
     border-radius: 25px;
+
     cursor: pointer;
+
     background-color: #6F5A4D;
+
     color: #FFF8F3;
+
     font-size: 16px;
 }
 
@@ -342,14 +475,19 @@ h2 {
 
 .collection-status {
     text-align: center;
+
     font-style: italic;
+
     color: #A28E84;
+
     padding: 25px;
 }
 
 .error-message {
     text-align: center;
+
     padding: 25px;
+
     color: #8B5F5F;
 }
 
@@ -370,6 +508,7 @@ h2 {
 
     .product-grid {
         grid-template-columns: 1fr;
+
         max-width: 420px;
     }
 
@@ -379,6 +518,7 @@ h2 {
 
     .cart-item {
         flex-direction: column;
+
         align-items: flex-start;
     }
 
@@ -387,6 +527,7 @@ h2 {
 </style>
 
 
+<!-- SUPABASE -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
@@ -411,24 +552,37 @@ const supabaseClient =
 <body>
 
 
+<!-- =========================
+     HAMBURGER
+========================= -->
+
 <button
     class="menu-button"
-    onclick="toggleMenu()">
-
+    onclick="toggleMenu()"
+    aria-label="Open menu"
+>
     ☰
-
 </button>
 
 
+<!-- =========================
+     CART BUTTON
+========================= -->
+
 <button
     class="cart-button"
-    onclick="scrollToCart()">
+    onclick="scrollToCart()"
+>
 
     🛒 Cart
     (<span id="cartCount">0</span>)
 
 </button>
 
+
+<!-- =========================
+     NAVIGATION
+========================= -->
 
 <div id="menu">
 
@@ -463,6 +617,10 @@ const supabaseClient =
 </div>
 
 
+<!-- =========================
+     COLLECTION
+========================= -->
+
 <section>
 
 
@@ -473,10 +631,15 @@ const supabaseClient =
 
 <p class="intro">
 
-    Little handmade pieces, made with love and a little bit of creativity. ♡
+    Little handmade pieces, made with love
+    and a little bit of creativity. ♡
 
 </p>
 
+
+<!-- =========================
+     MONTHLY SPECIAL
+========================= -->
 
 <div class="special">
 
@@ -485,25 +648,36 @@ const supabaseClient =
     </h2>
 
     <p>
-        The first 5 orders of every month receive a special discount!
+        The first 5 orders of every month
+        receive a special discount!
     </p>
 
     <p>
 
-        🥇 1st order — <strong>20% OFF</strong><br>
+        🥇 1st order —
+        <strong>20% OFF</strong>
+        <br>
 
-        🥈 2nd order — <strong>10% OFF</strong><br>
+        🥈 2nd order —
+        <strong>10% OFF</strong>
+        <br>
 
-        🥉 3rd order — <strong>10% OFF</strong><br>
+        🥉 3rd order —
+        <strong>10% OFF</strong>
+        <br>
 
-        🎀 4th order — <strong>5% OFF</strong><br>
+        🎀 4th order —
+        <strong>5% OFF</strong>
+        <br>
 
-        🎀 5th order — <strong>5% OFF</strong>
+        🎀 5th order —
+        <strong>5% OFF</strong>
 
     </p>
 
     <p>
-        Once the 5 monthly spots are gone, regular prices apply.
+        Once the 5 monthly spots are gone,
+        regular prices apply.
     </p>
 
     <p id="monthlyStatus">
@@ -513,6 +687,10 @@ const supabaseClient =
 </div>
 
 
+<!-- =========================
+     COLLECTION PRODUCTS
+========================= -->
+
 <h2 class="category-title">
     ♡ Collection
 </h2>
@@ -520,7 +698,8 @@ const supabaseClient =
 
 <div
     id="supabase-products"
-    class="product-grid">
+    class="product-grid"
+>
 
     <p class="collection-status">
         Loading the collection... ♡
@@ -529,6 +708,10 @@ const supabaseClient =
 </div>
 
 
+<!-- =========================
+     COMING SOON
+========================= -->
+
 <div class="coming-soon">
 
     <h2>
@@ -536,17 +719,21 @@ const supabaseClient =
     </h2>
 
     <p>
-        There's always something new being created behind the scenes at Lurelle.
+        There's always something new being
+        created behind the scenes at Lurelle.
     </p>
 
 </div>
 
 
-<!-- CART -->
+<!-- =========================
+     CART
+========================= -->
 
 <div
     class="cart"
-    id="cart">
+    id="cart"
+>
 
     <h2>
         🛒 Your Cart
@@ -568,7 +755,8 @@ const supabaseClient =
 
         <div
             id="discountAmount"
-            class="discount-amount">
+            class="discount-amount"
+        >
         </div>
 
     </div>
@@ -576,7 +764,8 @@ const supabaseClient =
 
     <div
         id="cartTotal"
-        class="cart-total">
+        class="cart-total"
+    >
 
         Total: ₦0
 
@@ -585,7 +774,8 @@ const supabaseClient =
 
     <button
         class="checkout-button"
-        onclick="openCheckout()">
+        onclick="openCheckout()"
+    >
 
         Proceed to Checkout
 
@@ -598,7 +788,6 @@ const supabaseClient =
 
 
 <script>
-
 
 /* =========================
    CART
@@ -619,7 +808,7 @@ let currentDiscountNumber = 0;
 
 
 /* =========================
-   GET MONTHLY DISCOUNT
+   MONTHLY DISCOUNT
 ========================= */
 
 async function loadMonthlyDiscount() {
@@ -687,10 +876,7 @@ async function loadMonthlyDiscount() {
 
 
     /*
-       The function tells us the number
-       of the NEXT order.
-
-       Therefore:
+       NEXT ORDER NUMBER
 
        1 = 20%
        2 = 10%
@@ -1017,26 +1203,23 @@ function displayCart() {
                     <div class="cart-controls">
 
                         <button
-                            onclick="changeQuantity(${index}, -1)">
-
+                            onclick="changeQuantity(${index}, -1)"
+                        >
                             −
-
                         </button>
 
 
                         <button
-                            onclick="changeQuantity(${index}, 1)">
-
+                            onclick="changeQuantity(${index}, 1)"
+                        >
                             +
-
                         </button>
 
 
                         <button
-                            onclick="removeItem(${index})">
-
+                            onclick="removeItem(${index})"
+                        >
                             ×
-
                         </button>
 
                     </div>
@@ -1264,7 +1447,7 @@ function getCurrentMonthKey() {
 
 
 /* =========================
-   PRODUCTS
+   LOAD PRODUCTS
 ========================= */
 
 async function loadProductsFromSupabase() {
@@ -1319,7 +1502,9 @@ async function loadProductsFromSupabase() {
                     </h2>
 
                     <p>
-                        New handmade pieces will appear here whenever you add them to your collection.
+                        New handmade pieces will appear
+                        here whenever you add them to
+                        your collection.
                     </p>
 
                     <p>
@@ -1411,10 +1596,9 @@ async function loadProductsFromSupabase() {
                     </p>
 
                     <button
-                        class="add-button">
-
+                        class="add-button"
+                    >
                         Add to Cart
-
                     </button>
 
                 `;
@@ -1503,6 +1687,13 @@ document.addEventListener(
 );
 
 </script>
+
+
+<!-- =========================
+     SHARED DARK MODE
+========================= -->
+
+<script src="darkmode.js"></script>
 
 
 </body>
