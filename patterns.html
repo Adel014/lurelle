@@ -17,6 +17,10 @@
    GENERAL PAGE
 ========================= */
 
+* {
+    box-sizing: border-box;
+}
+
 body {
 
     margin: 0;
@@ -60,6 +64,19 @@ body {
     font-size: 20px;
 
     cursor: pointer;
+
+    transition:
+        background-color 0.3s ease,
+        transform 0.2s ease;
+}
+
+
+.menu-button:hover {
+
+    background-color: #C98F9F;
+
+    transform: scale(1.05);
+
 }
 
 
@@ -71,9 +88,9 @@ body {
 
     position: fixed;
 
-    top: 75px;
+    top: 20px;
 
-    left: 20px;
+    right: 20px;
 
     z-index: 1001;
 
@@ -136,7 +153,8 @@ body {
         5px 0 15px
         rgba(111,90,77,0.15);
 
-    transition: left 0.4s ease;
+    transition:
+        left 0.4s ease;
 
     z-index: 1000;
 }
@@ -160,12 +178,18 @@ body {
     text-decoration: none;
 
     font-size: 18px;
+
+    transition:
+        background-color 0.2s ease,
+        padding-left 0.2s ease;
 }
 
 
 #menu a:hover {
 
     background-color: #F7DCE1;
+
+    padding-left: 32px;
 
 }
 
@@ -179,6 +203,7 @@ body.dark-mode {
     background-color: #2F2927;
 
     color: #F7EDE7;
+
 }
 
 
@@ -203,6 +228,27 @@ body.dark-mode #menu a:hover {
 }
 
 
+body.dark-mode .patterns-page {
+
+    color: #F7EDE7;
+
+}
+
+
+body.dark-mode .patterns-page h1 {
+
+    color: #F7EDE7;
+
+}
+
+
+body.dark-mode .welcome {
+
+    color: #E8D9D2;
+
+}
+
+
 body.dark-mode .pattern-card {
 
     background-color: #3A312E;
@@ -212,6 +258,7 @@ body.dark-mode .pattern-card {
     box-shadow:
         0 6px 20px
         rgba(0,0,0,0.18);
+
 }
 
 
@@ -247,18 +294,9 @@ body.dark-mode .status-message {
 }
 
 
-body.dark-mode .welcome {
-
-    color: #F0E1DA;
-
-}
-
-
 body.dark-mode .dark-mode-button {
 
     background-color: #5A4A44;
-
-    color: #FFF8F3;
 
 }
 
@@ -484,7 +522,7 @@ body.dark-mode .dark-mode-button {
 
 
 <!-- =========================
-     MENU BUTTON
+     HAMBURGER BUTTON
 ========================= -->
 
 <button
@@ -492,7 +530,9 @@ body.dark-mode .dark-mode-button {
     onclick="toggleMenu()"
     aria-label="Open menu"
 >
+
     ☰
+
 </button>
 
 
@@ -506,7 +546,9 @@ body.dark-mode .dark-mode-button {
     id="darkModeButton"
     aria-label="Toggle dark mode"
 >
+
     🌙
+
 </button>
 
 
@@ -514,7 +556,7 @@ body.dark-mode .dark-mode-button {
      MENU
 ========================= -->
 
-<div id="menu" class="menu">
+<div id="menu">
 
     <a href="index.html">
         Home
@@ -565,20 +607,32 @@ body.dark-mode .dark-mode-button {
 
 
     <p class="welcome">
+
         Welcome to Lurelle's little pattern corner —
         a place for adorable, creative and stunning
         crochet patterns made with love. ♡
+
     </p>
 
+
+    <!-- =========================
+         PATTERN STATUS
+    ========================= -->
 
     <div id="patternStatus">
 
         <p class="status-message">
+
             Loading Lurelle patterns... 🧶
+
         </p>
 
     </div>
 
+
+    <!-- =========================
+         PATTERN GRID
+    ========================= -->
 
     <div
         id="patternGrid"
@@ -588,7 +642,9 @@ body.dark-mode .dark-mode-button {
 
 
     <div class="bottom-yarn">
+
         ♡ 🧶 ♡
+
     </div>
 
 
@@ -598,7 +654,7 @@ body.dark-mode .dark-mode-button {
 <script>
 
 /* =========================
-   MENU
+   HAMBURGER MENU
 ========================= */
 
 function toggleMenu() {
@@ -628,13 +684,13 @@ function toggleDarkMode() {
         );
 
 
-    const isDark =
+    const darkMode =
         document.body.classList.contains(
             "dark-mode"
         );
 
 
-    if (isDark) {
+    if (darkMode) {
 
         button.textContent = "☀️";
 
@@ -658,7 +714,7 @@ function toggleDarkMode() {
 
 
 /* =========================
-   REMEMBER DARK MODE
+   LOAD SAVED DARK MODE
 ========================= */
 
 document.addEventListener(
@@ -677,7 +733,9 @@ document.addEventListener(
             );
 
 
-        if (savedMode === "true") {
+        if (
+            savedMode === "true"
+        ) {
 
             document.body.classList.add(
                 "dark-mode"
@@ -752,6 +810,10 @@ async function loadPatterns() {
             await response.json();
 
 
+        /* =========================
+           ERROR
+        ========================= */
+
         if (!response.ok) {
 
             console.error(
@@ -773,6 +835,10 @@ async function loadPatterns() {
         }
 
 
+        /* =========================
+           NO PATTERNS
+        ========================= */
+
         if (
             !patterns ||
             patterns.length === 0
@@ -790,6 +856,10 @@ async function loadPatterns() {
 
         }
 
+
+        /* =========================
+           PATTERNS FOUND
+        ========================= */
 
         status.innerHTML = "";
 
@@ -809,6 +879,8 @@ async function loadPatterns() {
                     "pattern-card";
 
 
+                /* NAME */
+
                 const title =
                     document.createElement(
                         "h2"
@@ -818,6 +890,8 @@ async function loadPatterns() {
                 title.textContent =
                     pattern.name;
 
+
+                /* DESCRIPTION */
 
                 const description =
                     document.createElement(
@@ -829,6 +903,8 @@ async function loadPatterns() {
                     pattern.description ||
                     "";
 
+
+                /* INSTRUCTIONS */
 
                 const instructions =
                     document.createElement(
