@@ -5,348 +5,164 @@
 
 <meta charset="UTF-8">
 
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Lurelle | Patterns</title>
 
-<link
-    rel="icon"
-    type="image/svg+xml"
-    href="lurelle-butterfly.svg"
->
+<link rel="icon" type="image/svg+xml" href="lurelle-butterfly.svg">
 
-<!-- DARK MODE CSS -->
 <link rel="stylesheet" href="darkmode.css">
 
 <style>
 
-/* =========================
-   MENU BUTTON
-========================= */
-
 .menu-button {
-
     position: fixed;
-
     top: 20px;
-
     left: 20px;
-
     z-index: 1001;
-
     background-color: #DCC9BE;
-
     color: #FFF8F3;
-
     border: none;
-
     padding: 12px 18px;
-
     border-radius: 25px;
-
     font-size: 20px;
-
     cursor: pointer;
-
 }
-
-
-/* =========================
-   MENU
-========================= */
 
 #menu {
-
     position: fixed;
-
     top: 0;
-
     left: -260px;
-
     width: 240px;
-
     height: 100%;
-
     background-color: #FFF8F3;
-
     padding-top: 90px;
-
-    box-shadow:
-        5px 0 15px
-        rgba(111,90,77,0.15);
-
-    transition:
-        left 0.4s ease;
-
+    box-shadow: 5px 0 15px rgba(111,90,77,0.15);
+    transition: left 0.4s ease;
     z-index: 1000;
-
 }
-
 
 #menu.open {
-
     left: 0;
-
 }
-
 
 #menu a {
-
     display: block;
-
     padding: 18px 25px;
-
     color: #6F5A4D;
-
     text-decoration: none;
-
     font-size: 18px;
-
 }
-
 
 #menu a:hover {
-
     background-color: #F7DCE1;
-
 }
-
-
-/* =========================
-   PAGE
-========================= */
 
 body {
-
     margin: 0;
-
     background-color: #fffaf6;
-
     color: #5f4b43;
-
     font-family: Georgia, serif;
-
 }
-
 
 .patterns-page {
-
     max-width: 1000px;
-
     margin: 0 auto;
-
     padding: 90px 30px;
-
     text-align: center;
-
 }
-
-
-/* =========================
-   TITLE
-========================= */
 
 .yarn {
-
     font-size: 28px;
-
     margin-bottom: 10px;
-
 }
-
 
 .patterns-page h1 {
-
     font-size: 42px;
-
     margin-bottom: 15px;
-
     font-weight: normal;
-
 }
-
 
 .welcome {
-
     font-size: 20px;
-
     line-height: 1.8;
-
     max-width: 650px;
-
     margin: 0 auto 45px;
-
 }
-
-
-/* =========================
-   PATTERN GRID
-========================= */
 
 .pattern-grid {
-
     display: grid;
-
-    grid-template-columns:
-        repeat(2, 1fr);
-
+    grid-template-columns: repeat(2, 1fr);
     gap: 25px;
-
     text-align: left;
-
     margin-top: 40px;
-
 }
-
-
-/* =========================
-   PATTERN CARD
-========================= */
 
 .pattern-card {
-
-    background-color:
-        rgba(255,255,255,0.7);
-
-    border:
-        1px solid #E5D6CD;
-
+    background-color: rgba(255,255,255,0.7);
+    border: 1px solid #E5D6CD;
     border-radius: 28px;
-
     padding: 28px;
-
-    box-shadow:
-        0 6px 20px
-        rgba(111,90,77,0.07);
-
+    box-shadow: 0 6px 20px rgba(111,90,77,0.07);
 }
-
 
 .pattern-card h2 {
-
     margin: 0 0 12px;
-
     font-size: 27px;
-
     font-weight: normal;
-
     color: #6F5A4D;
-
 }
-
 
 .pattern-card p {
-
     margin: 0;
-
     font-family: Arial, sans-serif;
-
     font-size: 15px;
-
     line-height: 1.7;
-
     color: #806B60;
-
 }
-
-
-/* =========================
-   PATTERN INSTRUCTIONS
-========================= */
 
 .pattern-instructions {
-
     margin-top: 20px;
-
     padding: 18px;
-
     background-color: #FFF8F3;
-
-    border:
-        1px solid #E5D6CD;
-
+    border: 1px solid #E5D6CD;
     border-radius: 18px;
-
     white-space: pre-wrap;
-
     font-family: Arial, sans-serif;
-
     font-size: 14px;
-
     line-height: 1.7;
-
     color: #6F5A4D;
-
 }
-
-
-/* =========================
-   LOADING / EMPTY MESSAGE
-========================= */
 
 .status-message {
-
     text-align: center;
-
     font-size: 16px;
-
     font-style: italic;
-
     color: #8B746B;
-
     margin-top: 40px;
-
 }
-
-
-/* =========================
-   BOTTOM
-========================= */
 
 .bottom-yarn {
-
     font-size: 28px;
-
     margin-top: 55px;
-
 }
-
-
-/* =========================
-   MOBILE
-========================= */
 
 @media (max-width: 700px) {
 
     .patterns-page {
-
-        padding:
-            80px 20px;
-
+        padding: 80px 20px;
     }
-
 
     .patterns-page h1 {
-
         font-size: 34px;
-
     }
-
 
     .welcome {
-
         font-size: 17px;
-
     }
 
-
     .pattern-grid {
-
         grid-template-columns: 1fr;
-
     }
 
 }
@@ -355,13 +171,7 @@ body {
 
 </head>
 
-
 <body>
-
-
-<!-- =========================
-     MENU BUTTON
-========================= -->
 
 <button
     class="menu-button"
@@ -370,76 +180,39 @@ body {
     ☰
 </button>
 
+<div id="menu" class="menu">
 
-<!-- =========================
-     MENU
-========================= -->
+    <a href="index.html">Home</a>
 
-<div
-    id="menu"
-    class="menu"
->
+    <a href="about.html">About</a>
 
-    <a href="index.html">
-        Home
-    </a>
+    <a href="blog.html">Blog🌸</a>
 
-    <a href="about.html">
-        About
-    </a>
+    <a href="patterns.html">Patterns🧶</a>
 
-    <a href="blog.html">
-        Blog🌸
-    </a>
+    <a href="collection.html">Collection</a>
 
-    <a href="patterns.html">
-        Patterns🧶
-    </a>
+    <a href="custom-orders.html">Custom Orders</a>
 
-    <a href="collection.html">
-        Collection
-    </a>
-
-    <a href="custom-orders.html">
-        Custom Orders
-    </a>
-
-    <a href="contact.html">
-        Contact
-    </a>
+    <a href="contact.html">Contact</a>
 
 </div>
 
-
-<!-- =========================
-     MAIN PAGE
-========================= -->
-
 <main class="patterns-page">
-
 
     <div class="yarn">
         🧶
     </div>
 
-
     <h1>
         Lurelle Patterns ♡
     </h1>
 
-
     <p class="welcome">
-
         Welcome to Lurelle's little pattern corner —
         a place for adorable, creative and stunning
         crochet patterns made with love. ♡
-
     </p>
-
-
-    <!-- =========================
-         PATTERNS STATUS
-    ========================= -->
 
     <div id="patternStatus">
 
@@ -449,31 +222,19 @@ body {
 
     </div>
 
-
-    <!-- =========================
-         PATTERN GRID
-    ========================= -->
-
     <div
         id="patternGrid"
         class="pattern-grid"
     >
     </div>
 
-
     <div class="bottom-yarn">
         ♡ 🧶 ♡
     </div>
 
-
 </main>
 
-
 <script>
-
-/* =========================
-   MENU
-========================= */
 
 function toggleMenu() {
 
@@ -484,71 +245,41 @@ function toggleMenu() {
 
 }
 
-
-/* =========================
-   SUPABASE
-========================= */
-
 const SUPABASE_URL =
     "https://ljzydmylrayqdvuxtzps.supabase.co";
-
 
 const SUPABASE_PUBLISHABLE_KEY =
     "sb_publishable_RNQQFOqPdrKbLd6HiMSmwg_6UUNBZqg";
 
-
-/* =========================
-   LOAD PUBLIC PATTERNS
-========================= */
-
 async function loadPatterns() {
 
     const status =
-        document.getElementById(
-            "patternStatus"
-        );
-
+        document.getElementById("patternStatus");
 
     const grid =
-        document.getElementById(
-            "patternGrid"
-        );
-
+        document.getElementById("patternGrid");
 
     try {
 
         const response =
             await fetch(
-
                 SUPABASE_URL +
                 "/rest/v1/patterns?select=*&order=id.desc",
-
                 {
-
                     method: "GET",
 
                     headers: {
-
                         "apikey":
                             SUPABASE_PUBLISHABLE_KEY,
 
                         "Content-Type":
                             "application/json"
-
                     }
-
                 }
-
             );
-
 
         const patterns =
             await response.json();
-
-
-        /* =========================
-           ERROR
-        ========================= */
 
         if (!response.ok) {
 
@@ -557,23 +288,13 @@ async function loadPatterns() {
                 patterns
             );
 
-
             status.innerHTML =
-
                 "<p class='status-message'>" +
-
                 "We couldn't load the patterns right now. ♡" +
-
                 "</p>";
 
             return;
-
         }
-
-
-        /* =========================
-           NO PATTERNS
-        ========================= */
 
         if (
             !patterns ||
@@ -581,112 +302,63 @@ async function loadPatterns() {
         ) {
 
             status.innerHTML =
-
                 "<p class='status-message'>" +
-
                 "Our pattern collection is coming soon. 🧶♡" +
-
                 "</p>";
 
             return;
-
         }
-
-
-        /* =========================
-           PATTERNS FOUND
-        ========================= */
 
         status.innerHTML = "";
 
         grid.innerHTML = "";
 
-
         patterns.forEach(
             function(pattern) {
 
                 const card =
-                    document.createElement(
-                        "article"
-                    );
-
+                    document.createElement("article");
 
                 card.className =
                     "pattern-card";
 
-
-                /* NAME */
-
                 const title =
-                    document.createElement(
-                        "h2"
-                    );
-
+                    document.createElement("h2");
 
                 title.textContent =
                     pattern.name;
 
-
-                /* DESCRIPTION */
-
                 const description =
-                    document.createElement(
-                        "p"
-                    );
-
+                    document.createElement("p");
 
                 description.textContent =
-                    pattern.description ||
-                    "";
-
-
-                /* INSTRUCTIONS */
+                    pattern.description || "";
 
                 const instructions =
-                    document.createElement(
-                        "div"
-                    );
-
+                    document.createElement("div");
 
                 instructions.className =
                     "pattern-instructions";
 
-
                 instructions.textContent =
-                    pattern.instructions ||
-                    "";
+                    pattern.instructions || "";
 
+                card.appendChild(title);
 
-                card.appendChild(
-                    title
-                );
+                card.appendChild(description);
 
+                if (pattern.instructions) {
 
-                card.appendChild(
-                    description
-                );
-
-
-                if (
-                    pattern.instructions
-                ) {
-
-                    card.appendChild(
-                        instructions
-                    );
+                    card.appendChild(instructions);
 
                 }
 
-
-                grid.appendChild(
-                    card
-                );
+                grid.appendChild(card);
 
             }
         );
 
     }
-
 
     catch (error) {
 
@@ -695,23 +367,14 @@ async function loadPatterns() {
             error
         );
 
-
         status.innerHTML =
-
             "<p class='status-message'>" +
-
             "Something went wrong while loading the patterns. ♡" +
-
             "</p>";
 
     }
 
 }
-
-
-/* =========================
-   LOAD WHEN PAGE OPENS
-========================= */
 
 document.addEventListener(
     "DOMContentLoaded",
@@ -723,7 +386,6 @@ document.addEventListener(
 );
 
 </script>
-
 
 </body>
 
