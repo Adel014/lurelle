@@ -11,6 +11,7 @@
 
 <link rel="icon" type="image/svg+xml" href="lurelle-butterfly.svg">
 
+<!-- SHARED DARK MODE -->
 <link rel="stylesheet" href="darkmode.css">
 
 <style>
@@ -23,43 +24,23 @@ body {
     padding: 0;
 }
 
-
-/* =========================
-   DARK MODE BUTTON
-========================= */
-
-.dark-mode-button {
-    position: fixed;
-
-    top: 20px;
-    right: 20px;
-
-    z-index: 1002;
-
-    background-color: #DCC9BE;
-    color: #FFF8F3;
-
-    border: none;
-
-    padding: 11px 17px;
-
-    border-radius: 25px;
-
-    font-family: Arial, sans-serif;
-
-    font-size: 14px;
-
-    cursor: pointer;
-
-    transition:
-        background-color 0.3s ease,
-        transform 0.2s ease;
+section {
+    padding: 90px 20px;
+    text-align: center;
 }
 
-.dark-mode-button:hover {
-    background-color: #C98F9F;
+h1 {
+    color: #6F5A4D;
+    font-size: 38px;
+}
 
-    transform: translateY(-2px);
+h2 {
+    color: #6F5A4D;
+}
+
+.intro {
+    font-size: 17px;
+    line-height: 1.7;
 }
 
 
@@ -103,7 +84,7 @@ body {
 .cart-button {
     position: fixed;
     top: 20px;
-    right: 70px;
+    right: 20px;
     z-index: 1001;
 
     background-color: #DCC9BE;
@@ -121,6 +102,43 @@ body {
     box-shadow:
         0 4px 12px
         rgba(111,90,77,0.12);
+}
+
+
+/* =========================
+   DARK MODE BUTTON
+========================= */
+
+.dark-mode-button {
+    position: fixed;
+    top: 72px;
+    right: 20px;
+    z-index: 1002;
+
+    background-color: #DCC9BE;
+    color: #FFF8F3;
+
+    border: none;
+
+    padding: 11px 17px;
+
+    border-radius: 25px;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 14px;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.3s ease,
+        transform 0.2s ease;
+}
+
+.dark-mode-button:hover {
+    background-color: #C98F9F;
+
+    transform: translateY(-2px);
 }
 
 
@@ -546,6 +564,7 @@ body {
 </style>
 
 
+<!-- SUPABASE -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
@@ -568,20 +587,6 @@ const supabaseClient =
 
 
 <body>
-
-
-<!-- =========================
-     DARK MODE BUTTON
-========================= -->
-
-<button
-    class="dark-mode-button"
-    onclick="toggleDarkMode()"
-    id="darkModeButton"
-    aria-label="Toggle dark mode"
->
-    🌙
-</button>
 
 
 <!-- =========================
@@ -609,6 +614,20 @@ const supabaseClient =
     🛒 Cart
     (<span id="cartCount">0</span>)
 
+</button>
+
+
+<!-- =========================
+     DARK MODE BUTTON
+========================= -->
+
+<button
+    class="dark-mode-button"
+    onclick="toggleDarkMode()"
+    id="darkModeButton"
+    aria-label="Toggle dark mode"
+>
+    🌙
 </button>
 
 
@@ -655,15 +674,23 @@ const supabaseClient =
 
 <section>
 
+
 <h1>
     My Crochet Collection ✦
 </h1>
 
+
 <p class="intro">
+
     Little handmade pieces, made with love
     and a little bit of creativity. ♡
+
 </p>
 
+
+<!-- =========================
+     MONTHLY SPECIAL
+========================= -->
 
 <div class="special">
 
@@ -711,6 +738,10 @@ const supabaseClient =
 </div>
 
 
+<!-- =========================
+     COLLECTION PRODUCTS
+========================= -->
+
 <h2 class="category-title">
     ♡ Collection
 </h2>
@@ -728,6 +759,10 @@ const supabaseClient =
 </div>
 
 
+<!-- =========================
+     COMING SOON
+========================= -->
+
 <div class="coming-soon">
 
     <h2>
@@ -742,6 +777,10 @@ const supabaseClient =
 </div>
 
 
+<!-- =========================
+     CART
+========================= -->
+
 <div
     class="cart"
     id="cart"
@@ -751,9 +790,13 @@ const supabaseClient =
         🛒 Your Cart
     </h2>
 
+
     <div id="cartItems">
+
         Your cart is empty. ♡
+
     </div>
+
 
     <div class="discount-box">
 
@@ -769,18 +812,24 @@ const supabaseClient =
 
     </div>
 
+
     <div
         id="cartTotal"
         class="cart-total"
     >
+
         Total: ₦0
+
     </div>
+
 
     <button
         class="checkout-button"
         onclick="openCheckout()"
     >
+
         Proceed to Checkout
+
     </button>
 
 </div>
@@ -807,6 +856,7 @@ async function loadMonthlyDiscount() {
             "get_monthly_discount"
         );
 
+
     if (result.error) {
 
         console.error(
@@ -815,7 +865,9 @@ async function loadMonthlyDiscount() {
         );
 
         monthlyOrderCount = 0;
+
         currentDiscountRate = 0;
+
         currentDiscountNumber = 0;
 
         document.getElementById(
@@ -826,31 +878,40 @@ async function loadMonthlyDiscount() {
         displayCart();
 
         return;
+
     }
+
 
     const data =
         result.data;
 
+
     if (!data) {
 
         monthlyOrderCount = 0;
+
         currentDiscountRate = 0;
+
         currentDiscountNumber = 0;
 
         displayCart();
 
         return;
+
     }
+
 
     currentDiscountRate =
         Number(
             data.discount_rate
         ) || 0;
 
+
     currentDiscountNumber =
         Number(
             data.order_number
         ) || 0;
+
 
     if (
         currentDiscountNumber > 0
@@ -867,11 +928,13 @@ async function loadMonthlyDiscount() {
 
     }
 
+
     const spotsLeft =
         Math.max(
             5 - monthlyOrderCount,
             0
         );
+
 
     document.getElementById(
         "monthlyStatus"
@@ -889,6 +952,7 @@ async function loadMonthlyDiscount() {
           " remaining. ♡"
 
         : "All 5 monthly discount spots have been used. ♡";
+
 
     displayCart();
 
@@ -925,6 +989,7 @@ function addToCart(
             }
         );
 
+
     if (existing) {
 
         existing.quantity++;
@@ -945,6 +1010,7 @@ function addToCart(
 
     }
 
+
     displayCart();
 
 }
@@ -958,6 +1024,7 @@ function changeQuantity(
     cart[index].quantity +=
         change;
 
+
     if (
         cart[index].quantity <= 0
     ) {
@@ -968,6 +1035,7 @@ function changeQuantity(
         );
 
     }
+
 
     displayCart();
 
@@ -981,6 +1049,7 @@ function removeItem(index) {
         1
     );
 
+
     displayCart();
 
 }
@@ -989,6 +1058,7 @@ function removeItem(index) {
 function getTotals() {
 
     let subtotal = 0;
+
 
     cart.forEach(
         function(item) {
@@ -1000,14 +1070,18 @@ function getTotals() {
         }
     );
 
+
     const rate =
         getDiscountRate();
+
 
     const discount =
         subtotal * rate;
 
+
     const total =
         subtotal - discount;
+
 
     return {
 
@@ -1035,27 +1109,33 @@ function displayCart() {
             "cartItems"
         );
 
+
     const cartCount =
         document.getElementById(
             "cartCount"
         );
+
 
     const cartTotal =
         document.getElementById(
             "cartTotal"
         );
 
+
     const discountMessage =
         document.getElementById(
             "discountMessage"
         );
+
 
     const discountAmount =
         document.getElementById(
             "discountAmount"
         );
 
+
     let quantity = 0;
+
 
     cart.forEach(
         function(item) {
@@ -1068,8 +1148,10 @@ function displayCart() {
         }
     );
 
+
     cartCount.textContent =
         quantity;
+
 
     if (
         cart.length === 0
@@ -1091,7 +1173,9 @@ function displayCart() {
 
     }
 
+
     let html = "";
+
 
     cart.forEach(
         function(item, index) {
@@ -1118,6 +1202,7 @@ function displayCart() {
 
                     </div>
 
+
                     <div class="cart-controls">
 
                         <button
@@ -1126,11 +1211,13 @@ function displayCart() {
                             −
                         </button>
 
+
                         <button
                             onclick="changeQuantity(${index}, 1)"
                         >
                             +
                         </button>
+
 
                         <button
                             onclick="removeItem(${index})"
@@ -1147,11 +1234,14 @@ function displayCart() {
         }
     );
 
+
     cartItems.innerHTML =
         html;
 
+
     const totals =
         getTotals();
+
 
     if (
         totals.rate > 0 &&
@@ -1167,6 +1257,7 @@ function displayCart() {
                 totals.rate * 100
             ) +
             "% OFF!";
+
 
         discountAmount.textContent =
 
@@ -1185,6 +1276,7 @@ function displayCart() {
 
     }
 
+
     cartTotal.textContent =
         "Total: ₦" +
         totals.total.toLocaleString();
@@ -1199,10 +1291,12 @@ function escapeHTML(text) {
             "div"
         );
 
+
     div.textContent =
         text == null
         ? ""
         : String(text);
+
 
     return div.innerHTML;
 
@@ -1249,8 +1343,10 @@ function openCheckout() {
 
     }
 
+
     const totals =
         getTotals();
+
 
     const checkoutData = {
 
@@ -1298,12 +1394,14 @@ function openCheckout() {
 
     };
 
+
     sessionStorage.setItem(
         "lurelleCheckout",
         JSON.stringify(
             checkoutData
         )
     );
+
 
     window.location.href =
         "order.html";
@@ -1315,6 +1413,7 @@ function getCurrentMonthKey() {
 
     const now =
         new Date();
+
 
     return (
         now.getFullYear() +
@@ -1337,6 +1436,7 @@ async function loadProductsFromSupabase() {
             "supabase-products"
         );
 
+
     try {
 
         const result =
@@ -1350,6 +1450,7 @@ async function loadProductsFromSupabase() {
                     }
                 );
 
+
         if (
             result.error
         ) {
@@ -1358,11 +1459,14 @@ async function loadProductsFromSupabase() {
 
         }
 
+
         const products =
             result.data || [];
 
+
         container.innerHTML =
             "";
+
 
         if (
             products.length === 0
@@ -1394,6 +1498,7 @@ async function loadProductsFromSupabase() {
 
         }
 
+
         products.forEach(
             function(product) {
 
@@ -1402,8 +1507,10 @@ async function loadProductsFromSupabase() {
                         "div"
                     );
 
+
                 card.className =
                     "product-card";
+
 
                 if (
                     product.image_url
@@ -1414,18 +1521,23 @@ async function loadProductsFromSupabase() {
                             "img"
                         );
 
+
                     image.className =
                         "product-image";
 
+
                     image.src =
                         product.image_url;
+
 
                     image.alt =
                         product.name ||
                         "Lurelle product";
 
+
                     image.loading =
                         "lazy";
+
 
                     card.appendChild(
                         image
@@ -1433,10 +1545,12 @@ async function loadProductsFromSupabase() {
 
                 }
 
+
                 const content =
                     document.createElement(
                         "div"
                     );
+
 
                 content.innerHTML = `
 
@@ -1468,14 +1582,17 @@ async function loadProductsFromSupabase() {
 
                 `;
 
+
                 card.appendChild(
                     content
                 );
+
 
                 const button =
                     content.querySelector(
                         ".add-button"
                     );
+
 
                 button.addEventListener(
                     "click",
@@ -1491,6 +1608,7 @@ async function loadProductsFromSupabase() {
                     }
                 );
 
+
                 container.appendChild(
                     card
                 );
@@ -1500,12 +1618,14 @@ async function loadProductsFromSupabase() {
 
     }
 
+
     catch (error) {
 
         console.error(
             "PRODUCT LOADING ERROR:",
             error
         );
+
 
         container.innerHTML = `
 
@@ -1543,6 +1663,10 @@ document.addEventListener(
 
 </script>
 
+
+<!-- =========================
+     SHARED DARK MODE
+========================= -->
 
 <script src="darkmode.js"></script>
 
