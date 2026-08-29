@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -8,7 +9,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>About | Lurelle by Adel</title>
+
 <link rel="icon" type="image/svg+xml" href="lurelle-butterfly.svg">
+
+<link rel="stylesheet" href="darkmode.css">
 
 <style>
 
@@ -21,6 +25,45 @@ body {
     background-color: #FFF8F3;
     color: #6F5A4D;
     font-family: Georgia, serif;
+}
+
+
+/* =========================
+   DARK MODE BUTTON
+========================= */
+
+.dark-mode-button {
+    position: fixed;
+
+    top: 20px;
+    right: 20px;
+
+    z-index: 1002;
+
+    background-color: #DCC9BE;
+    color: #FFF8F3;
+
+    border: none;
+
+    padding: 11px 17px;
+
+    border-radius: 25px;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 14px;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.3s ease,
+        transform 0.2s ease;
+}
+
+.dark-mode-button:hover {
+    background-color: #C98F9F;
+
+    transform: translateY(-2px);
 }
 
 
@@ -139,9 +182,6 @@ body {
         20px
         55px;
 }
-
-
-/* YOUR LURELLE BUTTERFLY */
 
 .hero-butterfly {
     width: 90px;
@@ -479,8 +519,6 @@ body {
 }
 
 
-/* YOUR LURELLE BUTTERFLY AGAIN */
-
 .final-butterfly {
     width: 55px;
 
@@ -616,23 +654,40 @@ body {
 
 </head>
 
-
 <body>
 
+<!-- =========================
+     DARK MODE BUTTON
+========================= -->
+
+<button
+class="dark-mode-button"
+onclick="toggleDarkMode()"
+id="darkModeButton"
+aria-label="Toggle dark mode"
+
+>
+
+
+🌙
+
+
+</button>
 
 <!-- =========================
      HAMBURGER
 ========================= -->
 
 <button
-    class="menu-button"
-    onclick="toggleMenu()"
-    aria-label="Open menu">
+ class="menu-button"
+ onclick="toggleMenu()"
+ aria-label="Open menu">
 
-    ☰
+
+☰
+
 
 </button>
-
 
 <!-- =========================
      MENU
@@ -640,36 +695,37 @@ body {
 
 <div id="menu">
 
-    <a href="index.html">
-        Home
-    </a>
 
-    <a href="about.html">
-        About
-    </a>
+<a href="index.html">
+    Home
+</a>
 
-    <a href="blog.html">
-        Blog🌸
-    </a>
+<a href="about.html">
+    About
+</a>
 
-    <a href="patterns.html">
-        Patterns🧶
-    </a>
+<a href="blog.html">
+    Blog🌸
+</a>
 
-    <a href="collection.html">
-        Collection
-    </a>
+<a href="patterns.html">
+    Patterns🧶
+</a>
 
-    <a href="custom-orders.html">
-        Custom Orders
-    </a>
+<a href="collection.html">
+    Collection
+</a>
 
-    <a href="contact.html">
-        Contact
-    </a>
+<a href="custom-orders.html">
+    Custom Orders
+</a>
+
+<a href="contact.html">
+    Contact
+</a>
+
 
 </div>
-
 
 <!-- =========================
      ABOUT PAGE
@@ -678,214 +734,203 @@ body {
 <main class="about-page">
 
 
-    <!-- HERO -->
+<!-- HERO -->
 
-    <header class="hero">
+<header class="hero">
 
-        <div class="hero-butterfly">
+    <div class="hero-butterfly">
 
-            <img
-                src="lurelle-butterfly.svg"
-                alt="Lurelle butterfly">
+        <img
+            src="lurelle-butterfly.svg"
+            alt="Lurelle butterfly">
 
-        </div>
-
-
-        <h1>
-            Meet the Girl Behind the Stitches ♡
-        </h1>
-
-
-        <p>
-            a little story about the girl, the yarn,
-            and the idea that became Lurelle
-        </p>
-
-    </header>
-
-
-    <!-- DIVIDER -->
-
-    <div class="divider">
-        ✦ ♡ ✦
     </div>
 
 
-    <!-- =========================
-         ADEL'S STORY
-    ========================= -->
+    <h1>
+        Meet the Girl Behind the Stitches ♡
+    </h1>
 
-    <section class="story-card">
 
-        <div class="story-label">
-            THE GIRL BEHIND LURELLE
+    <p>
+        a little story about the girl, the yarn,
+        and the idea that became Lurelle
+    </p>
+
+</header>
+
+
+<!-- DIVIDER -->
+
+<div class="divider">
+    ✦ ♡ ✦
+</div>
+
+
+<!-- ADEL'S STORY -->
+
+<section class="story-card">
+
+    <div class="story-label">
+        THE GIRL BEHIND LURELLE
+    </div>
+
+
+    <h2>
+        hii, I'm Adel! 💕
+    </h2>
+
+
+    <p>
+        Lurelle is my little crochet world where I get
+        to turn yarn, random ideas, (and way too much
+        time😭) into cute handmade pieces.
+    </p>
+
+</section>
+
+
+<!-- HOW IT STARTED -->
+
+<section class="story-card">
+
+    <div class="story-label">
+        HOW IT STARTED
+    </div>
+
+
+    <h2>
+        From yarn to little ideas...
+    </h2>
+
+
+    <p>
+        I started crocheting because I wanted to create
+        things that were truly my own, and honestly, I
+        ended up loving it way more than I expected.
+    </p>
+
+</section>
+
+
+<!-- VISUAL STRIP -->
+
+<section class="stitch-strip">
+
+
+    <div class="stitch-box">
+
+        <div class="stitch-icon">
+            🧶
         </div>
 
-
-        <h2>
-            hii, I'm Adel! 💕
-        </h2>
-
+        <h3>
+            Yarn
+        </h3>
 
         <p>
-            Lurelle is my little crochet world where I get
-            to turn yarn, random ideas, (and way too much
-            time😭) into cute handmade pieces.
+            Where every little idea begins.
         </p>
 
-    </section>
+    </div>
 
 
-    <!-- =========================
-         HOW IT STARTED
-    ========================= -->
+    <div class="stitch-box">
 
-    <section class="story-card">
-
-        <div class="story-label">
-            HOW IT STARTED
+        <div class="stitch-icon">
+            🪡
         </div>
 
-
-        <h2>
-            From yarn to little ideas...
-        </h2>
-
+        <h3>
+            Stitches
+        </h3>
 
         <p>
-            I started crocheting because I wanted to create
-            things that were truly my own, and honestly, I
-            ended up loving it way more than I expected.
+            One stitch, one idea, one creation.
         </p>
 
-    </section>
+    </div>
 
 
-    <!-- =========================
-         VISUAL STRIP
-    ========================= -->
+    <div class="stitch-box">
 
-    <section class="stitch-strip">
-
-
-        <div class="stitch-box">
-
-            <div class="stitch-icon">
-                🧶
-            </div>
-
-            <h3>
-                Yarn
-            </h3>
-
-            <p>
-                Where every little idea begins.
-            </p>
-
+        <div class="stitch-icon">
+            ♡
         </div>
 
-
-        <div class="stitch-box">
-
-            <div class="stitch-icon">
-                🪡
-            </div>
-
-            <h3>
-                Stitches
-            </h3>
-
-            <p>
-                One stitch, one idea, one creation.
-            </p>
-
-        </div>
-
-
-        <div class="stitch-box">
-
-            <div class="stitch-icon">
-                ♡
-            </div>
-
-            <h3>
-                Love
-            </h3>
-
-            <p>
-                The little thing behind every piece.
-            </p>
-
-        </div>
-
-
-    </section>
-
-
-    <!-- =========================
-         ABOUT LURELLE
-    ========================= -->
-
-    <section class="lurelle-card">
-
-        <div class="small-title">
-            ABOUT LURELLE
-        </div>
-
-
-        <h2>
-            Made stitch by stitch ♡
-        </h2>
-
+        <h3>
+            Love
+        </h3>
 
         <p>
-            Everything here is handmade with love, from
-            the first stitch to the finishing touches.
-            Lurelle is all about creating cute, personal
-            pieces that feel special and completely your own.
+            The little thing behind every piece.
         </p>
 
-
-        <p>
-            Welcome to my little crochet corner.
-            I hope you find something you love. ♡
-        </p>
-
-    </section>
+    </div>
 
 
-    <!-- =========================
-         FINAL MESSAGE
-    ========================= -->
-
-    <section class="final-message">
+</section>
 
 
-        <div class="final-butterfly">
+<!-- ABOUT LURELLE -->
 
-            <img
-                src="lurelle-butterfly.svg"
-                alt="Lurelle butterfly">
+<section class="lurelle-card">
 
-        </div>
-
-
-        <h2>
-            And that's a little piece of the story. ♡
-        </h2>
+    <div class="small-title">
+        ABOUT LURELLE
+    </div>
 
 
-        <p>
-            Thanks for wandering into my little corner
-            of the internet. Stay a while, have a look
-            around, and see where Lurelle takes you.
-        </p>
+    <h2>
+        Made stitch by stitch ♡
+    </h2>
 
-    </section>
+
+    <p>
+        Everything here is handmade with love, from
+        the first stitch to the finishing touches.
+        Lurelle is all about creating cute, personal
+        pieces that feel special and completely your own.
+    </p>
+
+
+    <p>
+        Welcome to my little crochet corner.
+        I hope you find something you love. ♡
+    </p>
+
+</section>
+
+
+<!-- FINAL MESSAGE -->
+
+<section class="final-message">
+
+
+    <div class="final-butterfly">
+
+        <img
+            src="lurelle-butterfly.svg"
+            alt="Lurelle butterfly">
+
+    </div>
+
+
+    <h2>
+        And that's a little piece of the story. ♡
+    </h2>
+
+
+    <p>
+        Thanks for wandering into my little corner
+        of the internet. Stay a while, have a look
+        around, and see where Lurelle takes you.
+    </p>
+
+</section>
 
 
 </main>
-
 
 <!-- =========================
      FOOTER
@@ -893,10 +938,11 @@ body {
 
 <footer class="footer">
 
-    ♡ made with stitches & a little imagination ♡
+
+♡ made with stitches & a little imagination ♡
+
 
 </footer>
-
 
 <script>
 
@@ -913,8 +959,78 @@ function toggleMenu() {
 
 }
 
-</script>
 
+/* =========================
+   DARK MODE
+========================= */
+
+function toggleDarkMode() {
+
+    document.body.classList.toggle("dark-mode");
+
+    var button =
+        document.getElementById("darkModeButton");
+
+
+    if (
+        document.body.classList.contains("dark-mode")
+    ) {
+
+        button.textContent = "☀️";
+
+        localStorage.setItem(
+            "lurelle-dark-mode",
+            "on"
+        );
+
+    } else {
+
+        button.textContent = "🌙";
+
+        localStorage.setItem(
+            "lurelle-dark-mode",
+            "off"
+        );
+
+    }
+
+}
+
+
+/* =========================
+   REMEMBER MODE
+========================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        var savedMode =
+            localStorage.getItem(
+                "lurelle-dark-mode"
+            );
+
+
+        var button =
+            document.getElementById(
+                "darkModeButton"
+            );
+
+
+        if (savedMode === "on") {
+
+            document.body.classList.add(
+                "dark-mode"
+            );
+
+            button.textContent = "☀️";
+
+        }
+
+    }
+);
+
+</script>
 
 </body>
 
