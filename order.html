@@ -5,14 +5,13 @@
 
 <meta charset="UTF-8">
 
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Order | Lurelle by Adel</title>
 
 <link rel="icon" type="image/svg+xml" href="lurelle-butterfly.svg">
+
+<link rel="stylesheet" href="darkmode.css">
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -255,10 +254,6 @@ button:disabled {
 </p>
 
 
-<!-- =========================
-     YOUR ORDER
-========================= -->
-
 <div class="card">
 
     <h2>
@@ -325,10 +320,6 @@ button:disabled {
 
 </div>
 
-
-<!-- =========================
-     DELIVERY DETAILS
-========================= -->
 
 <div class="card">
 
@@ -401,10 +392,6 @@ button:disabled {
 </div>
 
 
-<!-- =========================
-     SAVE ORDER
-========================= -->
-
 <div class="card payment-choice">
 
     <h2>
@@ -454,17 +441,11 @@ button:disabled {
 
 <script>
 
-/* ==========================================
-   SUPABASE CONNECTION
-========================================== */
-
 const SUPABASE_URL =
     "https://ljzydmylrayqdvuxtzps.supabase.co";
 
-
 const SUPABASE_KEY =
     "sb_publishable_RNQQFOqPdrKbLd6HiMSmwg_6UUNBZqg";
-
 
 const supabaseClient =
     window.supabase.createClient(
@@ -473,10 +454,6 @@ const supabaseClient =
     );
 
 
-/* ==========================================
-   ORDER DATA
-========================================== */
-
 const checkout =
     JSON.parse(
         sessionStorage.getItem(
@@ -484,10 +461,6 @@ const checkout =
         ) || "null"
     );
 
-
-/* ==========================================
-   MONEY
-========================================== */
 
 function money(value) {
 
@@ -498,10 +471,6 @@ function money(value) {
 
 }
 
-
-/* ==========================================
-   ESCAPE HTML
-========================================== */
 
 function escapeHTML(value) {
 
@@ -517,10 +486,6 @@ function escapeHTML(value) {
 
 }
 
-
-/* ==========================================
-   CURRENT MONTH
-========================================== */
 
 function currentMonth() {
 
@@ -538,10 +503,6 @@ function currentMonth() {
 }
 
 
-/* ==========================================
-   SHOW NOTICE
-========================================== */
-
 function showNotice(
     element,
     text,
@@ -557,10 +518,6 @@ function showNotice(
 
 }
 
-
-/* ==========================================
-   GET ITEMS
-========================================== */
 
 function getItems() {
 
@@ -579,10 +536,6 @@ function getItems() {
 
 }
 
-
-/* ==========================================
-   DISPLAY CHECKOUT
-========================================== */
 
 function displayCheckout() {
 
@@ -784,10 +737,6 @@ function displayCheckout() {
 }
 
 
-/* ==========================================
-   SAVE ORDER
-========================================== */
-
 async function saveOrder(
     paymentMethod
 ) {
@@ -797,12 +746,10 @@ async function saveOrder(
             "cashButton"
         );
 
-
     const transferButton =
         document.getElementById(
             "transferButton"
         );
-
 
     const status =
         document.getElementById(
@@ -1016,12 +963,6 @@ async function saveOrder(
     };
 
 
-    console.log(
-        "Sending order:",
-        orderData
-    );
-
-
     try {
 
         const result =
@@ -1030,12 +971,6 @@ async function saveOrder(
                 .insert(
                     orderData
                 );
-
-
-        console.log(
-            "Supabase result:",
-            result
-        );
 
 
         if (result.error) {
@@ -1069,7 +1004,6 @@ async function saveOrder(
             transferButton.disabled =
                 true;
 
-
         }
 
 
@@ -1087,12 +1021,6 @@ async function saveOrder(
             transferButton.textContent =
                 "Transfer Order Saved ♡";
 
-
-            /*
-             * Give the success message
-             * a moment to appear before
-             * opening the transfer page.
-             */
 
             setTimeout(
                 function() {
@@ -1144,32 +1072,3 @@ async function saveOrder(
 
 
         cashButton.disabled =
-            false;
-
-        transferButton.disabled =
-            false;
-
-
-        cashButton.textContent =
-            "Save Order as Cash ♡";
-
-
-        transferButton.textContent =
-            "Save Order as Transfer ♡";
-
-    }
-
-}
-
-
-/* ==========================================
-   START
-========================================== */
-
-displayCheckout();
-
-</script>
-
-</body>
-
-</html>
