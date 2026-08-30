@@ -9,10 +9,6 @@
 
 <title>Custom Orders | Lurelle by Adel</title>
 
-<link rel="icon" type="image/svg+xml" href="lurelle-butterfly.svg">
-
-<!-- SHARED DARK MODE CSS -->
-<link rel="stylesheet" href="darkmode.css">
 
 <style>
 
@@ -43,6 +39,7 @@ body {
     color: #FFF8F3;
 
     border: none;
+
     padding: 11px 17px;
 
     border-radius: 25px;
@@ -56,48 +53,9 @@ body {
         transform 0.2s ease;
 }
 
+
 .menu-button:hover {
     background-color: #C98F9F;
-    transform: translateY(-2px);
-}
-
-
-/* =========================
-   DARK MODE BUTTON
-========================= */
-
-.dark-mode-button {
-    position: fixed;
-    top: 70px;
-    right: 20px;
-    z-index: 1001;
-
-    background-color: #DCC9BE;
-    color: #6F5A4D;
-
-    border: none;
-
-    width: 45px;
-    height: 45px;
-
-    border-radius: 50%;
-
-    font-size: 19px;
-
-    cursor: pointer;
-
-    box-shadow:
-        0 4px 12px
-        rgba(111,90,77,0.12);
-
-    transition:
-        background-color 0.3s ease,
-        transform 0.2s ease;
-}
-
-.dark-mode-button:hover {
-    background-color: #C98F9F;
-    transform: translateY(-2px);
 }
 
 
@@ -107,6 +65,7 @@ body {
 
 #menu {
     position: fixed;
+
     top: 0;
     left: -270px;
 
@@ -126,9 +85,11 @@ body {
     z-index: 1000;
 }
 
+
 #menu.open {
     left: 0;
 }
+
 
 #menu a {
     display: block;
@@ -146,6 +107,7 @@ body {
         padding-left 0.2s ease;
 }
 
+
 #menu a:hover {
     background-color: #F7DCE1;
     padding-left: 32px;
@@ -161,10 +123,12 @@ section {
     text-align: center;
 }
 
+
 h1 {
     font-size: 38px;
     font-weight: normal;
 }
+
 
 .intro {
     max-width: 650px;
@@ -197,6 +161,7 @@ h1 {
     box-sizing: border-box;
 }
 
+
 .order-card h2 {
     font-weight: normal;
 }
@@ -216,6 +181,7 @@ h1 {
     text-align: left;
 }
 
+
 .order-form label {
     display: block;
 
@@ -223,6 +189,7 @@ h1 {
 
     font-weight: bold;
 }
+
 
 .order-form input,
 .order-form textarea {
@@ -246,12 +213,14 @@ h1 {
     font-family: Georgia, serif;
 }
 
+
 .order-form input:focus,
 .order-form textarea:focus {
     outline: none;
 
     border-color: #C98F9F;
 }
+
 
 .order-form textarea {
     height: 120px;
@@ -292,6 +261,7 @@ h1 {
         transform 0.2s ease;
 }
 
+
 .submit-button:hover {
     background-color: #C98F9F;
 
@@ -312,13 +282,16 @@ h1 {
             15px;
     }
 
+
     h1 {
         font-size: 30px;
     }
 
+
     .order-card {
         padding: 20px;
     }
+
 
     .order-form {
         padding: 20px;
@@ -341,23 +314,10 @@ h1 {
 <button
     class="menu-button"
     onclick="toggleMenu()"
-    aria-label="Open menu"
->
+    aria-label="Open menu">
+
     ☰
-</button>
 
-
-<!-- =========================
-     DARK MODE BUTTON
-========================= -->
-
-<button
-    class="dark-mode-button"
-    onclick="toggleDarkMode()"
-    aria-label="Toggle dark mode"
-    id="darkModeButton"
->
-    ☾
 </button>
 
 
@@ -404,19 +364,24 @@ h1 {
 
 <section>
 
+
     <h1>
         ♡ Custom Orders
     </h1>
 
+
     <p class="intro">
+
         Have something specific in mind?
 
         Tell Lurelle what you're imagining and
         let's create something that's uniquely yours. 🧶
+
     </p>
 
 
     <div class="order-card">
+
 
         <h2>
             ✦ Create Something Custom
@@ -425,9 +390,10 @@ h1 {
 
         <form
             class="order-form"
-            onsubmit="submitCustomOrder(event)"
-        >
+            onsubmit="submitCustomOrder(event)">
 
+
+            <!-- NAME -->
 
             <label>
                 Your name
@@ -437,9 +403,10 @@ h1 {
                 type="text"
                 id="customName"
                 placeholder="Your name"
-                required
-            >
+                required>
 
+
+            <!-- EMAIL -->
 
             <label>
                 Email
@@ -449,9 +416,10 @@ h1 {
                 type="email"
                 id="customEmail"
                 placeholder="Your email"
-                required
-            >
+                required>
 
+
+            <!-- ITEM -->
 
             <label>
                 What would you like made?
@@ -461,9 +429,10 @@ h1 {
                 type="text"
                 id="customItem"
                 placeholder="e.g. ruffle hat, star bag, mini skirt..."
-                required
-            >
+                required>
 
+
+            <!-- COLOUR -->
 
             <label>
                 Preferred colour
@@ -472,9 +441,10 @@ h1 {
             <input
                 type="text"
                 id="customColour"
-                placeholder="e.g. ivory, pink, blue..."
-            >
+                placeholder="e.g. ivory, pink, blue...">
 
+
+            <!-- SIZE -->
 
             <label>
                 Preferred size
@@ -483,9 +453,10 @@ h1 {
             <input
                 type="text"
                 id="customSize"
-                placeholder="Tell us the size you need"
-            >
+                placeholder="Tell us the size you need">
 
+
+            <!-- DESCRIPTION -->
 
             <label>
                 Tell us about your idea
@@ -493,9 +464,10 @@ h1 {
 
             <textarea
                 id="customDescription"
-                placeholder="Describe what you'd like..."
-            ></textarea>
+                placeholder="Describe what you'd like..."></textarea>
 
+
+            <!-- PHOTO -->
 
             <label>
                 📸 Add a reference photo (optional)
@@ -505,9 +477,10 @@ h1 {
                 type="file"
                 id="customPhoto"
                 accept="image/*"
-                capture="environment"
-            >
+                capture="environment">
 
+
+            <!-- EXTRA NOTE -->
 
             <label>
                 Anything else?
@@ -515,20 +488,24 @@ h1 {
 
             <textarea
                 id="customNote"
-                placeholder="Any extra details or requests?"
-            ></textarea>
+                placeholder="Any extra details or requests?"></textarea>
 
+
+            <!-- SUBMIT -->
 
             <button
                 class="submit-button"
-                type="submit"
-            >
+                type="submit">
+
                 Send Custom Request
+
             </button>
+
 
         </form>
 
     </div>
+
 
 </section>
 
@@ -550,80 +527,12 @@ function toggleMenu() {
 
 
 /* =========================
-   DARK MODE
-========================= */
-
-function toggleDarkMode() {
-
-    document.body.classList.toggle("dark-mode");
-
-    const button =
-        document.getElementById("darkModeButton");
-
-    if (
-        document.body.classList.contains("dark-mode")
-    ) {
-
-        button.textContent = "☀";
-
-        localStorage.setItem(
-            "lurelleDarkMode",
-            "on"
-        );
-
-    } else {
-
-        button.textContent = "☾";
-
-        localStorage.setItem(
-            "lurelleDarkMode",
-            "off"
-        );
-
-    }
-
-}
-
-
-/* =========================
-   LOAD DARK MODE
-========================= */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    function() {
-
-        const savedMode =
-            localStorage.getItem(
-                "lurelleDarkMode"
-            );
-
-        const button =
-            document.getElementById(
-                "darkModeButton"
-            );
-
-
-        if (savedMode === "on") {
-
-            document.body.classList.add(
-                "dark-mode"
-            );
-
-            button.textContent = "☀";
-
-        }
-
-    }
-);
-
-
-/* =========================
    SUPABASE
 ========================= */
 
 const SUPABASE_URL =
     "https://ljzydmylrayqdvuxtzps.supabase.co";
+
 
 const SUPABASE_PUBLISHABLE_KEY =
     "sb_publishable_RNQQFOqPdrKbLd6HiMSmwg_6UUNBZqg";
@@ -637,6 +546,10 @@ async function submitCustomOrder(event) {
 
     event.preventDefault();
 
+
+    /* =========================
+       GET FORM VALUES
+    ========================= */
 
     var name =
         document
@@ -687,6 +600,10 @@ async function submitCustomOrder(event) {
             .trim();
 
 
+    /* =========================
+       BASIC VALIDATION
+    ========================= */
+
     if (
         !name ||
         !email ||
@@ -703,6 +620,11 @@ async function submitCustomOrder(event) {
 
 
     try {
+
+
+        /* =========================
+           SEND ORDER TO SUPABASE
+        ========================= */
 
         var response =
             await fetch(
@@ -760,24 +682,35 @@ async function submitCustomOrder(event) {
             );
 
 
+        /* =========================
+           CHECK SUPABASE RESPONSE
+        ========================= */
+
         if (!response.ok) {
 
             var errorText =
                 await response.text();
+
 
             console.error(
                 "CUSTOM ORDER ERROR:",
                 errorText
             );
 
+
             alert(
                 "Sorry, your custom request could not be sent. Please try again. ♡"
             );
+
 
             return;
 
         }
 
+
+        /* =========================
+           SUCCESS
+        ========================= */
 
         alert(
             "Thank you, " +
@@ -785,6 +718,11 @@ async function submitCustomOrder(event) {
             "! Your custom request has been received. ♡"
         );
 
+
+        /* =========================
+           CLEAR FORM ONLY
+           AFTER SUCCESS
+        ========================= */
 
         document
             .querySelector(".order-form")
@@ -796,10 +734,12 @@ async function submitCustomOrder(event) {
 
     catch (error) {
 
+
         console.error(
             "CUSTOM ORDER ERROR:",
             error
         );
+
 
         alert(
             "Sorry, we couldn't send your custom request. Please try again. ♡"
