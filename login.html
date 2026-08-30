@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Login | Lurelle by Adel</title>
+
+<link
+    rel="icon"
+    type="image/svg+xml"
+    href="lurelle-butterfly.svg"
+>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background-color: #FFF8F3;
+    color: #6F5A4D;
+    font-family: Georgia, serif;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 30px 20px;
+}
+
+.login-container {
+    width: 100%;
+    max-width: 470px;
+    text-align: center;
+}
+
+.logo-decoration {
+    font-size: 32px;
+    margin-bottom: 8px;
+}
+
+h1 {
+    font-size: 40px;
+    font-weight: normal;
+    margin: 0 0 8px;
+}
+
+.subtitle {
+    font-size: 17px;
+    line-height: 1.6;
+    margin: 0 auto 28px;
+}
+
+.login-card {
+    background-color: #FFFFFF;
+    border: 1px solid #DCC9BE;
+    border-radius: 28px;
+    padding: 32px;
+
+    box-shadow:
+        0 8px 25px
+        rgba(111,90,77,0.08);
+
+    text-align: left;
+}
+
+label {
+    display: block;
+    margin-top: 17px;
+    font-weight: bold;
+}
+
+label:first-child {
+    margin-top: 0;
+}
+
+input {
+    width: 100%;
+    padding: 13px;
+    margin-top: 7px;
+
+    border: 1px solid #DCC9BE;
+    border-radius: 12px;
+
+    background-color: #FFF8F3;
+    color: #6F5A4D;
+
+    font-family: Georgia, serif;
+    font-size: 15px;
+}
+
+input:focus {
+    outline: none;
+    border-color: #C98F9F;
+}
+
+button {
+    width: 100%;
+    border-radius: 30px;
+    padding: 14px;
+
+    font-family: Georgia, serif;
+    font-size: 16px;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.3s ease,
+        transform 0.2s ease;
+}
+
+.login-button {
+    border: none;
+    margin-top: 24px;
+
+    background-color: #6F5A4D;
+    color: #FFF8F3;
+}
+
+.login-button:hover {
+    background-color: #80675A;
+    transform: translateY(-2px);
+}
+
+.signup-button {
+    border: 1px solid #C98F9F;
+
+    background-color: #F7DCE1;
+    color: #6F5A4D;
+}
+
+.signup-button:hover {
+    background-color: #EFD0D7;
+    transform: translateY(-2px);
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.forgot {
+    display: block;
+    text-align: center;
+
+    margin-top: 17px;
+
+    color: #806B60;
+
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.forgot:hover {
+    color: #C98F9F;
+    text-decoration: underline;
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    margin: 25px 0;
+
+    color: #A58F84;
+    font-size: 14px;
+}
+
+.divider::before,
+.divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background-color: #E5D6CD;
+}
+
+.message {
+    display: none;
+
+    padding: 13px;
+    margin-top: 18px;
+
+    border-radius: 13px;
+
+    line-height: 1.5;
+    font-size: 14px;
+
+    text-align: center;
+}
+
+.message.show {
+    display: block;
+}
+
+.success {
+    background-color: #E4F1E3;
+    color: #4D704D;
+}
+
+.error {
+    background-color: #F7DFDF;
+    color: #8A5555;
+}
+
+.back {
+    display: inline-block;
+
+    margin-top: 24px;
+
+    color: #6F5A4D;
+
+    text-decoration: none;
+    font-size: 15px;
+}
+
+.back:hover {
+    color: #C98F9F;
+}
+
+@media (max-width: 600px) {
+
+    body {
+        padding: 20px 15px;
+    }
+
+    h1 {
+        font-size: 32px;
+    }
+
+    .login-card {
+        padding: 23px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<div class="login-container">
+
+    <div class="logo-decoration">
+        ♡
+    </div>
+
+    <h1>
+        Welcome to Lurelle
+    </h1>
+
+    <p class="subtitle">
+        Your little corner of Lurelle awaits. ♡
+    </p>
+
+    <div class="login-card">
+
+        <form id="loginForm">
+
+            <label for="loginEmail">
+                Email
+            </label>
+
+            <input
+                type="email"
+                id="loginEmail"
+                autocomplete="email"
+                placeholder="Your email"
+                required
+            >
+
+            <label for="loginPassword">
+                Password
+            </label>
+
+            <input
+                type="password"
+                id="loginPassword"
+                autocomplete="current-password"
+                placeholder="Your password"
+                required
+            >
+
+            <button
+                type="submit"
+                class="login-button"
+                id="loginButton"
+            >
+                Log In ♡
+            </button>
+
+        </form>
+
+
+        <a
+            href="#"
+            class="forgot"
+            id="forgotPassword"
+        >
+            Forgot your password?
+        </a>
+
+
+        <div class="divider">
+            or
+        </div>
+
+
+        <button
+            type="button"
+            class="signup-button"
+            id="signupButton"
+        >
+            Create a Lurelle Account 🎀
+        </button>
+
+
+        <div
+            id="message"
+            class="message"
+        ></div>
+
+    </div>
+
+
+    <a
+        href="index.html"
+        class="back"
+    >
+        ← Back to Lurelle
+    </a>
+
+</div>
+
+
+<script>
+
+/* ==========================================
+   SUPABASE
+========================================== */
+
+const SUPABASE_URL =
+    "https://ljzydmylrayqdvuxtzps.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_RNQQFOqPdrKbLd6HiMSmwg_6UUNBZqg";
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+    );
+
+
+/* ==========================================
+   MESSAGE
+========================================== */
+
+function showMessage(text, type) {
+
+    const message =
+        document.getElementById("message");
+
+    message.textContent = text;
+
+    message.className =
+        "message show " + type;
+
+}
+
+
+/* ==========================================
+   LOGIN
+========================================== */
+
+document
+    .getElementById("loginForm")
+    .addEventListener("submit", async function(event) {
+
+        event.preventDefault();
+
+        const email =
+            document
+                .getElementById("loginEmail")
+                .value
+                .trim();
+
+        const password =
+            document
+                .getElementById("loginPassword")
+                .value;
+
+        const button =
+            document.getElementById("loginButton");
+
+        button.disabled = true;
+
+        button.textContent =
+            "Logging in... ♡";
+
+
+        try {
+
+            const {
+                data,
+                error
+            } =
+                await supabaseClient.auth.signInWithPassword({
+
+                    email: email,
+
+                    password: password
+
+                });
+
+
+            if (error) {
+
+                throw error;
+
+            }
+
+
+            if (!data || !data.user) {
+
+                throw new Error(
+                    "Supabase did not return a user."
+                );
+
+            }
+
+
+            if (!data.session) {
+
+                throw new Error(
+                    "Supabase did not create a login session."
+                );
+
+            }
+
+
+            /*
+             * LOGIN SUCCESS
+             */
+
+            window.location.replace(
+                "index.html"
+            );
+
+        }
+
+
+        catch (error) {
+
+            console.error(
+                "LOGIN ERROR:",
+                error
+            );
+
+
+            showMessage(
+                error.message ||
+                "Something went wrong while logging in. ♡",
+                "error"
+            );
+
+
+            button.disabled = false;
+
+            button.textContent =
+                "Log In ♡";
+
+        }
+
+    });
+
+
+/* ==========================================
+   CREATE ACCOUNT
+========================================== */
+
+document
+    .getElementById("signupButton")
+    .addEventListener("click", async function() {
+
+        const email =
+            document
+                .getElementById("loginEmail")
+                .value
+                .trim();
+
+        const password =
+            document
+                .getElementById("loginPassword")
+                .value;
+
+        const button =
+            document.getElementById("signupButton");
+
+
+        if (!email) {
+
+            showMessage(
+                "Enter your email first. ♡",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if (!password) {
+
+            showMessage(
+                "Choose a password first. ♡",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if (password.length < 6) {
+
+            showMessage(
+                "Your password needs to be at least 6 characters long. ♡",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        button.disabled = true;
+
+        button.textContent =
+            "Creating your account... 🎀";
+
+
+        try {
+
+            const {
+                data,
+                error
+            } =
+                await supabaseClient.auth.signUp({
+
+                    email: email,
+
+                    password: password,
+
+                    options: {
+
+                        data: {
+
+                            pfp: "random"
+
+                        }
+
+                    }
+
+                });
+
+
+            if (error) {
+
+                throw error;
+
+            }
+
+
+            /*
+             * Supabase email confirmation is OFF.
+             *
+             * Therefore a successful signup should
+             * give us a session immediately.
+             */
+
+            if (
+                data &&
+                data.user &&
+                data.session
+            ) {
+
+                window.location.replace(
+                    "index.html"
+                );
+
+                return;
+
+            }
+
+
+            /*
+             * User exists but no session.
+             */
+
+            if (
+                data &&
+                data.user &&
+                !data.session
+            ) {
+
+                showMessage(
+                    "Your account was created, but Supabase did not create a login session. Please check the Authentication settings in Supabase. ♡",
+                    "error"
+                );
+
+                button.disabled = false;
+
+                button.textContent =
+                    "Create a Lurelle Account 🎀";
+
+                return;
+
+            }
+
+
+            throw new Error(
+                "Supabase did not return a user after signup."
+            );
+
+        }
+
+
+        catch (error) {
+
+            console.error(
+                "SIGNUP ERROR:",
+                error
+            );
+
+
+            let errorMessage =
+                error.message ||
+                "We couldn't create your account. ♡";
+
+
+            if (
+                errorMessage
+                    .toLowerCase()
+                    .includes("already registered")
+            ) {
+
+                errorMessage =
+                    "That email is already registered. Try logging in instead. ♡";
+
+            }
+
+
+            showMessage(
+                errorMessage,
+                "error"
+            );
+
+
+            button.disabled = false;
+
+            button.textContent =
+                "Create a Lurelle Account 🎀";
+
+        }
+
+    });
+
+
+/* ==========================================
+   FORGOT PASSWORD
+========================================== */
+
+document
+    .getElementById("forgotPassword")
+    .addEventListener("click", async function(event) {
+
+        event.preventDefault();
+
+
+        const email =
+            document
+                .getElementById("loginEmail")
+                .value
+                .trim();
+
+
+        if (!email) {
+
+            showMessage(
+                "Enter your email first so we know where to send the reset link. ♡",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        try {
+
+            const {
+                error
+            } =
+                await supabaseClient.auth.resetPasswordForEmail(
+
+                    email,
+
+                    {
+                        redirectTo:
+                            window.location.origin +
+                            "/login.html"
+                    }
+
+                );
+
+
+            if (error) {
+
+                throw error;
+
+            }
+
+
+            showMessage(
+                "If that email belongs to a Lurelle account, a password reset link has been sent. ♡",
+                "success"
+            );
+
+        }
+
+
+        catch (error) {
+
+            console.error(
+                "PASSWORD RESET ERROR:",
+                error
+            );
+
+
+            showMessage(
+                error.message ||
+                "We couldn't send the password reset email right now. ♡",
+                "error"
+            );
+
+        }
+
+    });
+
+
+/* ==========================================
+   CHECK EXISTING SESSION
+========================================== */
+
+async function checkExistingSession() {
+
+    try {
+
+        const {
+            data
+        } =
+            await supabaseClient.auth.getSession();
+
+
+        if (
+            data &&
+            data.session &&
+            data.session.user
+        ) {
+
+            window.location.replace(
+                "index.html"
+            );
+
+        }
+
+    }
+
+
+    catch (error) {
+
+        console.error(
+            "SESSION CHECK ERROR:",
+            error
+        );
+
+    }
+
+}
+
+
+checkExistingSession();
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>My Profile | Lurelle by Adel</title>
+
+<link
+    rel="icon"
+    type="image/svg+xml"
+    href="lurelle-butterfly.svg"
+>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+<style>
+
+/* =========================
+   GENERAL PAGE
+========================= */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+
+    margin: 0;
+
+    min-height: 100vh;
+
+    background-color: #FFF8F3;
+
+    color: #6F5A4D;
+
+    font-family: Georgia, serif;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 30px 20px;
+
+}
+
+
+/* =========================
+   PROFILE CONTAINER
+========================= */
+
+.profile-container {
+
+    width: 100%;
+
+    max-width: 470px;
+
+    text-align: center;
+
+}
+
+
+/* =========================
+   TOP DECORATION
+========================= */
+
+.top-decoration {
+
+    font-size: 28px;
+
+    margin-bottom: 10px;
+
+}
+
+
+/* =========================
+   TITLE
+========================= */
+
+h1 {
+
+    margin: 0;
+
+    font-size: 40px;
+
+    font-weight: normal;
+
+}
+
+
+.subtitle {
+
+    margin: 10px 0 28px;
+
+    font-size: 16px;
+
+    color: #8A7468;
+
+    font-style: italic;
+
+}
+
+
+/* =========================
+   PROFILE CARD
+========================= */
+
+.profile-card {
+
+    background-color: #FFFFFF;
+
+    border: 1px solid #DCC9BE;
+
+    border-radius: 30px;
+
+    padding: 35px 30px;
+
+    box-shadow:
+        0 8px 25px
+        rgba(111,90,77,0.09);
+
+}
+
+
+/* =========================
+   PROFILE PFP
+========================= */
+
+.profile-picture {
+
+    width: 105px;
+
+    height: 105px;
+
+    margin: 0 auto 22px;
+
+    border-radius: 50%;
+
+    background-color: #F7DCE1;
+
+    border: 1px solid #DCC9BE;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 52px;
+
+    box-shadow:
+        0 6px 20px
+        rgba(111,90,77,0.10);
+
+}
+
+
+/* =========================
+   NAME
+========================= */
+
+.profile-name {
+
+    margin: 0;
+
+    font-size: 30px;
+
+    font-weight: normal;
+
+    color: #6F5A4D;
+
+}
+
+
+.profile-email {
+
+    margin-top: 8px;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 14px;
+
+    color: #806B60;
+
+    word-break: break-word;
+
+}
+
+
+/* =========================
+   DETAILS
+========================= */
+
+.profile-details {
+
+    margin-top: 30px;
+
+    border-top: 1px solid #E5D6CD;
+
+}
+
+
+.detail-row {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 20px;
+
+    padding: 17px 5px;
+
+    border-bottom: 1px solid #E5D6CD;
+
+    text-align: left;
+
+}
+
+
+.detail-label {
+
+    font-size: 14px;
+
+    color: #A28E84;
+
+}
+
+
+.detail-value {
+
+    font-size: 15px;
+
+    color: #6F5A4D;
+
+    text-align: right;
+
+}
+
+
+.active-status {
+
+    color: #66805F;
+
+    font-weight: bold;
+
+}
+
+
+/* =========================
+   LOG OUT BUTTON
+========================= */
+
+.logout-button {
+
+    width: 100%;
+
+    margin-top: 28px;
+
+    padding: 14px;
+
+    border: 1px solid #C98F9F;
+
+    border-radius: 30px;
+
+    background-color: #F7DCE1;
+
+    color: #6F5A4D;
+
+    font-family: Georgia, serif;
+
+    font-size: 16px;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.3s ease,
+        transform 0.2s ease;
+
+}
+
+
+.logout-button:hover {
+
+    background-color: #EFD0D7;
+
+    transform: translateY(-2px);
+
+}
+
+
+.logout-button:disabled {
+
+    opacity: 0.6;
+
+    cursor: not-allowed;
+
+    transform: none;
+
+}
+
+
+/* =========================
+   BACK LINK
+========================= */
+
+.back-link {
+
+    display: inline-block;
+
+    margin-top: 25px;
+
+    color: #6F5A4D;
+
+    text-decoration: none;
+
+    font-size: 15px;
+
+}
+
+
+.back-link:hover {
+
+    color: #C98F9F;
+
+}
+
+
+/* =========================
+   MESSAGE
+========================= */
+
+.message {
+
+    display: none;
+
+    margin-top: 18px;
+
+    padding: 12px;
+
+    border-radius: 13px;
+
+    font-size: 14px;
+
+}
+
+
+.message.show {
+
+    display: block;
+
+}
+
+
+.error {
+
+    background-color: #F7DFDF;
+
+    color: #8A5555;
+
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 500px) {
+
+    body {
+
+        padding: 20px 15px;
+
+    }
+
+
+    h1 {
+
+        font-size: 32px;
+
+    }
+
+
+    .profile-card {
+
+        padding: 30px 22px;
+
+    }
+
+
+    .detail-row {
+
+        align-items: flex-start;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="profile-container">
+
+
+    <div class="top-decoration">
+        ♡
+    </div>
+
+
+    <h1>
+        My Lurelle
+    </h1>
+
+
+    <p class="subtitle">
+        A little corner that belongs to you. ♡
+    </p>
+
+
+    <div class="profile-card">
+
+
+        <!-- PROFILE PICTURE -->
+
+        <div
+            class="profile-picture"
+            id="profilePicture"
+        >
+            🦋
+        </div>
+
+
+        <!-- NAME -->
+
+        <h2
+            class="profile-name"
+            id="profileName"
+        >
+            Loading...
+        </h2>
+
+
+        <!-- EMAIL -->
+
+        <div
+            class="profile-email"
+            id="profileEmail"
+        >
+            Loading...
+        </div>
+
+
+        <!-- DETAILS -->
+
+        <div class="profile-details">
+
+
+            <div class="detail-row">
+
+                <span class="detail-label">
+                    Membership
+                </span>
+
+                <span
+                    class="detail-value active-status"
+                    id="membershipStatus"
+                >
+                    Active Member
+                </span>
+
+            </div>
+
+
+            <div class="detail-row">
+
+                <span class="detail-label">
+                    Member since
+                </span>
+
+                <span
+                    class="detail-value"
+                    id="memberSince"
+                >
+                    Loading...
+                </span>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- LOG OUT -->
+
+        <button
+            type="button"
+            class="logout-button"
+            id="logoutButton"
+        >
+            Log Out ♡
+        </button>
+
+
+        <div
+            class="message"
+            id="message"
+        >
+        </div>
+
+
+    </div>
+
+
+    <a
+        href="index.html"
+        class="back-link"
+    >
+        ← Back to Lurelle
+    </a>
+
+
+</div>
+
+
+<script>
+
+/* ==========================================
+   SUPABASE
+========================================== */
+
+const SUPABASE_URL =
+    "https://ljzydmylrayqdvuxtzps.supabase.co";
+
+
+const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_RNQQFOqPdrKbLd6HiMSmwg_6UUNBZqg";
+
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+    );
+
+
+/* ==========================================
+   PROFILE SYMBOLS
+========================================== */
+
+const profileSymbols = [
+    "🦋",
+    "❤️",
+    "🎀"
+];
+
+
+/* ==========================================
+   LOAD PROFILE
+========================================== */
+
+async function loadProfile() {
+
+    const profilePicture =
+        document.getElementById(
+            "profilePicture"
+        );
+
+
+    const profileName =
+        document.getElementById(
+            "profileName"
+        );
+
+
+    const profileEmail =
+        document.getElementById(
+            "profileEmail"
+        );
+
+
+    const memberSince =
+        document.getElementById(
+            "memberSince"
+        );
+
+
+    try {
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient.auth.getUser();
+
+
+        if (error) {
+
+            throw error;
+
+        }
+
+
+        const user =
+            data.user;
+
+
+        /* =========================
+           NO USER
+        ========================= */
+
+        if (!user) {
+
+            window.location.href =
+                "login.html";
+
+            return;
+
+        }
+
+
+        /* =========================
+           NAME
+        ========================= */
+
+        const savedName =
+            user.user_metadata &&
+            user.user_metadata.name;
+
+
+        const displayName =
+            savedName
+                ? savedName
+                : user.email;
+
+
+        profileName.textContent =
+            displayName;
+
+
+        /* =========================
+           EMAIL
+        ========================= */
+
+        profileEmail.textContent =
+            user.email;
+
+
+        /* =========================
+           PFP
+        ========================= */
+
+        let savedPfp =
+            user.user_metadata &&
+            user.user_metadata.pfp;
+
+
+        /*
+         * Older accounts may have
+         * "random" saved from signup.
+         *
+         * Give them one of the three
+         * symbols and save it so it
+         * stays the same.
+         */
+
+        if (
+            !savedPfp ||
+            savedPfp === "random" ||
+            !profileSymbols.includes(savedPfp)
+        ) {
+
+            const randomIndex =
+                Math.floor(
+                    Math.random() *
+                    profileSymbols.length
+                );
+
+
+            savedPfp =
+                profileSymbols[randomIndex];
+
+
+            await supabaseClient.auth.updateUser({
+
+                data: {
+
+                    pfp: savedPfp
+
+                }
+
+            });
+
+        }
+
+
+        profilePicture.textContent =
+            savedPfp;
+
+
+        /* =========================
+           MEMBER SINCE
+        ========================= */
+
+        const createdAt =
+            new Date(
+                user.created_at
+            );
+
+
+        memberSince.textContent =
+            createdAt.toLocaleDateString(
+                undefined,
+                {
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric"
+                }
+            );
+
+    }
+
+
+    catch (error) {
+
+        console.error(
+            "PROFILE ERROR:",
+            error
+        );
+
+
+        document.getElementById(
+            "message"
+        ).textContent =
+            "We couldn't load your profile. Please log in again. ♡";
+
+
+        document.getElementById(
+            "message"
+        ).className =
+            "message show error";
+
+    }
+
+}
+
+
+/* ==========================================
+   LOG OUT
+========================================== */
+
+document
+    .getElementById("logoutButton")
+    .addEventListener(
+        "click",
+        async function() {
+
+            const button =
+                document.getElementById(
+                    "logoutButton"
+                );
+
+
+            button.disabled =
+                true;
+
+
+            button.textContent =
+                "Logging out... ♡";
+
+
+            try {
+
+                const {
+                    error
+                } =
+                    await supabaseClient.auth.signOut();
+
+
+                if (error) {
+
+                    throw error;
+
+                }
+
+
+                /*
+                 * Session is now gone.
+                 * Return to homepage.
+                 */
+
+                window.location.href =
+                    "index.html";
+
+            }
+
+
+            catch (error) {
+
+                console.error(
+                    "LOGOUT ERROR:",
+                    error
+                );
+
+
+                button.disabled =
+                    false;
+
+
+                button.textContent =
+                    "Log Out ♡";
+
+
+                const message =
+                    document.getElementById(
+                        "message"
+                    );
+
+
+                message.textContent =
+                    "We couldn't log you out right now. Please try again. ♡";
+
+
+                message.className =
+                    "message show error";
+
+            }
+
+        }
+    );
+
+
+/* ==========================================
+   START
+========================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        loadProfile();
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>
