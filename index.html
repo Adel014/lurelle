@@ -6,8 +6,16 @@
 <meta charset="UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/svg+xml" href="lurelle-butterfly.svg">
+
 <title>Lurelle by Adel</title>
+
+<link
+    rel="icon"
+    type="image/svg+xml"
+    href="lurelle-butterfly.svg"
+>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 
 <style>
@@ -55,6 +63,183 @@ body {
 .menu-button:hover {
     background-color: #C98F9F;
     transform: translateY(-2px);
+}
+
+
+/* =========================
+   PROFILE
+========================= */
+
+.profile-area {
+    position: fixed;
+
+    top: 20px;
+    right: 20px;
+
+    z-index: 1001;
+}
+
+
+/* CIRCULAR PROFILE BUTTON */
+
+.profile-button {
+    width: 52px;
+    height: 52px;
+
+    border-radius: 50%;
+
+    border: 1px solid #DCC9BE;
+
+    background-color: #FFFFFF;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 27px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 5px 18px
+        rgba(111,90,77,0.10);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        background-color 0.25s ease;
+}
+
+
+.profile-button:hover {
+    transform:
+        translateY(-2px)
+        scale(1.05);
+
+    background-color: #F7DCE1;
+
+    box-shadow:
+        0 8px 22px
+        rgba(111,90,77,0.14);
+}
+
+
+/* =========================
+   PROFILE TOOLTIP
+========================= */
+
+.profile-tooltip {
+    position: absolute;
+
+    top: 62px;
+    right: 0;
+
+    width: 220px;
+
+    padding: 18px;
+
+    background-color: #FFFFFF;
+
+    border:
+        1px solid #E5D6CD;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 8px 25px
+        rgba(111,90,77,0.12);
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    transform:
+        translateY(-5px);
+
+    transition:
+        opacity 0.25s ease,
+        transform 0.25s ease,
+        visibility 0.25s ease;
+
+    text-align: left;
+}
+
+
+/* SHOW PROFILE INFO ON HOVER */
+
+.profile-area:hover .profile-tooltip {
+    opacity: 1;
+
+    visibility: visible;
+
+    transform:
+        translateY(0);
+}
+
+
+/* PROFILE NAME */
+
+.profile-tooltip-name {
+    font-size: 18px;
+
+    margin-bottom: 6px;
+
+    color: #6F5A4D;
+}
+
+
+/* PROFILE EMAIL */
+
+.profile-tooltip-email {
+    font-family: Arial, sans-serif;
+
+    font-size: 13px;
+
+    color: #806B60;
+
+    word-break: break-word;
+
+    line-height: 1.5;
+}
+
+
+/* PROFILE LINKS */
+
+.profile-tooltip-link {
+    display: block;
+
+    margin-top: 13px;
+
+    padding-top: 12px;
+
+    border-top:
+        1px solid #E5D6CD;
+
+    color: #C98F9F;
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+    cursor: pointer;
+}
+
+
+.profile-tooltip-link:hover {
+    text-decoration: underline;
+}
+
+
+/* LOGOUT */
+
+.logout-link {
+    color: #8A7468;
+}
+
+
+.logout-link:hover {
+    color: #C98F9F;
 }
 
 
@@ -109,6 +294,7 @@ body {
 
 #menu a:hover {
     background-color: #F7DCE1;
+
     padding-left: 32px;
 }
 
@@ -283,7 +469,6 @@ body {
 ========================= */
 
 .invitation-grid {
-
     display: grid;
 
     grid-template-columns:
@@ -296,7 +481,6 @@ body {
 
 
 .invitation-card {
-
     position: relative;
 
     min-height: 210px;
@@ -327,7 +511,6 @@ body {
 
 
 .invitation-card:hover {
-
     transform:
         translateY(-5px);
 
@@ -343,7 +526,6 @@ body {
 /* CARD NUMBER */
 
 .card-number {
-
     font-family: Arial, sans-serif;
 
     font-size: 12px;
@@ -359,7 +541,6 @@ body {
 /* CARD TITLE */
 
 .invitation-card h3 {
-
     margin: 0 0 12px;
 
     font-size: 27px;
@@ -373,7 +554,6 @@ body {
 /* CARD TEXT */
 
 .invitation-card p {
-
     margin: 0;
 
     max-width: 390px;
@@ -389,11 +569,9 @@ body {
 /* LITTLE CARD DECORATION */
 
 .card-heart {
-
     position: absolute;
 
     right: 25px;
-
     bottom: 18px;
 
     font-size: 28px;
@@ -407,7 +585,6 @@ body {
 
 .invitation-card:hover
 .card-heart {
-
     transform:
         rotate(10deg)
         scale(1.15);
@@ -419,7 +596,6 @@ body {
 ========================= */
 
 .take-with-you {
-
     position: relative;
 
     max-width: 700px;
@@ -454,7 +630,6 @@ body {
 
 
 .take-with-you::before {
-
     content: "✦";
 
     position: absolute;
@@ -469,7 +644,6 @@ body {
 
 
 .take-with-you::after {
-
     content: "♡";
 
     position: absolute;
@@ -484,7 +658,6 @@ body {
 
 
 .take-label {
-
     font-family: Arial, sans-serif;
 
     font-size: 11px;
@@ -498,7 +671,6 @@ body {
 
 
 .take-with-you h2 {
-
     margin:
         0
         0
@@ -513,7 +685,6 @@ body {
 
 
 .take-quote {
-
     max-width: 520px;
 
     margin:
@@ -532,7 +703,6 @@ body {
 
 
 .take-signature {
-
     margin: 0;
 
     font-size: 14px;
@@ -546,7 +716,6 @@ body {
 ========================= */
 
 .final-message {
-
     max-width: 700px;
 
     margin:
@@ -562,7 +731,6 @@ body {
 
 
 .final-message h2 {
-
     margin: 0;
 
     font-size: 34px;
@@ -572,7 +740,6 @@ body {
 
 
 .final-message p {
-
     margin:
         15px auto
         0;
@@ -594,7 +761,6 @@ body {
 ========================= */
 
 .footer {
-
     margin-top: 30px;
 
     padding:
@@ -622,32 +788,24 @@ body {
 
 
     .invitation-grid {
-
         grid-template-columns: 1fr;
-
     }
 
 
     .invitation-card {
-
         min-height: 190px;
-
     }
 
 
     .welcome {
-
         padding: 30px 22px;
-
     }
 
 
     .take-with-you {
-
         padding:
             38px
             22px;
-
     }
 
 }
@@ -656,37 +814,46 @@ body {
 @media (max-width: 450px) {
 
     .brand {
-
         font-size: 54px;
-
     }
 
 
     .tagline {
-
         font-size: 18px;
-
     }
 
 
     .invitation-card {
-
         padding: 25px;
-
     }
 
 
     .invitation-card h3 {
-
         font-size: 24px;
-
     }
 
 
     .take-quote {
-
         font-size: 18px;
+    }
 
+
+    .profile-area {
+        top: 15px;
+        right: 15px;
+    }
+
+
+    .profile-button {
+        width: 46px;
+        height: 46px;
+
+        font-size: 24px;
+    }
+
+
+    .profile-tooltip {
+        width: 200px;
     }
 
 }
@@ -710,6 +877,68 @@ body {
 >
     ☰
 </button>
+
+
+<!-- =========================
+     PROFILE
+========================= -->
+
+<div
+    class="profile-area"
+    id="profileArea"
+>
+
+    <button
+        class="profile-button"
+        id="profileButton"
+        aria-label="Lurelle profile"
+    >
+        🦋
+    </button>
+
+
+    <div
+        class="profile-tooltip"
+        id="profileTooltip"
+    >
+
+        <div
+            class="profile-tooltip-name"
+            id="profileName"
+        >
+            Welcome to Lurelle ♡
+        </div>
+
+
+        <div
+            class="profile-tooltip-email"
+            id="profileEmail"
+        >
+            Sign in to your Lurelle account
+        </div>
+
+
+        <a
+            href="login.html"
+            class="profile-tooltip-link"
+            id="profileLink"
+        >
+            Log in ♡
+        </a>
+
+
+        <a
+            href="#"
+            class="profile-tooltip-link logout-link"
+            id="logoutLink"
+            style="display: none;"
+        >
+            Log out
+        </a>
+
+    </div>
+
+</div>
 
 
 <!-- =========================
@@ -758,11 +987,13 @@ body {
 
     <!-- LOGO -->
 
+   
 <img src="lurelle-logo.jpg.JPG"
      alt="Lurelle by Adel logo"
      width="150"
      height="150"
      style="border-radius: 50%; object-fit: cover;">
+
     <!-- BRAND -->
 
     <h1 class="brand">
@@ -806,7 +1037,6 @@ body {
     ========================= -->
 
     <section class="explore">
-
 
         <div class="explore-heading">
 
@@ -975,7 +1205,6 @@ body {
 
         </div>
 
-
     </section>
 
 
@@ -1051,7 +1280,9 @@ function toggleMenu() {
 }
 
 
-/* CLOSE MENU WHEN A LINK IS CLICKED */
+/* =========================
+   CLOSE MENU WHEN LINK IS CLICKED
+========================= */
 
 document
     .querySelectorAll("#menu a")
@@ -1069,6 +1300,356 @@ document
         );
 
     });
+
+
+/* =========================
+   SUPABASE
+========================= */
+
+const SUPABASE_URL =
+    "https://ljzydmylrayqdvuxtzps.supabase.co";
+
+
+const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_RNQQFOqPdrKbLd6HiMSmwg_6UUNBZqg";
+
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+    );
+
+
+/* =========================
+   RANDOM PROFILE SYMBOL
+========================= */
+
+const profileSymbols = [
+    "🦋",
+    "❤️",
+    "🎀"
+];
+
+
+function getRandomProfileSymbol() {
+
+    const randomIndex =
+        Math.floor(
+            Math.random() *
+            profileSymbols.length
+        );
+
+    return profileSymbols[randomIndex];
+
+}
+
+
+document
+    .getElementById("profileButton")
+    .textContent =
+    getRandomProfileSymbol();
+
+
+/* =========================
+   PROFILE ELEMENTS
+========================= */
+
+const profileButton =
+    document.getElementById(
+        "profileButton"
+    );
+
+
+const profileName =
+    document.getElementById(
+        "profileName"
+    );
+
+
+const profileEmail =
+    document.getElementById(
+        "profileEmail"
+    );
+
+
+const profileLink =
+    document.getElementById(
+        "profileLink"
+    );
+
+
+const logoutLink =
+    document.getElementById(
+        "logoutLink"
+    );
+
+
+/* =========================
+   LOGGED-OUT PROFILE
+========================= */
+
+function showLoggedOutProfile() {
+
+    profileName.textContent =
+        "Welcome to Lurelle ♡";
+
+
+    profileEmail.textContent =
+        "Sign in to your Lurelle account";
+
+
+    profileLink.textContent =
+        "Log in ♡";
+
+
+    profileLink.href =
+        "login.html";
+
+
+    profileLink.style.display =
+        "block";
+
+
+    logoutLink.style.display =
+        "none";
+
+
+    profileButton.onclick =
+        function() {
+
+            window.location.href =
+                "login.html";
+
+        };
+
+}
+
+
+/* =========================
+   LOGGED-IN PROFILE
+========================= */
+
+function showLoggedInProfile(user) {
+
+    const name =
+        user.user_metadata &&
+        user.user_metadata.name
+            ? user.user_metadata.name
+            : user.email;
+
+
+    profileName.textContent =
+        name;
+
+
+    profileEmail.textContent =
+        user.email || "";
+
+
+    profileLink.textContent =
+        "View my profile ♡";
+
+
+    profileLink.href =
+        "profile.html";
+
+
+    profileLink.style.display =
+        "block";
+
+
+    logoutLink.style.display =
+        "block";
+
+
+    profileButton.onclick =
+        function() {
+
+            window.location.href =
+                "profile.html";
+
+        };
+
+}
+
+
+/* =========================
+   LOAD PROFILE
+========================= */
+
+async function loadProfile() {
+
+    try {
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient.auth.getSession();
+
+
+        if (error) {
+
+            console.error(
+                "SESSION ERROR:",
+                error
+            );
+
+            showLoggedOutProfile();
+
+            return;
+
+        }
+
+
+        const session =
+            data.session;
+
+
+        if (
+            session &&
+            session.user
+        ) {
+
+            showLoggedInProfile(
+                session.user
+            );
+
+        }
+
+        else {
+
+            showLoggedOutProfile();
+
+        }
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "PROFILE ERROR:",
+            error
+        );
+
+        showLoggedOutProfile();
+
+    }
+
+}
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+logoutLink.addEventListener(
+    "click",
+    async function(event) {
+
+        event.preventDefault();
+
+
+        logoutLink.textContent =
+            "Logging out...";
+
+
+        logoutLink.style.pointerEvents =
+            "none";
+
+
+        try {
+
+            const {
+                error
+            } =
+                await supabaseClient.auth.signOut();
+
+
+            if (error) {
+
+                throw error;
+
+            }
+
+
+            /*
+             * Session is now removed.
+             *
+             * Stay on index.html.
+             * The profile changes back to
+             * the logged-out state.
+             */
+
+            showLoggedOutProfile();
+
+
+            /*
+             * Refresh the profile symbol
+             * after logging out.
+             */
+
+            profileButton.textContent =
+                getRandomProfileSymbol();
+
+        }
+
+
+        catch (error) {
+
+            console.error(
+                "LOGOUT ERROR:",
+                error
+            );
+
+
+            logoutLink.textContent =
+                "Log out";
+
+
+            logoutLink.style.pointerEvents =
+                "auto";
+
+        }
+
+    }
+);
+
+
+/* =========================
+   LISTEN FOR AUTH CHANGES
+========================= */
+
+supabaseClient.auth.onAuthStateChange(
+    function(event, session) {
+
+        if (
+            session &&
+            session.user
+        ) {
+
+            showLoggedInProfile(
+                session.user
+            );
+
+        }
+
+        else {
+
+            showLoggedOutProfile();
+
+        }
+
+    }
+);
+
+
+/* =========================
+   START PROFILE
+========================= */
+
+loadProfile();
 
 </script>
 
