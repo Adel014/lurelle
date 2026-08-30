@@ -3,22 +3,11 @@
 
 <head>
 
-<meta charset="UTF-8">
+<title>Contact | Lurelle by Adel</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Contact | Lurelle by Adel</title>
-
-<link rel="icon" type="image/svg+xml" href="lurelle-butterfly.svg">
-
-<!-- SHARED DARK MODE -->
-<link rel="stylesheet" href="darkmode.css">
-
 <style>
-
-/* =========================
-   GENERAL PAGE
-========================= */
 
 body {
     background-color: #FFF8F3;
@@ -28,104 +17,34 @@ body {
     padding: 0;
 }
 
-
-/* =========================
-   HAMBURGER
-========================= */
+/* HAMBURGER */
 
 .menu-button {
     position: fixed;
-
     top: 20px;
     left: 20px;
-
     z-index: 1001;
-
     background-color: #DCC9BE;
     color: #FFF8F3;
-
     border: none;
-
     padding: 11px 17px;
-
     border-radius: 25px;
-
     font-size: 20px;
-
     cursor: pointer;
-
-    transition:
-        background-color 0.3s ease,
-        transform 0.2s ease;
 }
 
-.menu-button:hover {
-    background-color: #C98F9F;
-
-    transform: translateY(-2px);
-}
-
-
-/* =========================
-   DARK MODE BUTTON
-========================= */
-
-.dark-mode-button {
-    position: fixed;
-
-    top: 70px;
-    right: 20px;
-
-    z-index: 1002;
-
-    background-color: #DCC9BE;
-    color: #FFF8F3;
-
-    border: none;
-
-    padding: 11px 17px;
-
-    border-radius: 25px;
-
-    font-size: 16px;
-
-    cursor: pointer;
-
-    transition:
-        background-color 0.3s ease,
-        transform 0.2s ease;
-}
-
-.dark-mode-button:hover {
-    background-color: #C98F9F;
-
-    transform: translateY(-2px);
-}
-
-
-/* =========================
-   MENU
-========================= */
+/* MENU */
 
 #menu {
     position: fixed;
-
     top: 0;
     left: -270px;
-
     width: 250px;
     height: 100%;
-
     background-color: #FFF8F3;
-
     padding-top: 90px;
-
-    box-shadow:
-        5px 0 15px
-        rgba(111,90,77,0.15);
-
+    box-shadow: 5px 0 15px rgba(111,90,77,0.15);
     transition: left 0.4s ease;
-
     z-index: 1000;
 }
 
@@ -135,96 +54,58 @@ body {
 
 #menu a {
     display: block;
-
     padding: 18px 25px;
-
     color: #6F5A4D;
-
     text-decoration: none;
-
     font-size: 18px;
-
-    transition:
-        background-color 0.2s ease,
-        padding-left 0.2s ease;
 }
 
 #menu a:hover {
     background-color: #F7DCE1;
-
-    padding-left: 32px;
 }
 
-
-/* =========================
-   PAGE
-========================= */
+/* PAGE */
 
 section {
     padding: 100px 20px;
-
     text-align: center;
 }
 
 h1 {
     font-size: 38px;
-
-    font-weight: normal;
 }
 
 .intro {
     max-width: 600px;
-
-    margin:
-        0
-        auto
-        40px;
-
+    margin: 0 auto 40px auto;
     line-height: 1.7;
-
     font-size: 17px;
 }
 
-
-/* =========================
-   CONTACT CARD
-========================= */
+/* CONTACT CARD */
 
 .contact-card {
     max-width: 550px;
-
-    margin: 0 auto;
-
+    margin: auto;
     padding: 35px;
-
     background-color: #F7DCE1;
-
     border-radius: 25px;
-
-    box-shadow:
-        0 5px 15px
-        rgba(111,90,77,0.08);
+    box-shadow: 0 5px 15px rgba(111,90,77,0.08);
 }
 
 .contact-option {
     background-color: #FFF8F3;
-
     border-radius: 18px;
-
     padding: 20px;
-
     margin: 15px 0;
 }
 
 .contact-option h2 {
     margin-bottom: 8px;
-
-    font-weight: normal;
 }
 
 .contact-option a {
     color: #6F5A4D;
-
     text-decoration: none;
 }
 
@@ -232,120 +113,67 @@ h1 {
     text-decoration: underline;
 }
 
-
-/* =========================
-   MESSAGE FORM
-========================= */
+/* MESSAGE FORM */
 
 .message-form {
     max-width: 550px;
-
-    margin:
-        40px
-        auto
-        0;
-
+    margin: 40px auto 0 auto;
     padding: 30px;
-
     background-color: #FFF8F3;
-
-    border:
-        1px solid #DCC9BE;
-
+    border: 1px solid #DCC9BE;
     border-radius: 25px;
-
     text-align: left;
-
-    box-sizing: border-box;
 }
 
 .message-form h2 {
     text-align: center;
-
-    font-weight: normal;
 }
 
 .message-form label {
     display: block;
-
     margin-top: 15px;
-
     font-weight: bold;
 }
 
 .message-form input,
 .message-form textarea {
     width: 100%;
-
     box-sizing: border-box;
-
     padding: 12px;
-
     margin-top: 6px;
-
-    border:
-        1px solid #DCC9BE;
-
+    border: 1px solid #DCC9BE;
     border-radius: 10px;
-
     background-color: #FFF8F3;
-
     color: #6F5A4D;
-
     font-family: Georgia, serif;
 }
 
 .message-form textarea {
     height: 130px;
-
     resize: vertical;
 }
 
 .message-button {
     display: block;
-
-    margin:
-        25px
-        auto
-        0;
-
+    margin: 25px auto 0 auto;
     background-color: #6F5A4D;
-
     color: #FFF8F3;
-
     border: none;
-
-    padding:
-        13px
-        25px;
-
+    padding: 13px 25px;
     border-radius: 25px;
-
     cursor: pointer;
-
-    transition:
-        background-color 0.3s ease,
-        transform 0.2s ease;
 }
 
 .message-button:hover {
     background-color: #C98F9F;
-
-    transform: translateY(-2px);
 }
 
-
-/* =========================
-   MOBILE
-========================= */
+/* MOBILE */
 
 @media (max-width: 600px) {
 
     section {
-        padding:
-            105px
-            15px
-            85px;
+        padding: 85px 15px;
     }
 
     h1 {
@@ -363,296 +191,195 @@ h1 {
 
 </head>
 
-
 <body>
 
+<!-- HAMBURGER -->
 
-<!-- =========================
-     HAMBURGER
-========================= -->
+<button class="menu-button" onclick="toggleMenu()">☰</button>
 
-<button
-    class="menu-button"
-    onclick="toggleMenu()"
-    aria-label="Open menu"
->
-    ☰
-</button>
-
-
-<!-- =========================
-     DARK MODE BUTTON
-========================= -->
-
-<button
-    class="dark-mode-button"
-    id="darkModeButton"
-    onclick="toggleDarkMode()"
-    aria-label="Toggle dark mode"
->
-    🌙
-</button>
-
-
-<!-- =========================
-     MENU
-========================= -->
+<!-- MENU -->
 
 <div id="menu">
 
-    <a href="index.html">
-        Home
-    </a>
+<a href="index.html">Home</a>
 
-    <a href="about.html">
-        About
-    </a>
+<a href="about.html">About</a>
 
-    <a href="blog.html">
-        Blog🌸
-    </a>
+<a href="blog.html">Blog🌸</a>
 
-    <a href="patterns.html">
-        Patterns🧶
-    </a>
+<a href="patterns.html">Patterns🧶</a>
 
-    <a href="collection.html">
-        Collection
-    </a>
+<a href="collection.html">Collection</a>
 
-    <a href="custom-orders.html">
-        Custom Orders
-    </a>
+<a href="custom-orders.html">Custom Orders</a>
 
-    <a href="contact.html">
-        Contact
-    </a>
+<a href="contact.html">Contact</a>
 
 </div>
 
-
-<!-- =========================
-     CONTACT PAGE
-========================= -->
+<!-- CONTACT PAGE -->
 
 <section>
 
-
-<h1>
-    ♡ Get in Touch
-</h1>
-
+<h1>♡ Get in Touch</h1>
 
 <p class="intro">
-
-    Have a question about an order,
-    a custom piece, or anything Lurelle?
-
-    <br>
-
-    I'd love to hear from you. ♡
-
+Have a question about an order, a custom piece, or anything Lurelle?
+<br>
+I'd love to hear from you. ♡
 </p>
-
-
-<!-- =========================
-     CONTACT OPTIONS
-========================= -->
 
 <div class="contact-card">
 
+<div class="contact-option">
 
-    <div class="contact-option">
+<h2>💌 Email</h2>
 
-        <h2>
-            💌 Email
-        </h2>
+<p>
+<a href="mailto:hilurelle@outlook.com">
+hilurelle@outlook.com
+</a>
+</p>
 
-        <p>
+</div>
 
-            <a href="mailto:hilurelle@outlook.com">
-                hilurelle@outlook.com
-            </a>
+<div class="contact-option">
 
-        </p>
+<h2>📱 Socials</h2>
 
-    </div>
+<p>
+Follow Lurelle for new drops, behind-the-scenes moments and more.
+</p>
 
+<p>
+<a href="#" onclick="socialMessage(); return false;">
+♡ Visit Lurelle's socials
+</a>
+</p>
 
-    <div class="contact-option">
+</div>
 
-        <h2>
-            📱 Socials
-        </h2>
+<div class="contact-option">
 
-        <p>
-            Follow Lurelle for new drops,
-            behind-the-scenes moments and more.
-        </p>
+<h2>▶️ YouTube</h2>
 
-        <p>
+<p>
+Watch Lurelle by Adel for videos, tutorials, behind-the-scenes moments and more.
+</p>
 
-            <a
-                href="#"
-                onclick="socialMessage(); return false;"
-            >
-                ♡ Visit Lurelle's socials
-            </a>
+<p>
+<a
+href="https://www.youtube.com/@LurellebyAdel1"
+target="_blank"
+rel="noopener noreferrer"
+>
+♡ Visit my channel
+</a>
+</p>
 
-        </p>
+</div>
 
-    </div>
+<div class="contact-option">
 
+<h2>🧶 Custom Orders</h2>
 
-    <div class="contact-option">
+<p>
+Want something made especially for you?
+</p>
 
-        <h2>
-            ▶️ YouTube
-        </h2>
+<p>
+<a href="custom-orders.html">
+♡ Request a Custom Order
+</a>
+</p>
 
-        <p>
-            Watch Lurelle by Adel for videos,
-            tutorials, behind-the-scenes moments and more.
-        </p>
-
-        <p>
-
-            <a
-                href="https://www.youtube.com/@LurellebyAdel1"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                ♡ Visit my channel
-            </a>
-
-        </p>
-
-    </div>
-
-
-    <div class="contact-option">
-
-        <h2>
-            🧶 Custom Orders
-        </h2>
-
-        <p>
-            Want something made especially for you?
-        </p>
-
-        <p>
-
-            <a href="custom-orders.html">
-                ♡ Request a Custom Order
-            </a>
-
-        </p>
-
-    </div>
-
+</div>
 
 </div>
 
 
-<!-- =========================
-     MESSAGE FORM
-========================= -->
+<!-- MESSAGE FORM -->
 
 <div class="message-form">
 
+<h2>♡ Send a Message</h2>
 
-    <h2>
-        ♡ Send a Message
-    </h2>
+<form
+action="https://formspree.io/f/moeazpwy"
+method="POST"
+>
 
+<label for="messageName">
+Your name
+</label>
 
-    <form
-        action="https://formspree.io/f/moeazpwy"
-        method="POST"
-    >
-
-
-        <label for="messageName">
-            Your name
-        </label>
-
-        <input
-            type="text"
-            id="messageName"
-            name="name"
-            placeholder="Your name"
-            autocomplete="name"
-            required
-        >
+<input
+type="text"
+id="messageName"
+name="name"
+placeholder="Your name"
+autocomplete="name"
+required
+>
 
 
-        <label for="messageEmail">
-            Your email
-        </label>
+<label for="messageEmail">
+Your email
+</label>
 
-        <input
-            type="email"
-            id="messageEmail"
-            name="email"
-            placeholder="Your email"
-            autocomplete="email"
-            required
-        >
-
-
-        <label for="messageText">
-            Your message
-        </label>
-
-        <textarea
-            id="messageText"
-            name="message"
-            placeholder="Write your message here..."
-            required
-        ></textarea>
+<input
+type="email"
+id="messageEmail"
+name="email"
+placeholder="Your email"
+autocomplete="email"
+required
+>
 
 
-        <input
-            type="hidden"
-            name="_subject"
-            value="New Lurelle Contact Message"
-        >
+<label for="messageText">
+Your message
+</label>
+
+<textarea
+id="messageText"
+name="message"
+placeholder="Write your message here..."
+required
+></textarea>
 
 
-        <button
-            class="message-button"
-            type="submit"
-        >
-            Send Message
-        </button>
+<input
+type="hidden"
+name="_subject"
+value="New Lurelle Contact Message"
+>
 
 
-    </form>
+<button
+class="message-button"
+type="submit"
+>
+Send Message
+</button>
+
+</form>
 
 </div>
-
 
 </section>
 
 
 <script>
 
-/* =========================
-   MENU
-========================= */
-
 function toggleMenu() {
 
     document
-        .getElementById("menu")
-        .classList.toggle("open");
+    .getElementById("menu")
+    .classList.toggle("open");
 
 }
 
-
-/* =========================
-   SOCIAL MESSAGE
-========================= */
 
 function socialMessage() {
 
@@ -663,14 +390,6 @@ function socialMessage() {
 }
 
 </script>
-
-
-<!-- =========================
-     SHARED DARK MODE
-========================= -->
-
-<script src="darkmode.js"></script>
-
 
 </body>
 
