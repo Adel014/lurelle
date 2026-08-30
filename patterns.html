@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
 <meta charset="UTF-8">
@@ -9,33 +8,8 @@
 
 <title>Lurelle | Patterns</title>
 
-<link rel="icon" type="image/svg+xml" href="lurelle-butterfly.svg">
 
 <style>
-
-/* =========================
-   GENERAL PAGE
-========================= */
-
-* {
-    box-sizing: border-box;
-}
-
-body {
-
-    margin: 0;
-
-    background-color: #fffaf6;
-
-    color: #5f4b43;
-
-    font-family: Georgia, serif;
-
-    transition:
-        background-color 0.3s ease,
-        color 0.3s ease;
-}
-
 
 /* =========================
    MENU BUTTON
@@ -64,68 +38,6 @@ body {
     font-size: 20px;
 
     cursor: pointer;
-
-    transition:
-        background-color 0.3s ease,
-        transform 0.2s ease;
-}
-
-
-.menu-button:hover {
-
-    background-color: #C98F9F;
-
-    transform: scale(1.05);
-
-}
-
-
-/* =========================
-   DARK MODE BUTTON
-========================= */
-
-.dark-mode-button {
-
-    position: fixed;
-
-    top: 20px;
-
-    right: 20px;
-
-    z-index: 1001;
-
-    width: 48px;
-
-    height: 48px;
-
-    border: none;
-
-    border-radius: 50%;
-
-    background-color: #DCC9BE;
-
-    color: #FFF8F3;
-
-    font-size: 20px;
-
-    cursor: pointer;
-
-    box-shadow:
-        0 4px 12px
-        rgba(111,90,77,0.15);
-
-    transition:
-        background-color 0.3s ease,
-        transform 0.2s ease;
-}
-
-
-.dark-mode-button:hover {
-
-    background-color: #C98F9F;
-
-    transform: scale(1.05);
-
 }
 
 
@@ -178,10 +90,6 @@ body {
     text-decoration: none;
 
     font-size: 18px;
-
-    transition:
-        background-color 0.2s ease,
-        padding-left 0.2s ease;
 }
 
 
@@ -189,121 +97,24 @@ body {
 
     background-color: #F7DCE1;
 
-    padding-left: 32px;
-
-}
-
-
-/* =========================
-   DARK MODE
-========================= */
-
-body.dark-mode {
-
-    background-color: #2F2927;
-
-    color: #F7EDE7;
-
-}
-
-
-body.dark-mode #menu {
-
-    background-color: #2F2927;
-
-}
-
-
-body.dark-mode #menu a {
-
-    color: #F7EDE7;
-
-}
-
-
-body.dark-mode #menu a:hover {
-
-    background-color: #4A3D39;
-
-}
-
-
-body.dark-mode .patterns-page {
-
-    color: #F7EDE7;
-
-}
-
-
-body.dark-mode .patterns-page h1 {
-
-    color: #F7EDE7;
-
-}
-
-
-body.dark-mode .welcome {
-
-    color: #E8D9D2;
-
-}
-
-
-body.dark-mode .pattern-card {
-
-    background-color: #3A312E;
-
-    border-color: #5A4A44;
-
-    box-shadow:
-        0 6px 20px
-        rgba(0,0,0,0.18);
-
-}
-
-
-body.dark-mode .pattern-card h2 {
-
-    color: #F7EDE7;
-
-}
-
-
-body.dark-mode .pattern-card p {
-
-    color: #D9C8C0;
-
-}
-
-
-body.dark-mode .pattern-instructions {
-
-    background-color: #302926;
-
-    border-color: #5A4A44;
-
-    color: #E8D9D2;
-
-}
-
-
-body.dark-mode .status-message {
-
-    color: #D8C5BC;
-
-}
-
-
-body.dark-mode .dark-mode-button {
-
-    background-color: #5A4A44;
-
 }
 
 
 /* =========================
    PAGE
 ========================= */
+
+body {
+
+    margin: 0;
+
+    background-color: #fffaf6;
+
+    color: #5f4b43;
+
+    font-family: Georgia, serif;
+}
+
 
 .patterns-page {
 
@@ -522,33 +333,14 @@ body.dark-mode .dark-mode-button {
 
 
 <!-- =========================
-     HAMBURGER BUTTON
+     MENU BUTTON
 ========================= -->
 
 <button
     class="menu-button"
     onclick="toggleMenu()"
-    aria-label="Open menu"
 >
-
     ☰
-
-</button>
-
-
-<!-- =========================
-     DARK MODE BUTTON
-========================= -->
-
-<button
-    class="dark-mode-button"
-    onclick="toggleDarkMode()"
-    id="darkModeButton"
-    aria-label="Toggle dark mode"
->
-
-    🌙
-
 </button>
 
 
@@ -556,7 +348,7 @@ body.dark-mode .dark-mode-button {
      MENU
 ========================= -->
 
-<div id="menu">
+<div id="menu" class="menu">
 
     <a href="index.html">
         Home
@@ -607,32 +399,24 @@ body.dark-mode .dark-mode-button {
 
 
     <p class="welcome">
-
         Welcome to Lurelle's little pattern corner —
         a place for adorable, creative and stunning
         crochet patterns made with love. ♡
-
     </p>
 
 
     <!-- =========================
-         PATTERN STATUS
+         PATTERNS WILL APPEAR HERE
     ========================= -->
 
     <div id="patternStatus">
 
         <p class="status-message">
-
             Loading Lurelle patterns... 🧶
-
         </p>
 
     </div>
 
-
-    <!-- =========================
-         PATTERN GRID
-    ========================= -->
 
     <div
         id="patternGrid"
@@ -642,9 +426,7 @@ body.dark-mode .dark-mode-button {
 
 
     <div class="bottom-yarn">
-
         ♡ 🧶 ♡
-
     </div>
 
 
@@ -653,8 +435,9 @@ body.dark-mode .dark-mode-button {
 
 <script>
 
+
 /* =========================
-   HAMBURGER MENU
+   MENU
 ========================= */
 
 function toggleMenu() {
@@ -665,88 +448,6 @@ function toggleMenu() {
     menu.classList.toggle("open");
 
 }
-
-
-/* =========================
-   DARK MODE
-========================= */
-
-function toggleDarkMode() {
-
-    document.body.classList.toggle(
-        "dark-mode"
-    );
-
-
-    const button =
-        document.getElementById(
-            "darkModeButton"
-        );
-
-
-    const darkMode =
-        document.body.classList.contains(
-            "dark-mode"
-        );
-
-
-    if (darkMode) {
-
-        button.textContent = "☀️";
-
-        localStorage.setItem(
-            "lurelleDarkMode",
-            "true"
-        );
-
-    } else {
-
-        button.textContent = "🌙";
-
-        localStorage.setItem(
-            "lurelleDarkMode",
-            "false"
-        );
-
-    }
-
-}
-
-
-/* =========================
-   LOAD SAVED DARK MODE
-========================= */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    function() {
-
-        const savedMode =
-            localStorage.getItem(
-                "lurelleDarkMode"
-            );
-
-
-        const button =
-            document.getElementById(
-                "darkModeButton"
-            );
-
-
-        if (
-            savedMode === "true"
-        ) {
-
-            document.body.classList.add(
-                "dark-mode"
-            );
-
-            button.textContent = "☀️";
-
-        }
-
-    }
-);
 
 
 /* =========================
@@ -990,5 +691,4 @@ document.addEventListener(
 
 
 </body>
-
 </html>
