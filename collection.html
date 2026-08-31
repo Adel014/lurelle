@@ -7,15 +7,13 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link
-    rel="icon"
-    type="image/svg+xml"
-    href="lurelle-butterfly.svg"
->
-    
 <title>Collection | Lurelle by Adel</title>
 
 <style>
+
+/* =========================
+   GENERAL
+========================= */
 
 body {
     background-color: #FFF8F3;
@@ -178,6 +176,11 @@ h2 {
     font-size: 20px;
 }
 
+
+/* =========================
+   BUTTONS
+========================= */
+
 .add-button,
 .review-button,
 .leave-review-button,
@@ -187,14 +190,35 @@ h2 {
     padding: 11px 18px;
     margin-top: 10px;
     cursor: pointer;
+}
+
+.add-button {
     background-color: #6F5A4D;
     color: #FFF8F3;
 }
 
 .review-button {
-    background-color: #DCC9BE;
+    background-color: #F7DCE1;
     color: #6F5A4D;
     width: 100%;
+}
+
+.leave-review-button {
+    width: 100%;
+    background-color: #F7DCE1;
+    color: #6F5A4D;
+    margin-top: 18px;
+}
+
+.submit-review-button {
+    width: 100%;
+    background-color: #6F5A4D;
+    color: #FFF8F3;
+}
+
+.submit-review-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 
 
@@ -225,6 +249,7 @@ h2 {
 .review-stars {
     letter-spacing: 2px;
     margin-bottom: 7px;
+    color: #6F5A4D;
 }
 
 .review-date {
@@ -233,16 +258,26 @@ h2 {
     color: #9B8378;
 }
 
+
+/* =========================
+   VERIFIED BUYER
+========================= */
+
 .verified-buyer {
     display: inline-block;
-    margin-top: 7px;
+    margin-top: 8px;
     font-size: 12px;
     font-weight: bold;
-    color: #6F5A4D;
-    background-color: #DCC9BE;
-    padding: 5px 9px;
+    color: #2E7D32;
+    background-color: #E8F5E9;
+    padding: 5px 10px;
     border-radius: 15px;
 }
+
+
+/* =========================
+   NO REVIEWS
+========================= */
 
 .no-reviews {
     text-align: center;
@@ -253,15 +288,8 @@ h2 {
 
 
 /* =========================
-   LEAVE REVIEW FORM
+   REVIEW FORM
 ========================= */
-
-.leave-review-button {
-    width: 100%;
-    background-color: #DCC9BE;
-    color: #6F5A4D;
-    margin-top: 18px;
-}
 
 .review-form {
     display: none;
@@ -338,14 +366,8 @@ h2 {
 
 
 /* =========================
-   SUBMIT
+   REVIEW MESSAGE
 ========================= */
-
-.submit-review-button {
-    width: 100%;
-    background-color: #6F5A4D;
-    color: #FFF8F3;
-}
 
 .review-message {
     margin-top: 10px;
@@ -484,6 +506,7 @@ h2 {
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+
 <script>
 
 const SUPABASE_URL =
@@ -506,6 +529,10 @@ const supabaseClient =
 <body>
 
 
+<!-- =========================
+     HAMBURGER
+========================= -->
+
 <button
     class="menu-button"
     onclick="toggleMenu()">
@@ -514,6 +541,10 @@ const supabaseClient =
 
 </button>
 
+
+<!-- =========================
+     CART BUTTON
+========================= -->
 
 <button
     class="cart-button"
@@ -524,6 +555,10 @@ const supabaseClient =
 
 </button>
 
+
+<!-- =========================
+     MENU
+========================= -->
 
 <div id="menu">
 
@@ -561,6 +596,10 @@ const supabaseClient =
 <section>
 
 
+<!-- =========================
+     PAGE INTRO
+========================= -->
+
 <h1>
     My Crochet Collection ✦
 </h1>
@@ -572,6 +611,10 @@ const supabaseClient =
 
 </p>
 
+
+<!-- =========================
+     MONTHLY SPECIAL
+========================= -->
 
 <div class="special">
 
@@ -608,6 +651,10 @@ const supabaseClient =
 </div>
 
 
+<!-- =========================
+     COLLECTION
+========================= -->
+
 <h2 class="category-title">
     ♡ Collection
 </h2>
@@ -624,6 +671,10 @@ const supabaseClient =
 </div>
 
 
+<!-- =========================
+     COMING SOON
+========================= -->
+
 <div class="coming-soon">
 
     <h2>
@@ -637,7 +688,9 @@ const supabaseClient =
 </div>
 
 
-<!-- CART -->
+<!-- =========================
+     CART
+========================= -->
 
 <div
     class="cart"
@@ -879,6 +932,11 @@ function changeQuantity(
     change
 ) {
 
+    if (!cart[index]) {
+        return;
+    }
+
+
     cart[index].quantity +=
         change;
 
@@ -1070,6 +1128,7 @@ function displayCart() {
                     <div class="cart-controls">
 
                         <button
+                            type="button"
                             onclick="changeQuantity(${index}, -1)">
 
                             −
@@ -1078,6 +1137,7 @@ function displayCart() {
 
 
                         <button
+                            type="button"
                             onclick="changeQuantity(${index}, 1)">
 
                             +
@@ -1086,6 +1146,7 @@ function displayCart() {
 
 
                         <button
+                            type="button"
                             onclick="removeItem(${index})">
 
                             ×
@@ -1367,6 +1428,99 @@ function toggleReviewForm(
 
 
 /* =========================
+   VERIFIED BUYER
+=========================
+
+   IMPORTANT:
+
+   The browser does NOT directly
+   read the orders table anymore.
+
+   Instead it calls the Supabase
+   RPC function:
+
+       check_verified_buyer
+
+   Supabase checks:
+
+   1. Email matches an order.
+   2. Payment status is paid.
+   3. Order is completed.
+   4. Order is delivered.
+   5. JSONB items contains the
+      exact product being reviewed.
+
+   If all conditions are true,
+   Supabase returns TRUE.
+
+========================= */
+
+async function checkVerifiedBuyer(
+    customerEmail,
+    productName
+) {
+
+    if (
+        !customerEmail ||
+        !productName
+    ) {
+
+        return false;
+
+    }
+
+
+    try {
+
+        const result =
+            await supabaseClient.rpc(
+                "check_verified_buyer",
+                {
+                    p_customer_email:
+                        customerEmail
+                            .trim()
+                            .toLowerCase(),
+
+                    p_product_name:
+                        productName
+                            .trim()
+                }
+            );
+
+
+        if (
+            result.error
+        ) {
+
+            console.error(
+                "VERIFIED BUYER RPC ERROR:",
+                result.error
+            );
+
+            return false;
+
+        }
+
+
+        return result.data === true;
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "VERIFIED BUYER CHECK ERROR:",
+            error
+        );
+
+        return false;
+
+    }
+
+}
+
+
+/* =========================
    LOAD REVIEWS
 ========================= */
 
@@ -1445,106 +1599,148 @@ async function loadProductReviews(
     }
 
 
-    reviews.forEach(
-        function(review) {
+    /*
+       Check every review individually.
+    */
 
-            const rating =
-                Math.min(
-                    Math.max(
-                        Number(
-                            review.rating
-                        ) || 0,
-                        0
-                    ),
-                    5
+    for (
+        const review of reviews
+    ) {
+
+        const rating =
+            Math.min(
+                Math.max(
+                    Number(
+                        review.rating
+                    ) || 0,
+                    0
+                ),
+                5
+            );
+
+
+        const stars =
+            "★".repeat(rating) +
+            "☆".repeat(5 - rating);
+
+
+        const customerName =
+            escapeHTML(
+                review.customer_name ||
+                "Lurelle customer"
+            );
+
+
+        const reviewText =
+            escapeHTML(
+                review.review_text ||
+                ""
+            );
+
+
+        /*
+           Ask Supabase whether
+           this reviewer is verified.
+        */
+
+        const verified =
+            await checkVerifiedBuyer(
+                review.customer_email,
+                productName
+            );
+
+
+        let formattedDate = "";
+
+
+        if (
+            review.created_at
+        ) {
+
+            const date =
+                new Date(
+                    review.created_at
                 );
-
-
-            const stars =
-                "★".repeat(rating) +
-                "☆".repeat(5 - rating);
-
-
-            const customerName =
-                escapeHTML(
-                    review.customer_name ||
-                    "Lurelle customer"
-                );
-
-
-            const reviewText =
-                escapeHTML(
-                    review.review_text ||
-                    ""
-                );
-
-
-            let formattedDate = "";
 
 
             if (
-                review.created_at
+                !isNaN(
+                    date.getTime()
+                )
             ) {
 
-                const date =
-                    new Date(
-                        review.created_at
+                formattedDate =
+                    date.toLocaleDateString(
+                        "en-NG",
+                        {
+                            day: "numeric",
+                            month: "short",
+                            year: "numeric"
+                        }
                     );
-
-
-                if (
-                    !isNaN(
-                        date.getTime()
-                    )
-                ) {
-
-                    formattedDate =
-                        date.toLocaleDateString(
-                            "en-NG",
-                            {
-                                day: "numeric",
-                                month: "short",
-                                year: "numeric"
-                            }
-                        );
-
-                }
 
             }
 
+        }
 
-            html += `
 
-                <div class="review-card">
+        html += `
 
-                    <div class="review-stars">
-                        ${stars}
-                    </div>
+            <div class="review-card">
 
-                    <strong>
-                        ${customerName}
-                    </strong>
-
-                    <p>
-                        ${reviewText}
-                    </p>
-
-                    ${
-                        formattedDate
-                        ? `
-                            <div class="review-date">
-                                ${formattedDate}
-                            </div>
-                          `
-                        : ""
-                    }
-
+                <div class="review-stars">
+                    ${stars}
                 </div>
 
-            `;
 
-        }
-    );
+                <strong>
+                    ${customerName}
+                </strong>
+
+
+                ${
+                    verified
+                    ? `
+                        <div class="verified-buyer">
+                            ✓ Verified Buyer
+                        </div>
+                      `
+                    : ""
+                }
+
+
+                <p>
+                    ${reviewText}
+                </p>
+
+
+                ${
+                    formattedDate
+                    ? `
+                        <div class="review-date">
+                            ${formattedDate}
+                        </div>
+                      `
+                    : ""
+                }
+
+            </div>
+
+        `;
+
+    }
+
+
+    /*
+       Create a unique ID for
+       the star inputs.
+    */
+
+    const safeProductId =
+        productName.replace(
+            /[^a-zA-Z0-9]/g,
+            ""
+        );
 
 
     html += `
@@ -1596,14 +1792,14 @@ async function loadProductReviews(
 
                 <input
                     type="radio"
-                    id="star5-${productName.replace(/[^a-zA-Z0-9]/g, "")}"
-                    name="rating-${productName.replace(/[^a-zA-Z0-9]/g, "")}"
+                    id="star5-${safeProductId}"
+                    name="rating-${safeProductId}"
                     value="5"
                     required
                 >
 
                 <label
-                    for="star5-${productName.replace(/[^a-zA-Z0-9]/g, "")}">
+                    for="star5-${safeProductId}">
 
                     ★
 
@@ -1612,13 +1808,13 @@ async function loadProductReviews(
 
                 <input
                     type="radio"
-                    id="star4-${productName.replace(/[^a-zA-Z0-9]/g, "")}"
-                    name="rating-${productName.replace(/[^a-zA-Z0-9]/g, "")}"
+                    id="star4-${safeProductId}"
+                    name="rating-${safeProductId}"
                     value="4"
                 >
 
                 <label
-                    for="star4-${productName.replace(/[^a-zA-Z0-9]/g, "")}">
+                    for="star4-${safeProductId}">
 
                     ★
 
@@ -1627,13 +1823,13 @@ async function loadProductReviews(
 
                 <input
                     type="radio"
-                    id="star3-${productName.replace(/[^a-zA-Z0-9]/g, "")}"
-                    name="rating-${productName.replace(/[^a-zA-Z0-9]/g, "")}"
+                    id="star3-${safeProductId}"
+                    name="rating-${safeProductId}"
                     value="3"
                 >
 
                 <label
-                    for="star3-${productName.replace(/[^a-zA-Z0-9]/g, "")}">
+                    for="star3-${safeProductId}">
 
                     ★
 
@@ -1642,13 +1838,13 @@ async function loadProductReviews(
 
                 <input
                     type="radio"
-                    id="star2-${productName.replace(/[^a-zA-Z0-9]/g, "")}"
-                    name="rating-${productName.replace(/[^a-zA-Z0-9]/g, "")}"
+                    id="star2-${safeProductId}"
+                    name="rating-${safeProductId}"
                     value="2"
                 >
 
                 <label
-                    for="star2-${productName.replace(/[^a-zA-Z0-9]/g, "")}">
+                    for="star2-${safeProductId}">
 
                     ★
 
@@ -1657,13 +1853,13 @@ async function loadProductReviews(
 
                 <input
                     type="radio"
-                    id="star1-${productName.replace(/[^a-zA-Z0-9]/g, "")}"
-                    name="rating-${productName.replace(/[^a-zA-Z0-9]/g, "")}"
+                    id="star1-${safeProductId}"
+                    name="rating-${safeProductId}"
                     value="1"
                 >
 
                 <label
-                    for="star1-${productName.replace(/[^a-zA-Z0-9]/g, "")}">
+                    for="star1-${safeProductId}">
 
                     ★
 
@@ -1675,6 +1871,7 @@ async function loadProductReviews(
             <label>
                 Your Review
             </label>
+
 
             <textarea
                 class="review-text"
@@ -1769,7 +1966,8 @@ async function submitReview(
     const customerEmail =
         form.querySelector(
             ".review-email"
-        ).value.trim();
+        ).value.trim()
+        .toLowerCase();
 
 
     const reviewText =
@@ -1835,6 +2033,9 @@ async function submitReview(
                 customer_name:
                     customerName,
 
+                customer_email:
+                    customerEmail,
+
                 review_text:
                     reviewText,
 
@@ -1887,6 +2088,11 @@ async function submitReview(
     submitButton.textContent =
         "Submit Review";
 
+
+    /*
+       Reload the reviews so the
+       newly submitted review appears.
+    */
 
     setTimeout(
         function() {
@@ -2039,12 +2245,14 @@ async function loadProductsFromSupabase() {
                         ${escapeHTML(productName)}
                     </h2>
 
+
                     <p>
                         ${escapeHTML(
                             product.description ||
                             ""
                         )}
                     </p>
+
 
                     <p class="price">
                         ₦${Number(
@@ -2084,6 +2292,10 @@ async function loadProductsFromSupabase() {
                 );
 
 
+                /* =========================
+                   ADD TO CART BUTTON
+                ========================= */
+
                 const addButton =
                     content.querySelector(
                         ".add-button"
@@ -2104,6 +2316,10 @@ async function loadProductsFromSupabase() {
                     }
                 );
 
+
+                /* =========================
+                   REVIEW BUTTON
+                ========================= */
 
                 const reviewButton =
                     content.querySelector(
