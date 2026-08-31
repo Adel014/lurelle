@@ -6,7 +6,13 @@
 <meta charset="UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/svg+xml" href="lurelle-butterfly.svg">
+
+<link
+    rel="icon"
+    type="image/svg+xml"
+    href="lurelle-butterfly.svg"
+>
+    
 <title>Collection | Lurelle by Adel</title>
 
 <style>
@@ -188,6 +194,7 @@ h2 {
 .review-button {
     background-color: #DCC9BE;
     color: #6F5A4D;
+    width: 100%;
 }
 
 
@@ -215,10 +222,9 @@ h2 {
     margin-top: 12px;
 }
 
-.review-summary {
-    margin: 6px 0 16px;
-    font-size: 14px;
-    color: #8B6F63;
+.review-stars {
+    letter-spacing: 2px;
+    margin-bottom: 7px;
 }
 
 .review-date {
@@ -227,30 +233,125 @@ h2 {
     color: #9B8378;
 }
 
+.verified-buyer {
+    display: inline-block;
+    margin-top: 7px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #6F5A4D;
+    background-color: #DCC9BE;
+    padding: 5px 9px;
+    border-radius: 15px;
+}
+
+.no-reviews {
+    text-align: center;
+    padding: 12px 5px;
+    color: #9B8378;
+    font-style: italic;
+}
+
+
+/* =========================
+   LEAVE REVIEW FORM
+========================= */
+
+.leave-review-button {
+    width: 100%;
+    background-color: #DCC9BE;
+    color: #6F5A4D;
+    margin-top: 18px;
+}
+
 .review-form {
     display: none;
     margin-top: 15px;
+    padding: 15px;
+    background-color: #FFF8F3;
+    border-radius: 15px;
 }
 
 .review-form.open {
     display: block;
 }
 
+.review-form label {
+    display: block;
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
 .review-form input,
-.review-form textarea,
-.review-form select {
+.review-form textarea {
     width: 100%;
     box-sizing: border-box;
-    padding: 10px;
+    padding: 11px;
     margin-top: 6px;
     border: 1px solid #DCC9BE;
     border-radius: 10px;
     background-color: #FFF8F3;
     color: #6F5A4D;
+    font-family: Georgia, serif;
 }
 
 .review-form textarea {
-    min-height: 80px;
+    min-height: 90px;
+    resize: vertical;
+}
+
+
+/* =========================
+   STAR INPUT
+========================= */
+
+.star-rating {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    gap: 3px;
+    margin-top: 8px;
+}
+
+.star-rating input {
+    display: none;
+}
+
+.star-rating label {
+    display: inline-block;
+    margin: 0;
+    font-size: 30px;
+    color: #DCC9BE;
+    cursor: pointer;
+    transition: transform 0.15s ease;
+}
+
+.star-rating label:hover {
+    transform: scale(1.08);
+}
+
+.star-rating label:hover,
+.star-rating label:hover ~ label,
+.star-rating input:checked ~ label {
+    color: #6F5A4D;
+}
+
+
+/* =========================
+   SUBMIT
+========================= */
+
+.submit-review-button {
+    width: 100%;
+    background-color: #6F5A4D;
+    color: #FFF8F3;
+}
+
+.review-message {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 14px;
+    color: #8B6F63;
 }
 
 
@@ -345,12 +446,6 @@ h2 {
     font-style: italic;
     color: #A28E84;
     padding: 25px;
-}
-
-.error-message {
-    text-align: center;
-    padding: 25px;
-    color: #8B5F5F;
 }
 
 
@@ -606,11 +701,6 @@ const supabaseClient =
 
 let cart = [];
 
-
-/* =========================
-   MONTHLY DISCOUNT DATA
-========================= */
-
 let monthlyOrderCount = 0;
 
 let currentDiscountRate = 0;
@@ -619,7 +709,7 @@ let currentDiscountNumber = 0;
 
 
 /* =========================
-   GET MONTHLY DISCOUNT
+   MONTHLY DISCOUNT
 ========================= */
 
 async function loadMonthlyDiscount() {
@@ -636,8 +726,6 @@ async function loadMonthlyDiscount() {
             "MONTHLY DISCOUNT ERROR:",
             result.error
         );
-
-        monthlyOrderCount = 0;
 
         currentDiscountRate = 0;
 
@@ -661,8 +749,6 @@ async function loadMonthlyDiscount() {
 
     if (!data) {
 
-        monthlyOrderCount = 0;
-
         currentDiscountRate = 0;
 
         currentDiscountNumber = 0;
@@ -685,20 +771,6 @@ async function loadMonthlyDiscount() {
             data.order_number
         ) || 0;
 
-
-    /*
-       The function tells us the number
-       of the NEXT order.
-
-       Therefore:
-
-       1 = 20%
-       2 = 10%
-       3 = 10%
-       4 = 5%
-       5 = 5%
-       0 = no discount
-    */
 
     if (
         currentDiscountNumber > 0
@@ -746,20 +818,9 @@ async function loadMonthlyDiscount() {
 }
 
 
-/* =========================
-   DISCOUNT
-========================= */
-
 function getDiscountRate() {
 
     return currentDiscountRate;
-
-}
-
-
-function getDiscountNumber() {
-
-    return currentDiscountNumber;
 
 }
 
@@ -777,9 +838,7 @@ function addToCart(
         cart.find(
             function(item) {
 
-                return (
-                    item.name === name
-                );
+                return item.name === name;
 
             }
         );
@@ -892,17 +951,13 @@ function getTotals() {
 
     return {
 
-        subtotal:
-            subtotal,
+        subtotal: subtotal,
 
-        rate:
-            rate,
+        rate: rate,
 
-        discount:
-            discount,
+        discount: discount,
 
-        total:
-            total
+        total: total
 
     };
 
@@ -998,9 +1053,7 @@ function displayCart() {
                     <div>
 
                         <strong>
-                            ${escapeHTML(
-                                item.name
-                            )}
+                            ${escapeHTML(item.name)}
                         </strong>
 
                         <br>
@@ -1063,18 +1116,14 @@ function displayCart() {
     ) {
 
         discountMessage.textContent =
-
             "🎀 Monthly Special: Order " +
             currentDiscountNumber +
             " gets " +
-            (
-                totals.rate * 100
-            ) +
+            (totals.rate * 100) +
             "% OFF!";
 
 
         discountAmount.textContent =
-
             "You save: ₦" +
             totals.discount.toLocaleString();
 
@@ -1128,12 +1177,8 @@ function escapeHTML(text) {
 function toggleMenu() {
 
     document
-        .getElementById(
-            "menu"
-        )
-        .classList.toggle(
-            "open"
-        );
+        .getElementById("menu")
+        .classList.toggle("open");
 
 }
 
@@ -1145,9 +1190,7 @@ function toggleMenu() {
 function scrollToCart() {
 
     document
-        .getElementById(
-            "cart"
-        )
+        .getElementById("cart")
         .scrollIntoView({
             behavior: "smooth"
         });
@@ -1239,10 +1282,6 @@ function openCheckout() {
 }
 
 
-/* =========================
-   CURRENT MONTH KEY
-========================= */
-
 function getCurrentMonthKey() {
 
     const now =
@@ -1254,10 +1293,611 @@ function getCurrentMonthKey() {
         "-" +
         String(
             now.getMonth() + 1
-        ).padStart(
-            2,
-            "0"
-        )
+        ).padStart(2, "0")
+    );
+
+}
+
+
+/* =========================
+   REVIEW DROPDOWN
+========================= */
+
+function toggleReviews(
+    button,
+    reviewArea,
+    productName
+) {
+
+    const isOpening =
+        !reviewArea.classList.contains(
+            "open"
+        );
+
+
+    reviewArea.classList.toggle(
+        "open"
+    );
+
+
+    button.textContent =
+        isOpening
+        ? "Customer Reviews ▴"
+        : "Customer Reviews ▾";
+
+
+    if (isOpening) {
+
+        loadProductReviews(
+            productName,
+            reviewArea
+        );
+
+    }
+
+}
+
+
+/* =========================
+   REVIEW FORM DROPDOWN
+========================= */
+
+function toggleReviewForm(
+    button,
+    form
+) {
+
+    const isOpening =
+        !form.classList.contains(
+            "open"
+        );
+
+
+    form.classList.toggle(
+        "open"
+    );
+
+
+    button.textContent =
+        isOpening
+        ? "Close Review Form"
+        : "✍ Leave a Review";
+
+}
+
+
+/* =========================
+   LOAD REVIEWS
+========================= */
+
+async function loadProductReviews(
+    productName,
+    reviewArea
+) {
+
+    reviewArea.innerHTML = `
+
+        <p class="no-reviews">
+            Loading reviews... ♡
+        </p>
+
+    `;
+
+
+    const result =
+        await supabaseClient
+            .from("reviews")
+            .select("*")
+            .eq(
+                "product_name",
+                productName
+            )
+            .order(
+                "created_at",
+                {
+                    ascending: false
+                }
+            );
+
+
+    if (
+        result.error
+    ) {
+
+        console.error(
+            "REVIEW LOADING ERROR:",
+            result.error
+        );
+
+
+        reviewArea.innerHTML = `
+
+            <p class="no-reviews">
+                Reviews couldn't be loaded right now. ♡
+            </p>
+
+        `;
+
+        return;
+
+    }
+
+
+    const reviews =
+        result.data || [];
+
+
+    let html = "";
+
+
+    if (
+        reviews.length === 0
+    ) {
+
+        html += `
+
+            <p class="no-reviews">
+                No reviews yet. Be the first to share your thoughts! ♡
+            </p>
+
+        `;
+
+    }
+
+
+    reviews.forEach(
+        function(review) {
+
+            const rating =
+                Math.min(
+                    Math.max(
+                        Number(
+                            review.rating
+                        ) || 0,
+                        0
+                    ),
+                    5
+                );
+
+
+            const stars =
+                "★".repeat(rating) +
+                "☆".repeat(5 - rating);
+
+
+            const customerName =
+                escapeHTML(
+                    review.customer_name ||
+                    "Lurelle customer"
+                );
+
+
+            const reviewText =
+                escapeHTML(
+                    review.review_text ||
+                    ""
+                );
+
+
+            let formattedDate = "";
+
+
+            if (
+                review.created_at
+            ) {
+
+                const date =
+                    new Date(
+                        review.created_at
+                    );
+
+
+                if (
+                    !isNaN(
+                        date.getTime()
+                    )
+                ) {
+
+                    formattedDate =
+                        date.toLocaleDateString(
+                            "en-NG",
+                            {
+                                day: "numeric",
+                                month: "short",
+                                year: "numeric"
+                            }
+                        );
+
+                }
+
+            }
+
+
+            html += `
+
+                <div class="review-card">
+
+                    <div class="review-stars">
+                        ${stars}
+                    </div>
+
+                    <strong>
+                        ${customerName}
+                    </strong>
+
+                    <p>
+                        ${reviewText}
+                    </p>
+
+                    ${
+                        formattedDate
+                        ? `
+                            <div class="review-date">
+                                ${formattedDate}
+                            </div>
+                          `
+                        : ""
+                    }
+
+                </div>
+
+            `;
+
+        }
+    );
+
+
+    html += `
+
+        <button
+            type="button"
+            class="leave-review-button">
+
+            ✍ Leave a Review
+
+        </button>
+
+
+        <form
+            class="review-form">
+
+            <label>
+                Your Name
+            </label>
+
+            <input
+                type="text"
+                class="review-name"
+                maxlength="80"
+                placeholder="Your name"
+                required
+            >
+
+
+            <label>
+                Your Email
+            </label>
+
+            <input
+                type="email"
+                class="review-email"
+                maxlength="150"
+                placeholder="Your email"
+                required
+            >
+
+
+            <label>
+                Your Rating
+            </label>
+
+
+            <div class="star-rating">
+
+                <input
+                    type="radio"
+                    id="star5-${productName.replace(/[^a-zA-Z0-9]/g, "")}"
+                    name="rating-${productName.replace(/[^a-zA-Z0-9]/g, "")}"
+                    value="5"
+                    required
+                >
+
+                <label
+                    for="star5-${productName.replace(/[^a-zA-Z0-9]/g, "")}">
+
+                    ★
+
+                </label>
+
+
+                <input
+                    type="radio"
+                    id="star4-${productName.replace(/[^a-zA-Z0-9]/g, "")}"
+                    name="rating-${productName.replace(/[^a-zA-Z0-9]/g, "")}"
+                    value="4"
+                >
+
+                <label
+                    for="star4-${productName.replace(/[^a-zA-Z0-9]/g, "")}">
+
+                    ★
+
+                </label>
+
+
+                <input
+                    type="radio"
+                    id="star3-${productName.replace(/[^a-zA-Z0-9]/g, "")}"
+                    name="rating-${productName.replace(/[^a-zA-Z0-9]/g, "")}"
+                    value="3"
+                >
+
+                <label
+                    for="star3-${productName.replace(/[^a-zA-Z0-9]/g, "")}">
+
+                    ★
+
+                </label>
+
+
+                <input
+                    type="radio"
+                    id="star2-${productName.replace(/[^a-zA-Z0-9]/g, "")}"
+                    name="rating-${productName.replace(/[^a-zA-Z0-9]/g, "")}"
+                    value="2"
+                >
+
+                <label
+                    for="star2-${productName.replace(/[^a-zA-Z0-9]/g, "")}">
+
+                    ★
+
+                </label>
+
+
+                <input
+                    type="radio"
+                    id="star1-${productName.replace(/[^a-zA-Z0-9]/g, "")}"
+                    name="rating-${productName.replace(/[^a-zA-Z0-9]/g, "")}"
+                    value="1"
+                >
+
+                <label
+                    for="star1-${productName.replace(/[^a-zA-Z0-9]/g, "")}">
+
+                    ★
+
+                </label>
+
+            </div>
+
+
+            <label>
+                Your Review
+            </label>
+
+            <textarea
+                class="review-text"
+                maxlength="1000"
+                placeholder="Tell us what you think about this piece... ♡"
+                required
+            ></textarea>
+
+
+            <button
+                type="submit"
+                class="submit-review-button">
+
+                Submit Review
+
+            </button>
+
+
+            <div
+                class="review-message">
+            </div>
+
+        </form>
+
+    `;
+
+
+    reviewArea.innerHTML =
+        html;
+
+
+    const leaveButton =
+        reviewArea.querySelector(
+            ".leave-review-button"
+        );
+
+
+    const form =
+        reviewArea.querySelector(
+            ".review-form"
+        );
+
+
+    leaveButton.addEventListener(
+        "click",
+        function() {
+
+            toggleReviewForm(
+                leaveButton,
+                form
+            );
+
+        }
+    );
+
+
+    form.addEventListener(
+        "submit",
+        async function(event) {
+
+            event.preventDefault();
+
+
+            await submitReview(
+                productName,
+                form,
+                reviewArea
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================
+   SUBMIT REVIEW
+========================= */
+
+async function submitReview(
+    productName,
+    form,
+    reviewArea
+) {
+
+    const customerName =
+        form.querySelector(
+            ".review-name"
+        ).value.trim();
+
+
+    const customerEmail =
+        form.querySelector(
+            ".review-email"
+        ).value.trim();
+
+
+    const reviewText =
+        form.querySelector(
+            ".review-text"
+        ).value.trim();
+
+
+    const selectedRating =
+        form.querySelector(
+            'input[name^="rating-"]:checked'
+        );
+
+
+    const rating =
+        selectedRating
+        ? Number(
+            selectedRating.value
+          )
+        : 0;
+
+
+    const message =
+        form.querySelector(
+            ".review-message"
+        );
+
+
+    if (
+        !customerName ||
+        !customerEmail ||
+        !reviewText ||
+        rating < 1
+    ) {
+
+        message.textContent =
+            "Please fill in your name, email, rating and review. ♡";
+
+        return;
+
+    }
+
+
+    const submitButton =
+        form.querySelector(
+            ".submit-review-button"
+        );
+
+
+    submitButton.disabled =
+        true;
+
+
+    submitButton.textContent =
+        "Submitting... ♡";
+
+
+    const result =
+        await supabaseClient
+            .from("reviews")
+            .insert({
+
+                customer_name:
+                    customerName,
+
+                review_text:
+                    reviewText,
+
+                product_name:
+                    productName,
+
+                rating:
+                    rating
+
+            });
+
+
+    if (
+        result.error
+    ) {
+
+        console.error(
+            "REVIEW SUBMISSION ERROR:",
+            result.error
+        );
+
+
+        message.textContent =
+            "Your review couldn't be submitted. Please try again. ♡";
+
+
+        submitButton.disabled =
+            false;
+
+
+        submitButton.textContent =
+            "Submit Review";
+
+        return;
+
+    }
+
+
+    message.textContent =
+        "Your review has been submitted! Thank you. ♡";
+
+
+    form.reset();
+
+
+    submitButton.disabled =
+        false;
+
+
+    submitButton.textContent =
+        "Submit Review";
+
+
+    setTimeout(
+        function() {
+
+            loadProductReviews(
+                productName,
+                reviewArea
+            );
+
+        },
+        700
     );
 
 }
@@ -1388,13 +2028,15 @@ async function loadProductsFromSupabase() {
                     );
 
 
+                const productName =
+                    product.name ||
+                    "Lurelle Piece";
+
+
                 content.innerHTML = `
 
                     <h2>
-                        ${escapeHTML(
-                            product.name ||
-                            "Lurelle Piece"
-                        )}
+                        ${escapeHTML(productName)}
                     </h2>
 
                     <p>
@@ -1410,12 +2052,29 @@ async function loadProductsFromSupabase() {
                         ).toLocaleString()}
                     </p>
 
+
                     <button
-                        class="add-button">
+                        class="add-button"
+                        type="button">
 
                         Add to Cart
 
                     </button>
+
+
+                    <button
+                        class="review-button"
+                        type="button">
+
+                        Customer Reviews ▾
+
+                    </button>
+
+
+                    <div
+                        class="review-area">
+
+                    </div>
 
                 `;
 
@@ -1425,21 +2084,47 @@ async function loadProductsFromSupabase() {
                 );
 
 
-                const button =
+                const addButton =
                     content.querySelector(
                         ".add-button"
                     );
 
 
-                button.addEventListener(
+                addButton.addEventListener(
                     "click",
                     function() {
 
                         addToCart(
-                            product.name,
+                            productName,
                             Number(
                                 product.price || 0
                             )
+                        );
+
+                    }
+                );
+
+
+                const reviewButton =
+                    content.querySelector(
+                        ".review-button"
+                    );
+
+
+                const reviewArea =
+                    content.querySelector(
+                        ".review-area"
+                    );
+
+
+                reviewButton.addEventListener(
+                    "click",
+                    function() {
+
+                        toggleReviews(
+                            reviewButton,
+                            reviewArea,
+                            productName
                         );
 
                     }
