@@ -1,12 +1,9 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lurelle Haven ♡</title>
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
@@ -22,166 +19,118 @@
 }
 
 * {box-sizing:border-box;margin:0;padding:0}
-
-body {
-  background:var(--ivory);
-  color:var(--brown);
-  font-family:Georgia,serif;
-  min-height:100vh;
-}
-
+body {background:var(--ivory);color:var(--brown);font-family:Georgia,serif;min-height:100vh}
 button,input,textarea {font:inherit}
 button {cursor:pointer}
 button:disabled {opacity:.5;cursor:not-allowed}
-
-input,textarea {
-  width:100%;
-  padding:12px;
-  background:var(--ivory);
-  border:1px solid var(--beige);
-  border-radius:8px;
-  outline:none;
-  color:var(--brown);
-  font-size:13px;
-}
-
+input,textarea {width:100%;padding:12px;background:var(--ivory);border:1px solid var(--beige);border-radius:8px;outline:none;color:var(--brown);font-size:13px}
 input:focus,textarea:focus {border-color:var(--rose)}
-
-label {
-  display:block;
-  font-size:12px;
-  margin-bottom:8px;
-}
-
+label {display:block;font-size:12px;margin-bottom:8px}
 .form-field {margin-bottom:17px}
+.hint {display:block;font-size:11px;color:var(--muted);margin-top:6px;line-height:1.6}
+.soft-btn {border:0;border-radius:7px;padding:10px 15px;background:var(--pink);color:var(--brown);font-size:12px;transition:.2s}
+.soft-btn:hover {background:var(--rose);color:white}
+.soft-btn:disabled {opacity:.5;cursor:not-allowed}
+.danger-btn {background:#F9E7E5;color:#986D68}
 
-.hint {
-  display:block;
-  font-size:11px;
-  color:var(--muted);
-  margin-top:6px;
-  line-height:1.6;
+/* MAIN WEBSITE HAMBURGER MENU */
+
+#menu {
+  position:relative;
+  z-index:60;
+  background:white;
+  border-bottom:1px solid var(--beige);
+  padding:12px 5%;
 }
 
-.soft-btn {
-  border:0;
-  border-radius:7px;
-  padding:10px 15px;
-  background:var(--pink);
+#menu .menu-bar {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+#menu .menu-brand {
+  font-size:19px;
+  font-weight:bold;
   color:var(--brown);
-  font-size:12px;
+}
+
+#menu .menu-brand span {color:var(--rose)}
+
+#siteMenuToggle {
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:5px;
+  width:39px;
+  height:36px;
+  padding:7px;
+  border:1px solid var(--beige);
+  border-radius:7px;
+  background:var(--ivory);
+}
+
+#siteMenuToggle span {
+  display:block;
+  width:100%;
+  height:2px;
+  background:var(--brown);
+  border-radius:5px;
+  transition:.25s;
+}
+
+#siteMenuToggle.open span:nth-child(1) {
+  transform:translateY(7px) rotate(45deg);
+}
+#siteMenuToggle.open span:nth-child(2) {opacity:0}
+#siteMenuToggle.open span:nth-child(3) {
+  transform:translateY(-7px) rotate(-45deg);
+}
+
+#siteMenuLinks {
+  display:none;
+  flex-direction:column;
+  gap:3px;
+  padding-top:12px;
+}
+
+#siteMenuLinks.open {display:flex}
+
+#siteMenuLinks a {
+  display:block;
+  padding:11px 13px;
+  border-radius:7px;
+  color:var(--brown);
+  text-decoration:none;
+  font-size:13px;
   transition:.2s;
 }
 
-.soft-btn:hover {background:var(--rose);color:white}
-.soft-btn:disabled {opacity:.5;cursor:not-allowed}
-
-.danger-btn {background:#F9E7E5;color:#986D68}
+#siteMenuLinks a:hover {
+  background:var(--pink);
+  color:var(--brown);
+}
 
 /* AUTHENTICATION */
 
-.auth-screen {
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:25px 15px;
-}
-
-.auth-container {
-  width:100%;
-  max-width:440px;
-}
-
-.auth-brand {
-  text-align:center;
-  margin-bottom:25px;
-}
-
-.auth-brand h1 {
-  font-size:34px;
-  font-weight:normal;
-  letter-spacing:-1px;
-}
-
+.auth-screen {min-height:100vh;display:flex;align-items:center;justify-content:center;padding:25px 15px}
+.auth-container {width:100%;max-width:440px}
+.auth-brand {text-align:center;margin-bottom:25px}
+.auth-brand h1 {font-size:34px;font-weight:normal;letter-spacing:-1px}
 .auth-brand h1 span {color:var(--rose)}
-
-.auth-brand p {
-  color:var(--muted);
-  font-size:13px;
-  margin-top:9px;
-  line-height:1.7;
-}
-
-.auth-card {
-  background:white;
-  border:1px solid var(--beige);
-  border-radius:14px;
-  padding:28px;
-}
-
-.auth-card h2 {
-  font-weight:normal;
-  font-size:23px;
-  margin-bottom:8px;
-}
-
-.auth-description {
-  color:var(--muted);
-  font-size:12px;
-  line-height:1.7;
-  margin-bottom:23px;
-}
-
-.auth-switch {
-  text-align:center;
-  font-size:12px;
-  color:var(--muted);
-  margin-top:20px;
-}
-
-.text-button {
-  background:none;
-  border:0;
-  color:var(--rose);
-  font-weight:bold;
-  padding:3px;
-}
-
-.auth-submit {
-  width:100%;
-  padding:13px;
-  margin-top:5px;
-  border:0;
-  border-radius:8px;
-  background:var(--pink);
-  color:var(--brown);
-  font-size:13px;
-}
-
+.auth-brand p {color:var(--muted);font-size:13px;margin-top:9px;line-height:1.7}
+.auth-card {background:white;border:1px solid var(--beige);border-radius:14px;padding:28px}
+.auth-card h2 {font-weight:normal;font-size:23px;margin-bottom:8px}
+.auth-description {color:var(--muted);font-size:12px;line-height:1.7;margin-bottom:23px}
+.auth-switch {text-align:center;font-size:12px;color:var(--muted);margin-top:20px}
+.text-button {background:none;border:0;color:var(--rose);font-weight:bold;padding:3px}
+.auth-submit {width:100%;padding:13px;margin-top:5px;border:0;border-radius:8px;background:var(--pink);color:var(--brown);font-size:13px}
 .auth-submit:hover {background:var(--rose);color:white}
-
-.auth-message {
-  display:none;
-  background:var(--soft-pink);
-  border-radius:8px;
-  padding:12px;
-  font-size:12px;
-  line-height:1.7;
-  margin-bottom:17px;
-  overflow-wrap:anywhere;
-}
-
+.auth-message {display:none;background:var(--soft-pink);border-radius:8px;padding:12px;font-size:12px;line-height:1.7;margin-bottom:17px;overflow-wrap:anywhere}
 .auth-message.show {display:block}
+.auth-footer {text-align:center;color:var(--muted);font-size:11px;margin-top:20px}
 
-.auth-footer {
-  text-align:center;
-  color:var(--muted);
-  font-size:11px;
-  margin-top:20px;
-}
-
-/* HEADER */
+/* HAVEN HEADER */
 
 header {
   height:76px;
@@ -195,394 +144,109 @@ header {
   top:0;
   z-index:40;
 }
-
-.header-left,.header-right {
-  display:flex;
-  align-items:center;
-  gap:17px;
-}
-
-.logo {
-  font-size:24px;
-  font-weight:bold;
-  letter-spacing:-1px;
-}
-
+.header-left,.header-right {display:flex;align-items:center;gap:17px}
+.logo {font-size:24px;font-weight:bold;letter-spacing:-1px}
 .logo span {color:var(--rose)}
-
-.menu-toggle,.header-btn {
-  border:0;
-  background:transparent;
-  color:var(--brown);
-  font-size:23px;
-  padding:5px;
-}
-
+.menu-toggle,.header-btn {border:0;background:transparent;color:var(--brown);font-size:23px;padding:5px}
 .menu-toggle:hover,.header-btn:hover {color:var(--rose)}
-
-.avatar {
-  width:39px;
-  height:39px;
-  border-radius:50%;
-  background:var(--pink);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:16px;
-  flex-shrink:0;
-}
-
-.notification-dot {
-  width:7px;
-  height:7px;
-  background:var(--rose);
-  border-radius:50%;
-  position:absolute;
-  top:1px;
-  right:0;
-}
+.avatar {width:39px;height:39px;border-radius:50%;background:var(--pink);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.notification-dot {width:7px;height:7px;background:var(--rose);border-radius:50%;position:absolute;top:1px;right:0}
 
 /* MAIN LAYOUT */
 
-.layout {
-  display:block;
-  min-height:calc(100vh - 76px);
-  max-width:1450px;
-  margin:auto;
-}
-
-/* SIDEBAR */
-
+.layout {display:block;min-height:calc(100vh - 76px);max-width:1450px;margin:auto}
 .sidebar {
-  position:fixed;
-  top:76px;
-  left:0;
-  bottom:0;
-  width:260px;
-  max-width:82%;
-  height:calc(100vh - 76px);
-  background:white;
-  z-index:31;
-  overflow-y:auto;
-  padding:30px 18px;
-  border-right:1px solid var(--beige);
+  position:fixed;top:76px;left:0;bottom:0;width:260px;max-width:82%;
+  height:calc(100vh - 76px);background:white;z-index:31;overflow-y:auto;
+  padding:30px 18px;border-right:1px solid var(--beige);
   box-shadow:5px 0 20px rgba(111,90,77,.08);
-  transform:translateX(-110%);
-  transition:transform .3s ease;
+  transform:translateX(-110%);transition:transform .3s ease;
 }
-
 .sidebar.open {transform:translateX(0)}
-
 .sidebar-intro {margin-bottom:30px}
 .sidebar-intro h2 {font-size:24px;margin-bottom:8px}
 .sidebar-intro p {font-size:12px;color:var(--muted);line-height:1.7}
-
-.nav-label {
-  font-size:10px;
-  letter-spacing:2px;
-  color:#B59C91;
-  margin:25px 0 12px;
-}
-
-.nav-item {
-  display:flex;
-  align-items:center;
-  gap:13px;
-  width:100%;
-  padding:13px;
-  margin-bottom:5px;
-  border:0;
-  border-radius:9px;
-  background:transparent;
-  color:var(--brown);
-  text-align:left;
-  font-size:14px;
-  transition:.2s;
-}
-
+.nav-label {font-size:10px;letter-spacing:2px;color:#B59C91;margin:25px 0 12px}
+.nav-item {display:flex;align-items:center;gap:13px;width:100%;padding:13px;margin-bottom:5px;border:0;border-radius:9px;background:transparent;color:var(--brown);text-align:left;font-size:14px;transition:.2s}
 .nav-item:hover,.nav-item.active {background:var(--pink)}
-
-/* MENU OVERLAY */
-
-.menu-overlay {
-  display:none;
-  position:fixed;
-  inset:76px 0 0;
-  background:rgba(60,40,35,.25);
-  z-index:30;
-}
-
+.menu-overlay {display:none;position:fixed;inset:76px 0 0;background:rgba(60,40,35,.25);z-index:30}
 .menu-overlay.show {display:block}
 
-/* MAIN CONTENT */
+/* CONTENT */
 
 main {padding:38px 5%;min-width:0}
 .page {display:none}
 .page.active {display:block}
-
 .welcome {margin-bottom:30px}
-
-.welcome small {
-  color:var(--rose);
-  letter-spacing:2px;
-  font-size:10px;
-}
-
-.welcome h1 {
-  font-size:clamp(27px,4vw,38px);
-  font-weight:normal;
-  margin:10px 0;
-}
-
-.welcome p {
-  color:var(--muted);
-  font-size:13px;
-  line-height:1.8;
-}
-
-.panel {
-  background:white;
-  border:1px solid var(--beige);
-  border-radius:13px;
-  padding:21px;
-  margin-bottom:20px;
-}
-
-.panel-heading {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-  margin-bottom:18px;
-}
-
-.panel-heading h3,.section-title {
-  font-size:18px;
-  font-weight:normal;
-}
-
-.stats {
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:13px;
-  margin-bottom:23px;
-}
-
-.stat-card {
-  background:var(--soft-pink);
-  padding:19px 8px;
-  border-radius:11px;
-  text-align:center;
-}
-
-.stat-card strong {
-  display:block;
-  font-size:24px;
-  font-weight:normal;
-  margin-bottom:6px;
-}
-
+.welcome small {color:var(--rose);letter-spacing:2px;font-size:10px}
+.welcome h1 {font-size:clamp(27px,4vw,38px);font-weight:normal;margin:10px 0}
+.welcome p {color:var(--muted);font-size:13px;line-height:1.8}
+.panel {background:white;border:1px solid var(--beige);border-radius:13px;padding:21px;margin-bottom:20px}
+.panel-heading {display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:18px}
+.panel-heading h3,.section-title {font-size:18px;font-weight:normal}
+.stats {display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-bottom:23px}
+.stat-card {background:var(--soft-pink);padding:19px 8px;border-radius:11px;text-align:center}
+.stat-card strong {display:block;font-size:24px;font-weight:normal;margin-bottom:6px}
 .stat-card span {color:var(--muted);font-size:11px}
-
-.empty {
-  text-align:center;
-  color:var(--muted);
-  font-size:13px;
-  line-height:1.8;
-  padding:23px 8px;
-}
-
-.member {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:12px;
-  padding:14px 0;
-  border-bottom:1px solid #F3E9E3;
-}
-
+.empty {text-align:center;color:var(--muted);font-size:13px;line-height:1.8;padding:23px 8px}
+.member {display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid #F3E9E3}
 .member:last-child {border-bottom:none}
-
-.member-info {
-  display:flex;
-  align-items:center;
-  gap:12px;
-  min-width:0;
-}
-
+.member-info {display:flex;align-items:center;gap:12px;min-width:0}
 .member-name {font-size:14px;margin-bottom:5px}
 .username {font-size:11px;color:var(--muted)}
+.member-actions {display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
 
-.member-actions {
-  display:flex;
-  gap:6px;
-  flex-wrap:wrap;
-  justify-content:flex-end;
-}
+/* LIVE SEARCH RESULTS */
 
-.search-box {
-  display:flex;
-  gap:9px;
-  margin-bottom:15px;
-}
+.search-box {position:relative;margin-bottom:15px}
+.search-box input {padding:14px 15px}
+.search-results {min-height:30px}
+.search-hint {font-size:12px;color:var(--muted);padding:15px 5px;line-height:1.7}
+.search-result-count {font-size:11px;color:var(--muted);margin:0 0 5px}
+.search-result .member {gap:10px}
+.search-result .member-info {flex:1}
+.search-result .member-actions {flex-shrink:0}
+.search-loading {font-size:12px;color:var(--muted);padding:15px 5px}
+.search-no-results {font-size:13px;color:var(--muted);padding:20px 5px;text-align:center;line-height:1.8}
 
 .profile-card {text-align:center;padding:30px 20px}
-
-.profile-avatar {
-  width:85px;
-  height:85px;
-  margin:0 auto 15px;
-  font-size:32px;
-}
-
+.profile-avatar {width:85px;height:85px;margin:0 auto 15px;font-size:32px}
 .profile-card h2 {font-weight:normal;margin-bottom:7px}
-
-.profile-card p {
-  color:var(--muted);
-  font-size:13px;
-  line-height:1.8;
-}
-
-.profile-details {
-  text-align:left;
-  margin-top:25px;
-  border-top:1px solid #F3E9E3;
-  padding-top:20px;
-}
-
+.profile-card p {color:var(--muted);font-size:13px;line-height:1.8}
+.profile-details {text-align:left;margin-top:25px;border-top:1px solid #F3E9E3;padding-top:20px}
 .profile-details p {margin-bottom:9px}
-
-.chat-layout {
-  display:grid;
-  grid-template-columns:230px minmax(0,1fr);
-  min-height:440px;
-  background:white;
-  border:1px solid var(--beige);
-  border-radius:12px;
-  overflow:hidden;
-}
-
+.chat-layout {display:grid;grid-template-columns:230px minmax(0,1fr);min-height:440px;background:white;border:1px solid var(--beige);border-radius:12px;overflow:hidden}
 .chat-list {padding:15px;border-right:1px solid var(--beige)}
-
-.chat-contact {
-  display:flex;
-  align-items:center;
-  gap:10px;
-  padding:12px 7px;
-  cursor:pointer;
-  border-radius:8px;
-  font-size:13px;
-}
-
+.chat-contact {display:flex;align-items:center;gap:10px;padding:12px 7px;cursor:pointer;border-radius:8px;font-size:13px}
 .chat-contact:hover,.chat-contact.selected {background:var(--soft-pink)}
-
 .chat-window {display:flex;flex-direction:column;min-width:0}
-
-.chat-header {
-  padding:15px;
-  border-bottom:1px solid #F3E9E3;
-  display:flex;
-  align-items:center;
-  gap:10px;
-  min-height:67px;
-}
-
-.messages {
-  padding:17px;
-  flex:1;
-  min-height:280px;
-  max-height:400px;
-  overflow-y:auto;
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-}
-
-.message {
-  max-width:75%;
-  padding:11px 14px;
-  border-radius:12px;
-  font-size:13px;
-  line-height:1.6;
-  overflow-wrap:anywhere;
-}
-
-.message.sent {
-  background:var(--pink);
-  align-self:flex-end;
-  border-bottom-right-radius:3px;
-}
-
-.message.received {
-  background:var(--ivory);
-  align-self:flex-start;
-  border-bottom-left-radius:3px;
-}
-
-.message-form {
-  display:flex;
-  gap:8px;
-  padding:13px;
-  border-top:1px solid #F3E9E3;
-}
-
-.notice {
-  background:var(--soft-pink);
-  padding:14px;
-  border-radius:9px;
-  color:#8F716D;
-  font-size:12px;
-  line-height:1.8;
-  margin-bottom:18px;
-}
-
-.toast {
-  position:fixed;
-  bottom:25px;
-  left:50%;
-  transform:translateX(-50%);
-  background:var(--brown);
-  color:white;
-  padding:12px 20px;
-  border-radius:8px;
-  font-size:12px;
-  opacity:0;
-  pointer-events:none;
-  transition:.3s;
-  z-index:50;
-  max-width:90%;
-  text-align:center;
-}
-
+.chat-header {padding:15px;border-bottom:1px solid #F3E9E3;display:flex;align-items:center;gap:10px;min-height:67px}
+.messages {padding:17px;flex:1;min-height:280px;max-height:400px;overflow-y:auto;display:flex;flex-direction:column;gap:12px}
+.message {max-width:75%;padding:11px 14px;border-radius:12px;font-size:13px;line-height:1.6;overflow-wrap:anywhere}
+.message.sent {background:var(--pink);align-self:flex-end;border-bottom-right-radius:3px}
+.message.received {background:var(--ivory);align-self:flex-start;border-bottom-left-radius:3px}
+.message-form {display:flex;gap:8px;padding:13px;border-top:1px solid #F3E9E3}
+.notice {background:var(--soft-pink);padding:14px;border-radius:9px;color:#8F716D;font-size:12px;line-height:1.8;margin-bottom:18px}
+.toast {position:fixed;bottom:25px;left:50%;transform:translateX(-50%);background:var(--brown);color:white;padding:12px 20px;border-radius:8px;font-size:12px;opacity:0;pointer-events:none;transition:.3s;z-index:70;max-width:90%;text-align:center}
 .toast.show {opacity:1}
-
-footer {
-  text-align:center;
-  padding:35px 10px;
-  color:#B59C91;
-  font-size:11px;
-}
-
-/* RESPONSIVE */
+footer {text-align:center;padding:35px 10px;color:#B59C91;font-size:11px}
 
 @media(max-width:750px) {
   main {padding:28px 5%}
   .chat-layout {grid-template-columns:1fr}
-  .chat-list {
-    border-right:0;
-    border-bottom:1px solid var(--beige);
-    max-height:145px;
-    overflow-y:auto;
-  }
+  .chat-list {border-right:0;border-bottom:1px solid var(--beige);max-height:145px;overflow-y:auto}
 }
-
+@media(max-width:520px) {
+  .search-result .member {align-items:flex-start}
+  .search-result .member-actions {max-width:120px}
+  .search-result .member-actions button {padding:8px;font-size:10px}
+}
 @media(max-width:450px) {
   .logo {font-size:19px}
   .stats {gap:7px}
   .stat-card {padding:14px 4px}
   .stat-card strong {font-size:20px}
   .stat-card span {font-size:9px}
-  .search-box {flex-direction:column}
   .member-actions {max-width:145px}
   .auth-card {padding:22px}
 }
@@ -590,52 +254,33 @@ footer {
 </head>
 
 <body>
-<!-- =========================
-     NAVIGATION
-========================= -->
+
+<!-- MAIN WEBSITE NAVIGATION -->
 
 <div id="menu">
+  <div class="menu-bar">
+    <div class="menu-brand">Lurelle <span>♡</span></div>
+    <button id="siteMenuToggle" type="button" aria-label="Open website navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 
-    <a href="index.html">
-        Home
-    </a>
-
-    <a href="about.html">
-        About
-    </a>
-
-    <a href="blog.html">
-        Blog🌸
-    </a>
-
-    <a href="patterns.html">
-        Patterns🧶
-    </a>
-
-    <a href="collection.html">
-        Collection
-    </a>
-
-    <a href="custom-orders.html">
-        Custom Orders
-    </a>
-
-    <a href="contact.html">
-        Contact
-    </a>
-<a href="haven.html">
-        Lurelle Haven
-    </a>
-
+  <nav id="siteMenuLinks">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="blog.html">Blog 🌸</a>
+    <a href="patterns.html">Patterns 🧶</a>
+    <a href="collection.html">Collection</a>
+    <a href="custom-orders.html">Custom Orders</a>
+    <a href="contact.html">Contact</a>
+    <a href="haven.html">Lurelle Haven</a>
+  </nav>
 </div>
 
-<!-- ==================================================
-     HAVEN SIGN IN / SIGN UP
-================================================== -->
+<!-- AUTHENTICATION -->
 
 <section class="auth-screen" id="authScreen">
   <div class="auth-container">
-
     <div class="auth-brand">
       <h1>Lurelle <span>Haven ♡</span></h1>
       <p>Your little corner of connection.</p>
@@ -643,182 +288,92 @@ footer {
 
     <div class="auth-card">
 
-      <!-- SIGN IN -->
-
       <form id="signInForm">
         <h2>Welcome back ♡</h2>
-        <p class="auth-description">
-          Sign in to return to your little Haven.
-        </p>
-
+        <p class="auth-description">Sign in to return to your little Haven.</p>
         <div class="auth-message" id="signInMessage"></div>
 
         <div class="form-field">
           <label for="loginEmail">Email address</label>
-          <input
-            type="email"
-            id="loginEmail"
-            autocomplete="email"
-            placeholder="you@example.com"
-            required
-          >
+          <input type="email" id="loginEmail" autocomplete="email" placeholder="you@example.com" required>
         </div>
 
         <div class="form-field">
           <label for="loginPassword">Password</label>
-          <input
-            type="password"
-            id="loginPassword"
-            autocomplete="current-password"
-            placeholder="Your password"
-            required
-          >
+          <input type="password" id="loginPassword" autocomplete="current-password" placeholder="Your password" required>
         </div>
 
-        <button class="auth-submit" id="signInButton" type="submit">
-          Sign in ♡
-        </button>
+        <button class="auth-submit" id="signInButton" type="submit">Sign in ♡</button>
 
         <p class="auth-switch">
           Don't have an account?
-          <button class="text-button" type="button" onclick="showAuthForm('signup')">
-            Create one
-          </button>
+          <button class="text-button" type="button" onclick="showAuthForm('signup')">Create one</button>
         </p>
-
         <p class="auth-switch">
-          <button class="text-button" type="button" onclick="showAuthForm('reset')">
-            Forgot your password?
-          </button>
+          <button class="text-button" type="button" onclick="showAuthForm('reset')">Forgot your password?</button>
         </p>
       </form>
 
-      <!-- SIGN UP -->
-
       <form id="signUpForm" style="display:none">
         <h2>Create your Haven account ♡</h2>
-        <p class="auth-description">
-          A little space to meet people, make friends and connect.
-        </p>
-
+        <p class="auth-description">A little space to meet people, make friends and connect.</p>
         <div class="auth-message" id="signUpMessage"></div>
 
         <div class="form-field">
           <label for="signupName">Display name</label>
-          <input
-            type="text"
-            id="signupName"
-            maxlength="40"
-            autocomplete="name"
-            placeholder="What should we call you?"
-            required
-          >
+          <input type="text" id="signupName" maxlength="40" autocomplete="name" placeholder="What should we call you?" required>
         </div>
 
         <div class="form-field">
           <label for="signupUsername">Username</label>
-          <input
-            type="text"
-            id="signupUsername"
-            maxlength="30"
-            autocomplete="username"
-            placeholder="yourusername"
-            required
-          >
-          <span class="hint">
-            Your unique Haven username. Use 3–30 letters, numbers or underscores.
-          </span>
+          <input type="text" id="signupUsername" maxlength="30" autocomplete="username" placeholder="yourusername" required>
+          <span class="hint">Your unique Haven username. Use 3–30 letters, numbers or underscores.</span>
         </div>
 
         <div class="form-field">
           <label for="signupEmail">Email address</label>
-          <input
-            type="email"
-            id="signupEmail"
-            autocomplete="email"
-            placeholder="you@example.com"
-            required
-          >
+          <input type="email" id="signupEmail" autocomplete="email" placeholder="you@example.com" required>
         </div>
 
         <div class="form-field">
           <label for="signupPassword">Password</label>
-          <input
-            type="password"
-            id="signupPassword"
-            minlength="8"
-            autocomplete="new-password"
-            placeholder="At least 8 characters"
-            required
-          >
+          <input type="password" id="signupPassword" minlength="8" autocomplete="new-password" placeholder="At least 8 characters" required>
         </div>
 
         <div class="form-field">
           <label for="signupConfirmPassword">Confirm password</label>
-          <input
-            type="password"
-            id="signupConfirmPassword"
-            minlength="8"
-            autocomplete="new-password"
-            placeholder="Enter your password again"
-            required
-          >
+          <input type="password" id="signupConfirmPassword" minlength="8" autocomplete="new-password" placeholder="Enter your password again" required>
         </div>
 
-        <button class="auth-submit" id="signUpButton" type="submit">
-          Create account ♡
-        </button>
-
+        <button class="auth-submit" id="signUpButton" type="submit">Create account ♡</button>
         <p class="auth-switch">
           Already have an account?
-          <button class="text-button" type="button" onclick="showAuthForm('signin')">
-            Sign in
-          </button>
+          <button class="text-button" type="button" onclick="showAuthForm('signin')">Sign in</button>
         </p>
       </form>
 
-      <!-- PASSWORD RESET -->
-
       <form id="resetForm" style="display:none">
         <h2>Reset your password ♡</h2>
-        <p class="auth-description">
-          Enter the email address connected to your Haven account.
-        </p>
-
+        <p class="auth-description">Enter the email address connected to your Haven account.</p>
         <div class="auth-message" id="resetMessage"></div>
 
         <div class="form-field">
           <label for="resetEmail">Email address</label>
-          <input
-            type="email"
-            id="resetEmail"
-            autocomplete="email"
-            placeholder="you@example.com"
-            required
-          >
+          <input type="email" id="resetEmail" autocomplete="email" placeholder="you@example.com" required>
         </div>
 
-        <button class="auth-submit" id="resetButton" type="submit">
-          Send reset link
-        </button>
-
+        <button class="auth-submit" id="resetButton" type="submit">Send reset link</button>
         <p class="auth-switch">
-          <button class="text-button" type="button" onclick="showAuthForm('signin')">
-            Back to sign in
-          </button>
+          <button class="text-button" type="button" onclick="showAuthForm('signin')">Back to sign in</button>
         </p>
       </form>
-
     </div>
 
     <p class="auth-footer">Made with ♡ by Lurelle</p>
-
   </div>
 </section>
 
-<!-- ==================================================
-     HAVEN APPLICATION
-================================================== -->
+<!-- HAVEN APPLICATION -->
 
 <div id="havenApp" style="display:none">
 
@@ -826,27 +381,13 @@ footer {
 
 <header>
   <div class="header-left">
-    <button
-      class="menu-toggle"
-      id="menuToggle"
-      onclick="toggleMenu()"
-      aria-label="Toggle navigation"
-      aria-expanded="false"
-    >☰</button>
-
+    <button class="menu-toggle" id="menuToggle" onclick="toggleMenu()" aria-label="Toggle navigation" aria-expanded="false">☰</button>
     <div class="logo">Lurelle <span>Haven ♡</span></div>
   </div>
-
   <div class="header-right">
-    <button
-      class="header-btn"
-      onclick="showPage('requests')"
-      aria-label="Friend requests"
-    >
-      ♡
-      <span class="notification-dot" id="requestDot"></span>
+    <button class="header-btn" onclick="showPage('requests')" aria-label="Friend requests">
+      ♡ <span class="notification-dot" id="requestDot"></span>
     </button>
-
     <div class="avatar" id="headerAvatar">♡</div>
   </div>
 </header>
@@ -854,7 +395,6 @@ footer {
 <div class="layout">
 
 <aside class="sidebar" id="sidebar">
-
   <div class="sidebar-intro">
     <h2>Haven ♡</h2>
     <p>Your little corner of connection.</p>
@@ -870,15 +410,11 @@ footer {
 
   <button class="nav-item" data-page="profile" onclick="showPage('profile')">◉ &nbsp; My profile</button>
   <button class="nav-item" data-page="settings" onclick="showPage('settings')">⚙ &nbsp; Settings</button>
-
 </aside>
 
 <main>
 
-<!-- HOME -->
-
 <section class="page active" id="home">
-
   <div class="welcome">
     <small>WELCOME TO YOUR LITTLE HAVEN</small>
     <h1>A little more connected. ♡</h1>
@@ -886,20 +422,9 @@ footer {
   </div>
 
   <div class="stats">
-    <div class="stat-card">
-      <strong id="friendCount">0</strong>
-      <span>Friends</span>
-    </div>
-
-    <div class="stat-card">
-      <strong id="requestCount">0</strong>
-      <span>Requests</span>
-    </div>
-
-    <div class="stat-card">
-      <strong id="messageCount">0</strong>
-      <span>Conversations</span>
-    </div>
+    <div class="stat-card"><strong id="friendCount">0</strong><span>Friends</span></div>
+    <div class="stat-card"><strong id="requestCount">0</strong><span>Requests</span></div>
+    <div class="stat-card"><strong id="messageCount">0</strong><span>Conversations</span></div>
   </div>
 
   <div class="panel">
@@ -907,9 +432,8 @@ footer {
       <h3>Find your people ♡</h3>
       <button class="soft-btn" onclick="showPage('discover')">Explore</button>
     </div>
-
     <p style="font-size:13px;color:var(--muted);line-height:1.8">
-      Search for someone's unique username and send them a friend request.
+      Search for someone's name or username and send them a friend request.
       Once they accept, you can start chatting.
     </p>
   </div>
@@ -919,39 +443,40 @@ footer {
       <h3>Recent connections</h3>
       <button class="soft-btn" onclick="showPage('friends')">View all</button>
     </div>
-
     <div id="homeFriends" class="empty">Your friendships will appear here. ♡</div>
   </div>
-
 </section>
 
 <!-- DISCOVER -->
 
 <section class="page" id="discover">
-
   <div class="welcome">
     <small>MEET SOMEONE NEW</small>
     <h1>Find your people. ♡</h1>
-    <p>Search for a member using their unique username.</p>
+    <p>Search using someone's display name or unique username.</p>
   </div>
 
   <div class="panel">
     <div class="search-box">
-      <input id="searchInput" placeholder="Search username..." maxlength="30">
-      <button class="soft-btn" onclick="searchPeople()">Search</button>
+      <input
+        id="searchInput"
+        type="search"
+        placeholder="Start typing a name or username..."
+        maxlength="40"
+        autocomplete="off"
+        aria-label="Search people by name or username"
+      >
     </div>
 
-    <div id="searchResults" class="empty">
-      Search for a username to find someone.
+    <div id="searchResults" class="search-results">
+      <div class="search-hint">Start typing to discover Haven members. ♡</div>
     </div>
   </div>
-
 </section>
 
 <!-- REQUESTS -->
 
 <section class="page" id="requests">
-
   <div class="welcome">
     <small>NEW CONNECTIONS</small>
     <h1>Friend requests ♡</h1>
@@ -967,29 +492,22 @@ footer {
     <h3 class="section-title">Sent requests</h3>
     <div id="sentRequests" class="empty">No pending requests.</div>
   </div>
-
 </section>
 
 <!-- FRIENDS -->
 
 <section class="page" id="friends">
-
   <div class="welcome">
     <small>YOUR CONNECTIONS</small>
     <h1>My friends ♡</h1>
     <p>Your little circle of connections.</p>
   </div>
-
-  <div class="panel">
-    <div id="friendsList" class="empty">Your friends will appear here.</div>
-  </div>
-
+  <div class="panel"><div id="friendsList" class="empty">Your friends will appear here.</div></div>
 </section>
 
 <!-- MESSAGES -->
 
 <section class="page" id="messages">
-
   <div class="welcome">
     <small>PRIVATE CONVERSATIONS</small>
     <h1>Your messages ♡</h1>
@@ -997,41 +515,29 @@ footer {
   </div>
 
   <div class="chat-layout">
-
     <div class="chat-list">
-      <h3 style="font-size:15px;font-weight:normal;margin-bottom:12px">
-        Conversations
-      </h3>
-
+      <h3 style="font-size:15px;font-weight:normal;margin-bottom:12px">Conversations</h3>
       <div id="chatContacts" class="empty">Add friends to chat.</div>
     </div>
 
     <div class="chat-window">
-
       <div class="chat-header" id="chatHeader">
-        <span style="font-size:13px;color:var(--muted)">
-          Select a friend to begin.
-        </span>
+        <span style="font-size:13px;color:var(--muted)">Select a friend to begin.</span>
       </div>
-
       <div class="messages" id="chatMessages">
         <div class="empty">Your conversations will appear here. ♡</div>
       </div>
-
       <form class="message-form" id="messageForm">
         <input id="messageInput" placeholder="Write a message..." maxlength="1000" disabled>
         <button class="soft-btn" id="sendButton" disabled>Send</button>
       </form>
-
     </div>
   </div>
-
 </section>
 
 <!-- PROFILE -->
 
 <section class="page" id="profile">
-
   <div class="welcome">
     <small>YOUR LITTLE SPACE</small>
     <h1>My profile ♡</h1>
@@ -1039,57 +545,43 @@ footer {
   </div>
 
   <div class="panel profile-card">
-
     <div class="avatar profile-avatar" id="profileAvatar">♡</div>
-
     <h2 id="profileName">Member</h2>
     <p id="profileUsername">@username</p>
     <p id="profileBio" style="margin-top:10px"></p>
-
     <div class="profile-details">
       <p><strong>Display name:</strong> <span id="detailName"></span></p>
       <p><strong>Username:</strong> <span id="detailUsername"></span></p>
       <p><strong>Friends:</strong> <span id="detailFriends">0</span></p>
     </div>
-
   </div>
 
   <div class="panel">
-    <div class="panel-heading">
-      <h3>Edit your profile</h3>
-    </div>
-
+    <div class="panel-heading"><h3>Edit your profile</h3></div>
     <form id="profileForm">
-
       <div class="form-field">
         <label for="displayName">Display name</label>
         <input id="displayName" maxlength="40" placeholder="Your display name" required>
         <span class="hint">This is the name people see on your profile.</span>
       </div>
-
       <div class="form-field">
         <label for="username">Username (@ name)</label>
         <input id="username" maxlength="30" placeholder="yourusername" required>
         <span class="hint">Your username must be unique.</span>
       </div>
-
       <div class="form-field">
         <label for="bioInput">About me</label>
         <textarea id="bioInput" maxlength="160" rows="3" placeholder="Write a little about yourself..."></textarea>
         <span class="hint">Maximum 160 characters.</span>
       </div>
-
       <button class="soft-btn" type="submit">Save changes ♡</button>
-
     </form>
   </div>
-
 </section>
 
 <!-- SETTINGS -->
 
 <section class="page" id="settings">
-
   <div class="welcome">
     <small>YOUR ACCOUNT</small>
     <h1>Settings ♡</h1>
@@ -1097,23 +589,18 @@ footer {
 
   <div class="panel">
     <h3 class="section-title" style="margin-bottom:17px">Privacy and safety</h3>
-
     <div class="notice">
       Only accepted friends can exchange private messages.
       Blocking someone removes the friendship, if one exists, and prevents
       further requests or messages between both accounts.
     </div>
-
     <p style="font-size:13px;color:var(--muted);line-height:1.8">
-      Avoid putting your phone number, home address, school details or
-      other private information in your profile.
+      Avoid putting your phone number, home address, school details or other private information in your profile.
     </p>
   </div>
 
   <div class="panel">
-    <div class="panel-heading">
-      <h3>Blocked members</h3>
-    </div>
+    <div class="panel-heading"><h3>Blocked members</h3></div>
     <div id="blockedList" class="empty">You haven't blocked anyone.</div>
   </div>
 
@@ -1122,11 +609,9 @@ footer {
     <p id="accountEmail" style="font-size:13px;color:var(--muted);margin-bottom:15px"></p>
     <button class="soft-btn danger-btn" onclick="signOut()">Sign out</button>
   </div>
-
 </section>
 
 <footer>Made with ♡ by Lurelle · Lurelle Haven</footer>
-
 </main>
 </div>
 </div>
@@ -1134,58 +619,41 @@ footer {
 <div class="toast" id="toast"></div>
 
 <script>
-
-/* ==================================================
-   SUPABASE CONNECTION
-================================================== */
+/* SUPABASE CONNECTION */
 
 const SUPABASE_URL = "https://ljzydmylrayqdvuxtzps.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_RNQQFOqPdrKbLd6HiMSmwg_6UUNBZqg";
 
-const SUPABASE_ANON_KEY =
-  "sb_publishable_RNQQFOqPdrKbLd6HiMSmwg_6UUNBZqg";
+const db = window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
 
-const db = window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_ANON_KEY
-);
-
-/* ==================================================
-   APP STATE
-================================================== */
+/* APP STATE */
 
 let authUser = null;
 let currentUser = null;
-
 let members = [];
+let membersById = {};
 let friends = [];
 let incoming = [];
 let outgoing = [];
 let blocked = [];
-
 let activeChat = null;
 let messageSubscription = null;
 let refreshTimer = null;
 let starting = false;
 let conversationCount = 0;
+let searchTimer = null;
+let searchRequestNumber = 0;
 
-/* ==================================================
-   HELPERS
-================================================== */
+/* HELPERS */
 
-function $(id) {
-  return document.getElementById(id);
-}
+function $(id) {return document.getElementById(id)}
 
 function showToast(message) {
   const toast = $("toast");
   toast.textContent = message;
   toast.classList.add("show");
-
   clearTimeout(window.toastTimer);
-
-  window.toastTimer = setTimeout(() => {
-    toast.classList.remove("show");
-  },2800);
+  window.toastTimer = setTimeout(() => toast.classList.remove("show"),2800);
 }
 
 function showAuthMessage(id,message) {
@@ -1220,15 +688,31 @@ function showError(error,fallback) {
 
 function showAuthForm(form) {
   clearAuthMessages();
-
   $("signInForm").style.display = form === "signin" ? "block" : "none";
   $("signUpForm").style.display = form === "signup" ? "block" : "none";
   $("resetForm").style.display = form === "reset" ? "block" : "none";
 }
 
-/* ==================================================
-   SIGN UP
-================================================== */
+/* WEBSITE HAMBURGER */
+
+$("siteMenuToggle").addEventListener("click",() => {
+  const button = $("siteMenuToggle");
+  const links = $("siteMenuLinks");
+  const isOpen = links.classList.toggle("open");
+
+  button.classList.toggle("open",isOpen);
+  button.setAttribute("aria-expanded",String(isOpen));
+});
+
+document.querySelectorAll("#siteMenuLinks a").forEach(link => {
+  link.addEventListener("click",() => {
+    $("siteMenuLinks").classList.remove("open");
+    $("siteMenuToggle").classList.remove("open");
+    $("siteMenuToggle").setAttribute("aria-expanded","false");
+  });
+});
+
+/* SIGN UP */
 
 $("signUpForm").addEventListener("submit",async event => {
   event.preventDefault();
@@ -1246,10 +730,7 @@ $("signUpForm").addEventListener("submit",async event => {
   }
 
   if(!isValidUsername(username)) {
-    showAuthMessage(
-      "signUpMessage",
-      "Username must be 3–30 characters using lowercase letters, numbers or underscores."
-    );
+    showAuthMessage("signUpMessage","Username must be 3–30 characters using lowercase letters, numbers or underscores.");
     return;
   }
 
@@ -1268,21 +749,10 @@ $("signUpForm").addEventListener("submit",async event => {
   button.textContent = "Creating account...";
 
   try {
-    /*
-      The account is created in Supabase Authentication.
-      The profile is created after authentication using the
-      user's metadata. No separate main-site login is needed.
-    */
-
-    const { data,error } = await db.auth.signUp({
+    const {data,error} = await db.auth.signUp({
       email,
       password,
-      options:{
-        data:{
-          display_name:name,
-          username:username
-        }
-      }
+      options:{data:{display_name:name,username}}
     });
 
     if(error) throw error;
@@ -1291,35 +761,24 @@ $("signUpForm").addEventListener("submit",async event => {
       authUser = data.user;
       await startHaven();
     } else {
-      showAuthMessage(
-        "signUpMessage",
-        "Your account has been created! ♡ Please check your email for the verification link. After verifying, return here and sign in."
-      );
-
+      showAuthMessage("signUpMessage","Your account has been created! ♡ Please check your email for the verification link. After verifying, return here and sign in.");
       $("signupPassword").value = "";
       $("signupConfirmPassword").value = "";
     }
-
   } catch(error) {
     console.error("Signup error:",error);
-
     let message = error.message || "Could not create your account.";
-
     if(error.code === "23505" || message.toLowerCase().includes("duplicate")) {
       message = "That username is already taken. Please choose another.";
     }
-
     showAuthMessage("signUpMessage",message);
-
   } finally {
     button.disabled = false;
     button.textContent = "Create account ♡";
   }
 });
 
-/* ==================================================
-   SIGN IN
-================================================== */
+/* SIGN IN */
 
 $("signInForm").addEventListener("submit",async event => {
   event.preventDefault();
@@ -1327,77 +786,52 @@ $("signInForm").addEventListener("submit",async event => {
 
   const email = $("loginEmail").value.trim().toLowerCase();
   const password = $("loginPassword").value;
-
   const button = $("signInButton");
+
   button.disabled = true;
   button.textContent = "Signing in...";
 
   try {
-    const { data,error } = await db.auth.signInWithPassword({
-      email,
-      password
-    });
-
+    const {data,error} = await db.auth.signInWithPassword({email,password});
     if(error) throw error;
-
     authUser = data.user;
     await startHaven();
-
   } catch(error) {
     console.error("Sign-in error:",error);
-
-    showAuthMessage(
-      "signInMessage",
-      error.message || "Could not sign in. Check your email and password."
-    );
-
+    showAuthMessage("signInMessage",error.message || "Could not sign in. Check your email and password.");
   } finally {
     button.disabled = false;
     button.textContent = "Sign in ♡";
   }
 });
 
-/* ==================================================
-   PASSWORD RESET
-================================================== */
+/* PASSWORD RESET */
 
 $("resetForm").addEventListener("submit",async event => {
   event.preventDefault();
   clearAuthMessages();
 
   const email = $("resetEmail").value.trim().toLowerCase();
-
   const button = $("resetButton");
+
   button.disabled = true;
   button.textContent = "Sending...";
 
   try {
-    const { error } = await db.auth.resetPasswordForEmail(email,{
+    const {error} = await db.auth.resetPasswordForEmail(email,{
       redirectTo:window.location.origin + window.location.pathname
     });
-
     if(error) throw error;
-
-    showAuthMessage(
-      "resetMessage",
-      "If an account exists for that email, a password reset link has been sent. Check your inbox."
-    );
-
+    showAuthMessage("resetMessage","If an account exists for that email, a password reset link has been sent. Check your inbox.");
   } catch(error) {
-    showAuthMessage(
-      "resetMessage",
-      error.message || "Could not send the reset link."
-    );
-
+    showAuthMessage("resetMessage",error.message || "Could not send the reset link.");
   } finally {
     button.disabled = false;
     button.textContent = "Send reset link";
   }
 });
 
-/* ==================================================
-   SIGN OUT
-================================================== */
+/* SIGN OUT */
 
 async function signOut() {
   if(!confirm("Sign out of Lurelle Haven?")) return;
@@ -1408,32 +842,25 @@ async function signOut() {
       messageSubscription = null;
     }
 
-    const { error } = await db.auth.signOut();
-
+    const {error} = await db.auth.signOut();
     if(error) throw error;
 
     authUser = null;
     currentUser = null;
-
     if(refreshTimer) clearInterval(refreshTimer);
 
     $("havenApp").style.display = "none";
     $("authScreen").style.display = "flex";
-
     showAuthForm("signin");
-
   } catch(error) {
     showError(error,"Could not sign out.");
   }
 }
 
-/* ==================================================
-   NAVIGATION
-================================================== */
+/* HAVEN NAVIGATION */
 
 function toggleMenu() {
   const isOpen = $("sidebar").classList.toggle("open");
-
   $("menuOverlay").classList.toggle("show",isOpen);
   $("menuToggle").setAttribute("aria-expanded",String(isOpen));
 }
@@ -1448,10 +875,7 @@ function showPage(page) {
   const target = $(page);
   if(!target) return;
 
-  document.querySelectorAll(".page").forEach(p => {
-    p.classList.remove("active");
-  });
-
+  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
   target.classList.add("active");
 
   document.querySelectorAll(".nav-item").forEach(button => {
@@ -1461,6 +885,9 @@ function showPage(page) {
   closeMenu();
 
   if(page === "home") renderHome();
+  if(page === "discover") {
+    $("searchInput").focus();
+  }
   if(page === "requests") renderRequests();
   if(page === "friends") renderFriends();
   if(page === "messages") renderChats();
@@ -1468,12 +895,10 @@ function showPage(page) {
   if(page === "settings") renderBlocked();
 }
 
-/* ==================================================
-   PROFILE CREATION AND LOADING
-================================================== */
+/* PROFILE CREATION AND LOADING */
 
 async function ensureProfile() {
-  const { data,error } = await db
+  const {data,error} = await db
     .from("chat_profiles")
     .select("id,username,display_name,bio,avatar_url,created_at")
     .eq("id",authUser.id)
@@ -1481,20 +906,42 @@ async function ensureProfile() {
 
   if(error) throw error;
 
+  const metadata = authUser.user_metadata || {};
+  const metadataName = metadata.display_name || metadata.full_name || metadata.name || "";
+  const metadataUsername = normaliseUsername(metadata.username || "");
+
   if(data) {
-    currentUser = data;
+    /*
+      Repair only placeholder profiles.
+      Existing profile edits are kept intact.
+    */
+    const needsName = !data.display_name || data.display_name === "New member";
+    const needsUsername = !data.username || data.username.startsWith("user_");
+
+    if((needsName && metadataName) || (needsUsername && isValidUsername(metadataUsername))) {
+      const updates = {};
+
+      if(needsName && metadataName) updates.display_name = metadataName;
+      if(needsUsername && isValidUsername(metadataUsername)) updates.username = metadataUsername;
+
+      const {data:updated,error:updateError} = await db
+        .from("chat_profiles")
+        .update(updates)
+        .eq("id",authUser.id)
+        .select()
+        .single();
+
+      if(updateError && updateError.code !== "23505") throw updateError;
+
+      currentUser = updated || data;
+    } else {
+      currentUser = data;
+    }
     return;
   }
 
-  const metadata = authUser.user_metadata || {};
-
-  const displayName =
-    metadata.display_name ||
-    metadata.full_name ||
-    metadata.name ||
-    "New member";
-
-  let username = normaliseUsername(metadata.username || "");
+  const displayName = metadataName || "New member";
+  let username = metadataUsername;
 
   if(!isValidUsername(username)) {
     username = "user_" + authUser.id.replace(/-/g,"").slice(0,10);
@@ -1508,36 +955,18 @@ async function ensureProfile() {
     avatar_url:null
   };
 
-  /*
-    If the username from registration is already taken,
-    use a unique fallback. The member can change it later
-    from the profile page.
-  */
+  let result = await db.from("chat_profiles").insert(profile).select().single();
 
-  let result = await db
-    .from("chat_profiles")
-    .insert(profile)
-    .select()
-    .single();
-
-  if(result.error && result.error.code === "23505") {
+  if(result.error && result.error.code === "23505" && username !== "user_" + authUser.id.replace(/-/g,"").slice(0,10)) {
     profile.username = "user_" + authUser.id.replace(/-/g,"").slice(0,10);
-
-    result = await db
-      .from("chat_profiles")
-      .insert(profile)
-      .select()
-      .single();
+    result = await db.from("chat_profiles").insert(profile).select().single();
   }
 
   if(result.error) throw result.error;
-
   currentUser = result.data;
 }
 
-/* ==================================================
-   LOAD HAVEN DATA
-================================================== */
+/* LOAD HAVEN DATA */
 
 async function loadAllData() {
   const uid = authUser.id;
@@ -1549,45 +978,18 @@ async function loadAllData() {
     blockedResult,
     messageResult
   ] = await Promise.all([
-
-    db.from("friendships")
-      .select("id,user_one,user_two")
-      .or(`user_one.eq.${uid},user_two.eq.${uid}`),
-
-    db.from("friend_requests")
-      .select("id,sender_id,receiver_id,status,created_at")
-      .eq("receiver_id",uid)
-      .eq("status","pending"),
-
-    db.from("friend_requests")
-      .select("id,sender_id,receiver_id,status,created_at")
-      .eq("sender_id",uid)
-      .eq("status","pending"),
-
-    db.from("blocked_users")
-      .select("id,blocker_id,blocked_id,created_at")
-      .eq("blocker_id",uid),
-
-    db.from("messages")
-      .select("sender_id,receiver_id")
-      .or(`sender_id.eq.${uid},receiver_id.eq.${uid}`)
-      .limit(1000)
+    db.from("friendships").select("id,user_one,user_two").or(`user_one.eq.${uid},user_two.eq.${uid}`),
+    db.from("friend_requests").select("id,sender_id,receiver_id,status,created_at").eq("receiver_id",uid).eq("status","pending"),
+    db.from("friend_requests").select("id,sender_id,receiver_id,status,created_at").eq("sender_id",uid).eq("status","pending"),
+    db.from("blocked_users").select("id,blocker_id,blocked_id,created_at").eq("blocker_id",uid),
+    db.from("messages").select("sender_id,receiver_id").or(`sender_id.eq.${uid},receiver_id.eq.${uid}`).limit(1000)
   ]);
 
-  for(const result of [
-    friendResult,
-    incomingResult,
-    outgoingResult,
-    blockedResult,
-    messageResult
-  ]) {
+  for(const result of [friendResult,incomingResult,outgoingResult,blockedResult,messageResult]) {
     if(result.error) throw result.error;
   }
 
-  friends = (friendResult.data || []).map(row =>
-    row.user_one === uid ? row.user_two : row.user_one
-  );
-
+  friends = (friendResult.data || []).map(row => row.user_one === uid ? row.user_two : row.user_one);
   incoming = incomingResult.data || [];
   outgoing = outgoingResult.data || [];
   blocked = blockedResult.data || [];
@@ -1595,11 +997,7 @@ async function loadAllData() {
   const conversationIds = new Set();
 
   (messageResult.data || []).forEach(message => {
-    conversationIds.add(
-      message.sender_id === uid
-        ? message.receiver_id
-        : message.sender_id
-    );
+    conversationIds.add(message.sender_id === uid ? message.receiver_id : message.sender_id);
   });
 
   conversationCount = conversationIds.size;
@@ -1612,32 +1010,24 @@ async function loadAllData() {
   ]);
 
   if(profileIds.size) {
-    const { data,error } = await db
+    const {data,error} = await db
       .from("chat_profiles")
       .select("id,username,display_name,bio,avatar_url")
       .in("id",[...profileIds]);
 
     if(error) throw error;
-
     members = data || [];
   } else {
     members = [];
   }
 
   membersById = {};
-
-  members.forEach(member => {
-    membersById[member.id] = member;
-  });
+  members.forEach(member => membersById[member.id] = member);
 
   updateStats();
 }
 
-let membersById = {};
-
-/* ==================================================
-   PROFILE DISPLAY AND EDITING
-================================================== */
+/* PROFILE DISPLAY AND EDITING */
 
 function renderProfile() {
   if(!currentUser) return;
@@ -1649,18 +1039,14 @@ function renderProfile() {
   $("profileName").textContent = name;
   $("profileUsername").textContent = "@" + username;
   $("profileBio").textContent = bio || "A little about me ♡";
-
   $("profileAvatar").textContent = initials(name);
   $("headerAvatar").textContent = initials(name);
-
   $("detailName").textContent = name;
   $("detailUsername").textContent = "@" + username;
   $("detailFriends").textContent = friends.length;
-
   $("displayName").value = name;
   $("username").value = username;
   $("bioInput").value = bio;
-
   $("accountEmail").textContent = authUser.email || "";
 }
 
@@ -1685,13 +1071,9 @@ $("profileForm").addEventListener("submit",async event => {
   button.disabled = true;
 
   try {
-    const { data,error } = await db
+    const {data,error} = await db
       .from("chat_profiles")
-      .update({
-        display_name:newName,
-        username:newUsername,
-        bio:newBio
-      })
+      .update({display_name:newName,username:newUsername,bio:newBio})
       .eq("id",authUser.id)
       .select()
       .single();
@@ -1699,136 +1081,195 @@ $("profileForm").addEventListener("submit",async event => {
     if(error) throw error;
 
     currentUser = data;
-
     renderProfile();
     showToast("Your profile has been updated! ♡");
-
   } catch(error) {
     if(error.code === "23505") {
       showToast("That username is already taken. Try another! ♡");
     } else {
       showError(error,"Could not update your profile.");
     }
-
   } finally {
     button.disabled = false;
   }
 });
 
-/* ==================================================
-   MEMBER SEARCH
-================================================== */
+/* LIVE MEMBER SEARCH
+   Searches both display names and usernames while the user types.
+   No search button is needed.
+*/
 
-async function searchPeople() {
-  const query = normaliseUsername($("searchInput").value);
+$("searchInput").addEventListener("input",() => {
+  clearTimeout(searchTimer);
+
+  const query = $("searchInput").value.trim();
   const results = $("searchResults");
 
-  results.innerHTML = "";
+  if(!query) {
+    searchRequestNumber++;
+    results.innerHTML = '<div class="search-hint">Start typing to discover Haven members. ♡</div>';
+    return;
+  }
+
+  results.innerHTML = '<div class="search-loading">Finding people... ♡</div>';
+
+  searchTimer = setTimeout(() => searchPeople(query),250);
+});
+
+async function searchPeople(searchTerm) {
+  const query = searchTerm.trim();
+  const results = $("searchResults");
+  const requestNumber = ++searchRequestNumber;
 
   if(!query) {
-    results.textContent = "Enter a username to search.";
+    results.innerHTML = '<div class="search-hint">Start typing to discover Haven members. ♡</div>';
     return;
   }
 
-  if(!isValidUsername(query)) {
-    results.textContent = "Enter a valid username.";
-    return;
-  }
-
-  results.textContent = "Searching...";
+  results.innerHTML = '<div class="search-loading">Finding people... ♡</div>';
 
   try {
-    const { data,error } = await db
-      .from("chat_profiles")
-      .select("id,username,display_name,bio,avatar_url")
-      .eq("username",query)
-      .neq("id",authUser.id)
-      .limit(1);
+    /*
+      Search display names and usernames separately.
+      This avoids restricting discovery to exact username matches.
+    */
+    const safeQuery = query.replace(/[%_\\]/g,"\\$&");
+    const pattern = `%${safeQuery}%`;
 
-    if(error) throw error;
+    const [usernameResult,nameResult] = await Promise.all([
+      db.from("chat_profiles")
+        .select("id,username,display_name,bio,avatar_url")
+        .ilike("username",pattern)
+        .neq("id",authUser.id)
+        .limit(20),
 
-    if(!data || !data.length) {
-      results.innerHTML = '<div class="empty">No matching member found.</div>';
+      db.from("chat_profiles")
+        .select("id,username,display_name,bio,avatar_url")
+        .ilike("display_name",pattern)
+        .neq("id",authUser.id)
+        .limit(20)
+    ]);
+
+    if(usernameResult.error) throw usernameResult.error;
+    if(nameResult.error) throw nameResult.error;
+
+    /* Ignore an older search if the user has typed something newer. */
+    if(requestNumber !== searchRequestNumber) return;
+
+    const combined = new Map();
+
+    [...(usernameResult.data || []),...(nameResult.data || [])].forEach(member => {
+      combined.set(member.id,member);
+    });
+
+    const foundMembers = [...combined.values()]
+      .filter(member => !blocked.some(b => b.blocked_id === member.id))
+      .sort((a,b) => {
+        const lower = query.toLowerCase();
+        const aName = (a.display_name || "").toLowerCase();
+        const bName = (b.display_name || "").toLowerCase();
+        const aUsername = (a.username || "").toLowerCase();
+        const bUsername = (b.username || "").toLowerCase();
+
+        const aExact = aUsername === lower || aName === lower;
+        const bExact = bUsername === lower || bName === lower;
+        if(aExact && !bExact) return -1;
+        if(bExact && !aExact) return 1;
+
+        const aStarts = aUsername.startsWith(lower) || aName.startsWith(lower);
+        const bStarts = bUsername.startsWith(lower) || bName.startsWith(lower);
+        if(aStarts && !bStarts) return -1;
+        if(bStarts && !aStarts) return 1;
+
+        return (a.display_name || "").localeCompare(b.display_name || "");
+      });
+
+    foundMembers.forEach(member => membersById[member.id] = member);
+
+    if(!foundMembers.length) {
+      results.innerHTML = '<div class="search-no-results">No members found matching "' +
+        escapeHTML(query) + '". Try another name or username. ♡</div>';
       return;
     }
 
-    const member = data[0];
-    membersById[member.id] = member;
+    results.innerHTML = `<p class="search-result-count">${foundMembers.length} member${foundMembers.length === 1 ? "" : "s"} found</p>`;
 
-    const isBlockedByMe = blocked.some(
-      b => b.blocked_id === member.id
-    );
+    foundMembers.forEach(member => {
+      const isFriend = friends.includes(member.id);
+      const hasIncoming = incoming.some(r => r.sender_id === member.id);
+      const hasOutgoing = outgoing.some(r => r.receiver_id === member.id);
 
-    if(isBlockedByMe) {
-      results.innerHTML = '<div class="empty">You have blocked this member. Unblock them in Settings to interact.</div>';
-      return;
-    }
+      const row = document.createElement("div");
+      row.className = "member search-result";
 
-    const isFriend = friends.includes(member.id);
-    const hasIncoming = incoming.some(r => r.sender_id === member.id);
-    const hasOutgoing = outgoing.some(r => r.receiver_id === member.id);
+      const info = document.createElement("div");
+      info.className = "member-info";
 
-    const row = document.createElement("div");
-    row.className = "member";
+      const avatar = document.createElement("div");
+      avatar.className = "avatar";
+      avatar.textContent = initials(member.display_name);
 
-    const info = document.createElement("div");
-    info.className = "member-info";
+      const details = document.createElement("div");
 
-    const avatar = document.createElement("div");
-    avatar.className = "avatar";
-    avatar.textContent = initials(member.display_name);
+      const name = document.createElement("div");
+      name.className = "member-name";
+      name.textContent = member.display_name || "Haven member";
 
-    const details = document.createElement("div");
+      const username = document.createElement("div");
+      username.className = "username";
+      username.textContent = "@" + member.username;
 
-    const name = document.createElement("div");
-    name.className = "member-name";
-    name.textContent = member.display_name;
+      details.append(name,username);
+      info.append(avatar,details);
 
-    const username = document.createElement("div");
-    username.className = "username";
-    username.textContent = "@" + member.username;
+      const actions = document.createElement("div");
+      actions.className = "member-actions";
 
-    details.append(name,username);
-    info.append(avatar,details);
+      const action = document.createElement("button");
+      action.className = "soft-btn";
 
-    const actions = document.createElement("div");
-    actions.className = "member-actions";
+      if(isFriend) {
+        action.textContent = "Friends ♡";
+        action.disabled = true;
+      } else if(hasIncoming) {
+        action.textContent = "View request";
+        action.onclick = () => showPage("requests");
+      } else if(hasOutgoing) {
+        action.textContent = "Requested";
+        action.disabled = true;
+      } else {
+        action.textContent = "Add friend +";
+        action.onclick = () => sendRequest(member.id);
+      }
 
-    const action = document.createElement("button");
-    action.className = "soft-btn";
+      const block = document.createElement("button");
+      block.className = "soft-btn danger-btn";
+      block.textContent = "Block";
+      block.onclick = () => blockMember(member.id);
 
-    if(isFriend) {
-      action.textContent = "Friends ♡";
-      action.disabled = true;
-    } else if(hasIncoming) {
-      action.textContent = "View request";
-      action.onclick = () => showPage("requests");
-    } else if(hasOutgoing) {
-      action.textContent = "Requested";
-      action.disabled = true;
-    } else {
-      action.textContent = "Add friend +";
-      action.onclick = () => sendRequest(member.id);
-    }
-
-    const block = document.createElement("button");
-    block.className = "soft-btn danger-btn";
-    block.textContent = "Block";
-    block.onclick = () => blockMember(member.id);
-
-    actions.append(action,block);
-    row.append(info,actions);
-    results.append(row);
+      actions.append(action,block);
+      row.append(info,actions);
+      results.append(row);
+    });
 
   } catch(error) {
-    results.textContent = "Could not search members.";
+    if(requestNumber !== searchRequestNumber) return;
+    results.innerHTML = '<div class="search-no-results">Could not search members right now.</div>';
     showError(error,"Search failed.");
   }
 }
 
-/* ==================================================
-   FRIEND REQUESTS
-================================================== */
+function escapeHTML(value) {
+  return String(value).replace(/[&<>"']/g,char => ({
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#039;"
+  })[char]);
+}
+
+/* FRIEND REQUESTS */
 
 async function sendRequest(id) {
   if(!id || friends.includes(id)) return;
@@ -1847,21 +1288,17 @@ async function sendRequest(id) {
   if(outgoing.some(r => r.receiver_id === id)) return;
 
   try {
-    const { error } = await db
-      .from("friend_requests")
-      .insert({
-        sender_id:authUser.id,
-        receiver_id:id,
-        status:"pending"
-      });
+    const {error} = await db.from("friend_requests").insert({
+      sender_id:authUser.id,
+      receiver_id:id,
+      status:"pending"
+    });
 
     if(error) throw error;
 
     await refreshData();
-
     showToast("Friend request sent ♡");
-    searchPeople();
-
+    searchPeople($("searchInput").value);
   } catch(error) {
     if(error.code === "23505") {
       showToast("A request already exists.");
@@ -1873,7 +1310,7 @@ async function sendRequest(id) {
 
 async function updateRequest(requestId,status) {
   try {
-    const { error } = await db
+    const {error} = await db
       .from("friend_requests")
       .update({status})
       .eq("id",requestId)
@@ -1886,7 +1323,6 @@ async function updateRequest(requestId,status) {
     if(status === "accepted") showToast("You're now friends! ♡");
     if(status === "declined") showToast("Request declined.");
     if(status === "cancelled") showToast("Request cancelled.");
-
   } catch(error) {
     showError(error,"Could not update that request.");
   }
@@ -1895,13 +1331,10 @@ async function updateRequest(requestId,status) {
 function renderRequests() {
   const list = $("requestList");
   const sent = $("sentRequests");
-
   list.innerHTML = "";
   sent.innerHTML = "";
 
-  if(!incoming.length) {
-    list.innerHTML = '<div class="empty">No new friend requests. ♡</div>';
-  }
+  if(!incoming.length) list.innerHTML = '<div class="empty">No new friend requests. ♡</div>';
 
   incoming.forEach(request => {
     const member = membersById[request.sender_id];
@@ -1940,9 +1373,7 @@ function renderRequests() {
     list.append(row);
   });
 
-  if(!outgoing.length) {
-    sent.innerHTML = '<div class="empty">No pending sent requests.</div>';
-  }
+  if(!outgoing.length) sent.innerHTML = '<div class="empty">No pending sent requests.</div>';
 
   outgoing.forEach(request => {
     const member = membersById[request.receiver_id];
@@ -1964,9 +1395,7 @@ function renderRequests() {
   });
 }
 
-/* ==================================================
-   FRIENDS
-================================================== */
+/* FRIENDS */
 
 async function removeFriend(id) {
   if(!confirm("Remove this friend?")) return;
@@ -1975,8 +1404,7 @@ async function removeFriend(id) {
   const userTwo = authUser.id < id ? id : authUser.id;
 
   try {
-    const { error } = await db
-      .from("friendships")
+    const {error} = await db.from("friendships")
       .delete()
       .eq("user_one",userOne)
       .eq("user_two",userTwo);
@@ -1987,7 +1415,6 @@ async function removeFriend(id) {
 
     await refreshData();
     showToast("Friend removed.");
-
   } catch(error) {
     showError(error,"Could not remove friend.");
   }
@@ -2081,35 +1508,27 @@ function renderHome() {
   updateStats();
 }
 
-/* ==================================================
-   BLOCKING
-================================================== */
+/* BLOCKING */
 
 async function blockMember(id) {
   const member = membersById[id];
   const name = member?.display_name || "this member";
 
-  if(!confirm(
-    `Block ${name}? This removes the friendship, if one exists, and prevents further requests and messages between both accounts.`
-  )) return;
+  if(!confirm(`Block ${name}? This removes the friendship, if one exists, and prevents further requests and messages between both accounts.`)) return;
 
   try {
-    const { error } = await db
-      .from("blocked_users")
-      .insert({
-        blocker_id:authUser.id,
-        blocked_id:id
-      });
+    const {error} = await db.from("blocked_users").insert({
+      blocker_id:authUser.id,
+      blocked_id:id
+    });
 
     if(error) throw error;
 
     if(activeChat === id) closeActiveChat();
 
     await refreshData();
-
     showToast("Member blocked.");
     renderBlocked();
-
   } catch(error) {
     if(error.code === "23505") {
       showToast("This member is already blocked.");
@@ -2121,8 +1540,7 @@ async function blockMember(id) {
 
 async function unblockMember(id) {
   try {
-    const { error } = await db
-      .from("blocked_users")
+    const {error} = await db.from("blocked_users")
       .delete()
       .eq("blocker_id",authUser.id)
       .eq("blocked_id",id);
@@ -2131,9 +1549,7 @@ async function unblockMember(id) {
 
     await refreshData();
     renderBlocked();
-
     showToast("Member unblocked.");
-
   } catch(error) {
     showError(error,"Could not unblock this member.");
   }
@@ -2170,9 +1586,7 @@ function renderBlocked() {
   });
 }
 
-/* ==================================================
-   PRIVATE MESSAGES
-================================================== */
+/* PRIVATE MESSAGES */
 
 function closeActiveChat() {
   activeChat = null;
@@ -2182,14 +1596,10 @@ function closeActiveChat() {
     messageSubscription = null;
   }
 
-  $("chatHeader").innerHTML =
-    '<span style="font-size:13px;color:var(--muted)">Select a friend to begin.</span>';
-
+  $("chatHeader").innerHTML = '<span style="font-size:13px;color:var(--muted)">Select a friend to begin.</span>';
   $("messageInput").disabled = true;
   $("sendButton").disabled = true;
-
-  $("chatMessages").innerHTML =
-    '<div class="empty">Select a friend to begin. ♡</div>';
+  $("chatMessages").innerHTML = '<div class="empty">Select a friend to begin. ♡</div>';
 }
 
 function renderChats() {
@@ -2208,7 +1618,6 @@ function renderChats() {
 
     const row = document.createElement("div");
     row.className = "chat-contact";
-
     if(activeChat === id) row.classList.add("selected");
 
     const avatar = document.createElement("div");
@@ -2220,13 +1629,10 @@ function renderChats() {
 
     row.append(avatar,name);
     row.onclick = () => openChat(id);
-
     list.append(row);
   });
 
-  if(activeChat && !friends.includes(activeChat)) {
-    closeActiveChat();
-  }
+  if(activeChat && !friends.includes(activeChat)) closeActiveChat();
 }
 
 async function openChat(id) {
@@ -2271,25 +1677,19 @@ async function openChat(id) {
 
   messageSubscription = db
     .channel("haven-chat-" + [authUser.id,id].sort().join("-"))
-    .on(
-      "postgres_changes",
-      {
-        event:"INSERT",
-        schema:"public",
-        table:"messages"
-      },
-      payload => {
-        const message = payload.new;
+    .on("postgres_changes",{
+      event:"INSERT",
+      schema:"public",
+      table:"messages"
+    },payload => {
+      const message = payload.new;
 
-        const belongsToChat =
-          (message.sender_id === authUser.id && message.receiver_id === id) ||
-          (message.sender_id === id && message.receiver_id === authUser.id);
+      const belongsToChat =
+        (message.sender_id === authUser.id && message.receiver_id === id) ||
+        (message.sender_id === id && message.receiver_id === authUser.id);
 
-        if(belongsToChat && activeChat === id) {
-          renderMessages();
-        }
-      }
-    )
+      if(belongsToChat && activeChat === id) renderMessages();
+    })
     .subscribe();
 }
 
@@ -2304,12 +1704,9 @@ async function renderMessages() {
 
   const otherId = activeChat;
 
-  const { data,error } = await db
-    .from("messages")
+  const {data,error} = await db.from("messages")
     .select("id,sender_id,receiver_id,content,created_at")
-    .or(
-      `and(sender_id.eq.${authUser.id},receiver_id.eq.${otherId}),and(sender_id.eq.${otherId},receiver_id.eq.${authUser.id})`
-    )
+    .or(`and(sender_id.eq.${authUser.id},receiver_id.eq.${otherId}),and(sender_id.eq.${otherId},receiver_id.eq.${authUser.id})`)
     .order("created_at",{ascending:true})
     .limit(100);
 
@@ -2321,18 +1718,13 @@ async function renderMessages() {
   if(activeChat !== otherId) return;
 
   if(!data || !data.length) {
-    container.innerHTML =
-      '<div class="empty">Say hello! Your conversation starts here. ♡</div>';
+    container.innerHTML = '<div class="empty">Say hello! Your conversation starts here. ♡</div>';
     return;
   }
 
   data.forEach(message => {
     const bubble = document.createElement("div");
-
-    bubble.className =
-      "message " +
-      (message.sender_id === authUser.id ? "sent" : "received");
-
+    bubble.className = "message " + (message.sender_id === authUser.id ? "sent" : "received");
     bubble.textContent = message.content;
     container.append(bubble);
   });
@@ -2352,20 +1744,16 @@ $("messageForm").addEventListener("submit",async event => {
   $("sendButton").disabled = true;
 
   try {
-    const { error } = await db
-      .from("messages")
-      .insert({
-        sender_id:authUser.id,
-        receiver_id:receiverId,
-        content
-      });
+    const {error} = await db.from("messages").insert({
+      sender_id:authUser.id,
+      receiver_id:receiverId,
+      content
+    });
 
     if(error) throw error;
 
     input.value = "";
-
     await renderMessages();
-
   } catch(error) {
     showError(error,"Message could not be sent.");
   } finally {
@@ -2373,18 +1761,13 @@ $("messageForm").addEventListener("submit",async event => {
   }
 });
 
-/* ==================================================
-   STATISTICS AND REFRESH
-================================================== */
+/* STATISTICS AND REFRESH */
 
 function updateStats() {
   $("friendCount").textContent = friends.length;
   $("requestCount").textContent = incoming.length;
   $("messageCount").textContent = conversationCount;
-
-  $("requestDot").style.display =
-    incoming.length ? "block" : "none";
-
+  $("requestDot").style.display = incoming.length ? "block" : "none";
   $("detailFriends").textContent = friends.length;
 }
 
@@ -2397,24 +1780,16 @@ async function refreshData() {
   renderFriends();
   renderChats();
   renderBlocked();
-
-  if(activeChat) {
-    await renderMessages();
-  }
 }
 
-/* ==================================================
-   START HAVEN AFTER AUTHENTICATION
-================================================== */
+/* START HAVEN */
 
 async function startHaven() {
   if(starting) return;
-
   starting = true;
 
   try {
-    const { data,error } = await db.auth.getSession();
-
+    const {data,error} = await db.auth.getSession();
     if(error) throw error;
 
     authUser = data.session?.user || authUser;
@@ -2455,7 +1830,6 @@ async function startHaven() {
 
     $("havenApp").style.display = "none";
     $("authScreen").style.display = "flex";
-
     showAuthForm("signin");
 
     showAuthMessage(
@@ -2463,18 +1837,14 @@ async function startHaven() {
       "Your account is signed in, but Haven could not load your profile or database information. " +
       (error.message || "")
     );
-
   } finally {
     starting = false;
   }
 }
 
-/* ==================================================
-   AUTH SESSION LISTENER
-================================================== */
+/* AUTH SESSION LISTENER */
 
 db.auth.onAuthStateChange((event,session) => {
-
   if(event === "SIGNED_OUT") {
     authUser = null;
     currentUser = null;
@@ -2493,12 +1863,6 @@ db.auth.onAuthStateChange((event,session) => {
 
   if(event === "SIGNED_IN" && session?.user) {
     authUser = session.user;
-
-    /*
-      Let the authentication callback finish before loading
-      the database again.
-    */
-
     setTimeout(() => startHaven(),0);
   }
 
@@ -2506,24 +1870,20 @@ db.auth.onAuthStateChange((event,session) => {
     const newPassword = prompt("Enter your new password:");
 
     if(newPassword && newPassword.length >= 8) {
-      db.auth.updateUser({password:newPassword})
-        .then(({error}) => {
-          if(error) showToast(error.message);
-          else showToast("Your password has been changed.");
-        });
+      db.auth.updateUser({password:newPassword}).then(({error}) => {
+        if(error) showToast(error.message);
+        else showToast("Your password has been changed.");
+      });
     } else if(newPassword) {
       showToast("Your password must contain at least 8 characters.");
     }
   }
-
 });
 
-/* ==================================================
-   INITIAL STARTUP
-================================================== */
+/* INITIAL STARTUP */
 
 (async function initialiseHaven() {
-  const { data,error } = await db.auth.getSession();
+  const {data,error} = await db.auth.getSession();
 
   if(error) {
     console.error(error);
@@ -2539,7 +1899,6 @@ db.auth.onAuthStateChange((event,session) => {
     $("havenApp").style.display = "none";
   }
 })();
-
 </script>
 
 </body>
