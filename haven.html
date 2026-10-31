@@ -1,9 +1,9 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/svg+xml" href="lurelle-butterfly.svg">
 <title>Lurelle Haven ♡</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -170,6 +170,28 @@ header {
 .nav-label {font-size:10px;letter-spacing:2px;color:#B59C91;margin:25px 0 12px}
 .nav-item {display:flex;align-items:center;gap:13px;width:100%;padding:13px;margin-bottom:5px;border:0;border-radius:9px;background:transparent;color:var(--brown);text-align:left;font-size:14px;transition:.2s}
 .nav-item:hover,.nav-item.active {background:var(--pink)}
+
+/* UNREAD MESSAGE BADGE */
+
+.unread-badge {
+  display:none;
+  min-width:20px;
+  height:20px;
+  padding:0 6px;
+  margin-left:auto;
+  border-radius:20px;
+  background:var(--rose);
+  color:white;
+  font-family:Arial,sans-serif;
+  font-size:10px;
+  font-weight:bold;
+  align-items:center;
+  justify-content:center;
+  line-height:20px;
+}
+
+.unread-badge.show {display:flex}
+
 .menu-overlay {display:none;position:fixed;inset:76px 0 0;background:rgba(60,40,35,.25);z-index:30}
 .menu-overlay.show {display:block}
 
@@ -223,9 +245,45 @@ main {padding:38px 5%;min-width:0}
 .chat-window {display:flex;flex-direction:column;min-width:0}
 .chat-header {padding:15px;border-bottom:1px solid #F3E9E3;display:flex;align-items:center;gap:10px;min-height:67px}
 .messages {padding:17px;flex:1;min-height:280px;max-height:400px;overflow-y:auto;display:flex;flex-direction:column;gap:12px}
-.message {max-width:75%;padding:11px 14px;border-radius:12px;font-size:13px;line-height:1.6;overflow-wrap:anywhere}
-.message.sent {background:var(--pink);align-self:flex-end;border-bottom-right-radius:3px}
-.message.received {background:var(--ivory);align-self:flex-start;border-bottom-left-radius:3px}
+
+/* MESSAGE BUBBLES AND READ RECEIPTS */
+
+.message-row {
+  max-width:75%;
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+
+.message-row.sent {
+  align-self:flex-end;
+  align-items:flex-end;
+}
+
+.message-row.received {
+  align-self:flex-start;
+  align-items:flex-start;
+}
+
+.message {
+  max-width:100%;
+  padding:11px 14px;
+  border-radius:12px;
+  font-size:13px;
+  line-height:1.6;
+  overflow-wrap:anywhere;
+}
+
+.message.sent {background:var(--pink);border-bottom-right-radius:3px}
+.message.received {background:var(--ivory);border-bottom-left-radius:3px}
+
+.read-receipt {
+  font-family:Arial,sans-serif;
+  font-size:10px;
+  color:var(--muted);
+  padding:0 3px;
+}
+
 .message-form {display:flex;gap:8px;padding:13px;border-top:1px solid #F3E9E3}
 .notice {background:var(--soft-pink);padding:14px;border-radius:9px;color:#8F716D;font-size:12px;line-height:1.8;margin-bottom:18px}
 .toast {position:fixed;bottom:25px;left:50%;transform:translateX(-50%);background:var(--brown);color:white;padding:12px 20px;border-radius:8px;font-size:12px;opacity:0;pointer-events:none;transition:.3s;z-index:70;max-width:90%;text-align:center}
@@ -405,7 +463,10 @@ footer {text-align:center;padding:35px 10px;color:#B59C91;font-size:11px}
   <button class="nav-item" data-page="discover" onclick="showPage('discover')">⌕ &nbsp; Find people</button>
   <button class="nav-item" data-page="requests" onclick="showPage('requests')">♡ &nbsp; Friend requests</button>
   <button class="nav-item" data-page="friends" onclick="showPage('friends')">♧ &nbsp; My friends</button>
-  <button class="nav-item" data-page="messages" onclick="showPage('messages')">✉ &nbsp; Messages</button>
+  <button class="nav-item" data-page="messages" onclick="showPage('messages')">
+    ✉ &nbsp; Messages
+    <span class="unread-badge" id="unreadMessageBadge">0</span>
+  </button>
 
   <p class="nav-label">YOUR SPACE</p>
 
@@ -639,11 +700,14 @@ let outgoing = [];
 let blocked = [];
 let activeChat = null;
 let messageSubscription = null;
+let unreadSubscription = null;
 let refreshTimer = null;
 let starting = false;
 let conversationCount = 0;
+let unreadMessageCount = 0;
 let searchTimer = null;
 let searchRequestNumber = 0;
+let messageRenderNumber = 0;
 
 /* HELPERS */
 
@@ -843,12 +907,22 @@ async function signOut() {
       messageSubscription = null;
     }
 
+    if(unreadSubscription) {
+      await db.removeChannel(unreadSubscription);
+      unreadSubscription = null;
+    }
+
     const {error} = await db.auth.signOut();
     if(error) throw error;
 
     authUser = null;
     currentUser = null;
+    activeChat = null;
+    unreadMessageCount = 0;
+
     if(refreshTimer) clearInterval(refreshTimer);
+
+    updateUnreadBadge();
 
     $("havenApp").style.display = "none";
     $("authScreen").style.display = "flex";
@@ -886,9 +960,7 @@ function showPage(page) {
   closeMenu();
 
   if(page === "home") renderHome();
-  if(page === "discover") {
-    $("searchInput").focus();
-  }
+  if(page === "discover") $("searchInput").focus();
   if(page === "requests") renderRequests();
   if(page === "friends") renderFriends();
   if(page === "messages") renderChats();
@@ -912,10 +984,6 @@ async function ensureProfile() {
   const metadataUsername = normaliseUsername(metadata.username || "");
 
   if(data) {
-    /*
-      Repair only placeholder profiles.
-      Existing profile edits are kept intact.
-    */
     const needsName = !data.display_name || data.display_name === "New member";
     const needsUsername = !data.username || data.username.startsWith("user_");
 
@@ -965,6 +1033,39 @@ async function ensureProfile() {
 
   if(result.error) throw result.error;
   currentUser = result.data;
+}
+
+/* UNREAD MESSAGE COUNT */
+
+function updateUnreadBadge() {
+  const badge = $("unreadMessageBadge");
+  if(!badge) return;
+
+  if(unreadMessageCount > 0) {
+    badge.textContent = Math.min(unreadMessageCount,99);
+    badge.classList.add("show");
+  } else {
+    badge.textContent = "0";
+    badge.classList.remove("show");
+  }
+}
+
+async function refreshUnreadCount() {
+  if(!authUser) return;
+
+  const {count,error} = await db
+    .from("messages")
+    .select("id",{count:"exact",head:true})
+    .eq("receiver_id",authUser.id)
+    .is("read_at",null);
+
+  if(error) {
+    console.error("Could not refresh unread message count:",error);
+    return;
+  }
+
+  unreadMessageCount = count || 0;
+  updateUnreadBadge();
 }
 
 /* LOAD HAVEN DATA */
@@ -1025,6 +1126,7 @@ async function loadAllData() {
   membersById = {};
   members.forEach(member => membersById[member.id] = member);
 
+  await refreshUnreadCount();
   updateStats();
 }
 
@@ -1095,10 +1197,7 @@ $("profileForm").addEventListener("submit",async event => {
   }
 });
 
-/* LIVE MEMBER SEARCH
-   Searches both display names and usernames while the user types.
-   No search button is needed.
-*/
+/* LIVE MEMBER SEARCH */
 
 $("searchInput").addEventListener("input",() => {
   clearTimeout(searchTimer);
@@ -1130,10 +1229,6 @@ async function searchPeople(searchTerm) {
   results.innerHTML = '<div class="search-loading">Finding people... ♡</div>';
 
   try {
-    /*
-      Search display names and usernames separately.
-      This avoids restricting discovery to exact username matches.
-    */
     const safeQuery = query.replace(/[%_\\]/g,"\\$&");
     const pattern = `%${safeQuery}%`;
 
@@ -1154,7 +1249,6 @@ async function searchPeople(searchTerm) {
     if(usernameResult.error) throw usernameResult.error;
     if(nameResult.error) throw nameResult.error;
 
-    /* Ignore an older search if the user has typed something newer. */
     if(requestNumber !== searchRequestNumber) return;
 
     const combined = new Map();
@@ -1591,6 +1685,7 @@ function renderBlocked() {
 
 function closeActiveChat() {
   activeChat = null;
+  messageRenderNumber++;
 
   if(messageSubscription) {
     db.removeChannel(messageSubscription);
@@ -1636,6 +1731,15 @@ function renderChats() {
   if(activeChat && !friends.includes(activeChat)) closeActiveChat();
 }
 
+function formatReadTime(value) {
+  return new Date(value).toLocaleString("en-US",{
+    month:"short",
+    day:"numeric",
+    hour:"numeric",
+    minute:"2-digit"
+  });
+}
+
 async function openChat(id) {
   if(!friends.includes(id)) {
     showToast("You must be friends to chat.");
@@ -1650,6 +1754,7 @@ async function openChat(id) {
   }
 
   activeChat = id;
+  messageRenderNumber++;
 
   if(messageSubscription) {
     db.removeChannel(messageSubscription);
@@ -1689,14 +1794,36 @@ async function openChat(id) {
         (message.sender_id === authUser.id && message.receiver_id === id) ||
         (message.sender_id === id && message.receiver_id === authUser.id);
 
-      if(belongsToChat && activeChat === id) renderMessages();
+      if(belongsToChat && activeChat === id) {
+        renderMessages();
+      }
+
+      if(message.receiver_id === authUser.id) {
+        refreshUnreadCount();
+      }
+    })
+    .on("postgres_changes",{
+      event:"UPDATE",
+      schema:"public",
+      table:"messages"
+    },payload => {
+      const message = payload.new;
+
+      const belongsToChat =
+        (message.sender_id === authUser.id && message.receiver_id === id) ||
+        (message.sender_id === id && message.receiver_id === authUser.id);
+
+      if(belongsToChat && activeChat === id) {
+        renderMessages();
+      }
     })
     .subscribe();
 }
 
+/* LOAD MESSAGES AND MARK RECEIVED MESSAGES AS READ */
+
 async function renderMessages() {
   const container = $("chatMessages");
-  container.innerHTML = "";
 
   if(!activeChat || !friends.includes(activeChat)) {
     container.innerHTML = '<div class="empty">Select a friend to begin.</div>';
@@ -1704,19 +1831,59 @@ async function renderMessages() {
   }
 
   const otherId = activeChat;
+  const renderNumber = ++messageRenderNumber;
 
-  const {data,error} = await db.from("messages")
-    .select("id,sender_id,receiver_id,content,created_at")
-    .or(`and(sender_id.eq.${authUser.id},receiver_id.eq.${otherId}),and(sender_id.eq.${otherId},receiver_id.eq.${authUser.id})`)
-    .order("created_at",{ascending:true})
-    .limit(100);
+  async function fetchConversation() {
+    return await db.from("messages")
+      .select("id,sender_id,receiver_id,content,created_at,read_at")
+      .or(`and(sender_id.eq.${authUser.id},receiver_id.eq.${otherId}),and(sender_id.eq.${otherId},receiver_id.eq.${authUser.id})`)
+      .order("created_at",{ascending:true})
+      .limit(100);
+  }
+
+  let {data,error} = await fetchConversation();
 
   if(error) {
     showError(error,"Could not load messages.");
     return;
   }
 
-  if(activeChat !== otherId) return;
+  if(activeChat !== otherId || renderNumber !== messageRenderNumber) return;
+
+  const hasUnreadIncoming = (data || []).some(message =>
+    message.sender_id === otherId &&
+    message.receiver_id === authUser.id &&
+    message.read_at === null
+  );
+
+  /*
+    Use the existing Supabase RPC.
+    It marks only messages from this friend to the signed-in user as read.
+  */
+
+  if(hasUnreadIncoming) {
+    const {error:readError} = await db.rpc("mark_messages_read",{
+      p_sender_id:otherId
+    });
+
+    if(readError) {
+      console.error("Could not mark messages as read:",readError);
+    } else {
+      const refreshed = await fetchConversation();
+
+      if(refreshed.error) {
+        console.error("Could not refresh read receipts:",refreshed.error);
+      } else {
+        data = refreshed.data;
+      }
+
+      await refreshUnreadCount();
+    }
+  }
+
+  if(activeChat !== otherId || renderNumber !== messageRenderNumber) return;
+
+  container.innerHTML = "";
 
   if(!data || !data.length) {
     container.innerHTML = '<div class="empty">Say hello! Your conversation starts here. ♡</div>';
@@ -1724,10 +1891,30 @@ async function renderMessages() {
   }
 
   data.forEach(message => {
+    const sent = message.sender_id === authUser.id;
+
+    const row = document.createElement("div");
+    row.className = "message-row " + (sent ? "sent" : "received");
+
     const bubble = document.createElement("div");
-    bubble.className = "message " + (message.sender_id === authUser.id ? "sent" : "received");
+    bubble.className = "message " + (sent ? "sent" : "received");
     bubble.textContent = message.content;
-    container.append(bubble);
+
+    row.append(bubble);
+
+    /*
+      Only outgoing messages that have actually been read
+      receive a read receipt. No other message status is displayed.
+    */
+
+    if(sent && message.read_at) {
+      const receipt = document.createElement("span");
+      receipt.className = "read-receipt";
+      receipt.textContent = "Read · " + formatReadTime(message.read_at);
+      row.append(receipt);
+    }
+
+    container.append(row);
   });
 
   container.scrollTop = container.scrollHeight;
@@ -1762,6 +1949,43 @@ $("messageForm").addEventListener("submit",async event => {
   }
 });
 
+/* GLOBAL UNREAD MESSAGE UPDATES */
+
+function subscribeToUnreadMessages() {
+  if(unreadSubscription) {
+    db.removeChannel(unreadSubscription);
+    unreadSubscription = null;
+  }
+
+  unreadSubscription = db
+    .channel("haven-unread-" + authUser.id)
+    .on("postgres_changes",{
+      event:"INSERT",
+      schema:"public",
+      table:"messages",
+      filter:"receiver_id=eq." + authUser.id
+    },payload => {
+      const message = payload.new;
+
+      if(message.receiver_id !== authUser.id) return;
+
+      if(activeChat === message.sender_id) {
+        renderMessages();
+      } else {
+        refreshUnreadCount();
+      }
+    })
+    .on("postgres_changes",{
+      event:"UPDATE",
+      schema:"public",
+      table:"messages",
+      filter:"receiver_id=eq." + authUser.id
+    },() => {
+      refreshUnreadCount();
+    })
+    .subscribe();
+}
+
 /* STATISTICS AND REFRESH */
 
 function updateStats() {
@@ -1770,6 +1994,7 @@ function updateStats() {
   $("messageCount").textContent = conversationCount;
   $("requestDot").style.display = incoming.length ? "block" : "none";
   $("detailFriends").textContent = friends.length;
+  updateUnreadBadge();
 }
 
 async function refreshData() {
@@ -1780,6 +2005,11 @@ async function refreshData() {
   renderRequests();
   renderFriends();
   renderChats();
+
+  if(activeChat && friends.includes(activeChat)) {
+    await renderMessages();
+  }
+
   renderBlocked();
 }
 
@@ -1813,6 +2043,8 @@ async function startHaven() {
     renderFriends();
     renderChats();
     renderBlocked();
+
+    subscribeToUnreadMessages();
 
     if(refreshTimer) clearInterval(refreshTimer);
 
@@ -1849,6 +2081,8 @@ db.auth.onAuthStateChange((event,session) => {
   if(event === "SIGNED_OUT") {
     authUser = null;
     currentUser = null;
+    activeChat = null;
+    unreadMessageCount = 0;
 
     if(refreshTimer) clearInterval(refreshTimer);
 
@@ -1856,6 +2090,13 @@ db.auth.onAuthStateChange((event,session) => {
       db.removeChannel(messageSubscription);
       messageSubscription = null;
     }
+
+    if(unreadSubscription) {
+      db.removeChannel(unreadSubscription);
+      unreadSubscription = null;
+    }
+
+    updateUnreadBadge();
 
     $("havenApp").style.display = "none";
     $("authScreen").style.display = "flex";
